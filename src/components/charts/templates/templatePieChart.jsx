@@ -35,13 +35,7 @@ const TemplatePieChart = ({ chartData, title }) => {
         font: { size: 18 },
       },
       tooltip: {
-        callbacks: {
-          label: (context) => {
-            const value = context.raw;
-            const percentage = ((value / totalValue) * 100).toFixed(2);
-            return `${context.label}: ${value} (${percentage}%)`;
-          },
-        },
+        enabled: false,
       },
     },
   };
