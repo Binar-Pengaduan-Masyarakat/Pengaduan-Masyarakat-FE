@@ -1,10 +1,10 @@
 import React from "react";
-import useChartData from "../../hooks/useChartData";
+import useChartData from "../../../hooks/useChartData";
 import TemplatePieChart from "./templates/templatePieChart";
 
-const UserRoleChart = () => {
+const ReportSummary = () => {
   const { chartData, loading, error } = useChartData(
-    "http://localhost:3000/api/chart/user/role"
+    "http://localhost:3000/api/chart/report/summary"
   );
 
   if (loading) return <div>Loading...</div>;
@@ -12,9 +12,9 @@ const UserRoleChart = () => {
 
   return (
     chartData && (
-      <TemplatePieChart chartData={chartData} title="User Roles Distribution" />
+      <TemplatePieChart chartData={chartData} title="Report Summaries" />
     )
   );
 };
 
-export default UserRoleChart;
+export default ReportSummary;

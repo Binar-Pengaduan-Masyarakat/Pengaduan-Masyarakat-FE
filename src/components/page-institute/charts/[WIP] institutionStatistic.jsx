@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import useChartData from "../../hooks/useChartData";
+import useChartData from "../../../hooks/useChartData";
 import TemplatePieChart from "./templates/templatePieChart";
 
 const InstitutionStatistic = () => {
