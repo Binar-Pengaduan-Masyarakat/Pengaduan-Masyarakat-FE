@@ -1,0 +1,33 @@
+/* App.css */
+
+.navbar {
+  transition: background-color 0.3s ease;
+  border: 1px solid black;
+  top: 5%;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+}
+
+.navbar.fixed-top {
+  background-color: transparent !important;
+  width: 100%; /* Warna latar belakang default */
+}
+
+.navbar.fixed-top.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: white; /* Warna latar belakang yang berubah saat digulir */
+}
+@media (max-width: 991.98px) {
+  .navbar.fixed-top {
+    background-color: blue; /* Warna latar belakang untuk layar kecil */
+  }
+}
+
+@media (min-width: 992px) {
+}
