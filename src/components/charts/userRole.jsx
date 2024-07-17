@@ -4,7 +4,7 @@ import TemplatePieChart from "./templates/templatePieChart";
 
 const UserRoleChart = () => {
   const { chartData, loading, error } = useChartData(
-    "http://localhost:3000/api/chart/user/role"
+    `${import.meta.env.VITE_BACKEND_URL}/api/charts/users/roles`
   );
 
   if (loading) return <div>Loading...</div>;

@@ -10,7 +10,9 @@ const InstitutionStatistic = () => {
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      setUrl(`http://localhost:3000/api/chart/user/institution/${userId}`);
+      setUrl(
+        `${import.meta.env.VITE_BACKEND_URL}/api/charts/institution/${userId}`
+      );
     },
     [userId]
   );

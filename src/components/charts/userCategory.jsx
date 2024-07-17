@@ -4,7 +4,7 @@ import TemplatePieChart from "./templates/templatePieChart";
 
 const UserCategory = () => {
   const { chartData, loading, error } = useChartData(
-    "http://localhost:3000/api/chart/user/category"
+    `${import.meta.env.VITE_BACKEND_URL}/api/charts/institutions/categories`
   );
 
   if (loading) return <div>Loading...</div>;

@@ -4,7 +4,7 @@ import TemplatePieChart from "./templates/templatePieChart";
 
 const ReportSummary = () => {
   const { chartData, loading, error } = useChartData(
-    "http://localhost:3000/api/chart/report/summary"
+    `${import.meta.env.VITE_BACKEND_URL}/api/charts/reports/stats`
   );
 
   if (loading) return <div>Loading...</div>;

@@ -13,7 +13,9 @@ const SameReporterButton = () => {
       const checkSameReporter = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/check-same-reporter/${reportId}/${userId}`
+            `${
+              import.meta.env.VITE_BACKEND_URL
+            }/api/sameReporter/${reportId}/${userId}`
           );
           const { data } = response.data;
           setCanReport(data.canReport);
@@ -31,7 +33,9 @@ const SameReporterButton = () => {
       const getCount = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/same-reporter-count/${reportId}`
+            `${
+              import.meta.env.VITE_BACKEND_URL
+            }/api/sameReporter/count/${reportId}`
           );
           const { data } = response.data;
           setCount(data.count);
@@ -46,10 +50,12 @@ const SameReporterButton = () => {
   const handleReport = async () => {
     if (!reportId || !userId) return;
     try {
-      await axios.post(`http://localhost:3000/api/same-reporter`, {
-        reportId,
-        userId,
-      });
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/sameReporter/${reportId}`,
+        {
+          userId,
+        }
+      );
       setCanReport(false);
       setCount(parseInt(count) + 1);
     } catch (error) {
@@ -60,10 +66,14 @@ const SameReporterButton = () => {
   const handleRetract = async () => {
     if (!reportId || !userId) return;
     try {
-      await axios.post(`http://localhost:3000/api/delete-same-reporter`, {
-        reportId,
-        userId,
-      });
+      await axios.post(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/sameReporter/delete/${reportId}`,
+        {
+          userId,
+        }
+      );
       setCanReport(true);
       setCount(count - 1);
     } catch (error) {
