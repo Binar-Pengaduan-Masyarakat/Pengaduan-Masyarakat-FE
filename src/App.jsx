@@ -1,19 +1,31 @@
-import UserRole from "./components/charts/userRole";
-import UserCategory from "./components/charts/userCategory";
-import ReportSummary from "./components/charts/reportSummary";
-import SameReporterButton from "./components/[WIP] sameReporter";
-import InstitutionStatistic from "./components/charts/[WIP] institutionStatistic";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ReportsTable from "./components/reportsTable";
+import ReportDetailsPage from "./components/reportDetails";
+import { Container } from "react-bootstrap";
+
+import Header from "./components/header";
 
 function App() {
   return (
-    <>
-      <UserRole></UserRole>
-      <UserCategory></UserCategory>
-      <ReportSummary></ReportSummary>
-      <InstitutionStatistic></InstitutionStatistic>
-      <SameReporterButton></SameReporterButton>
-    </>
+    <div>
+      {" "}
+      <Header />
+      <Container>
+        <Router>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<ReportsTable />} />
+              <Route
+                path="/report-details/:reportId"
+                element={<ReportDetailsPage />}
+              />
+            </Routes>
+          </div>
+        </Router>
+      </Container>
+    </div>
   );
 }
 

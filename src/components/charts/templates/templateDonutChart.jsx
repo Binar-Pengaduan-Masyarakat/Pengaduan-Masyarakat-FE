@@ -1,12 +1,12 @@
 import React from "react";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Title, Tooltip } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import PropTypes from "prop-types";
 
 ChartJS.register(ArcElement, Title, Tooltip, ChartDataLabels);
 
-const TemplatePieChart = ({ chartData, title }) => {
+const TemplateDonutChart = ({ chartData, title }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -56,12 +56,12 @@ const TemplatePieChart = ({ chartData, title }) => {
 
   return (
     <div className="chart-container">
-      <Pie data={modifiedChartData} options={options} />
+      <Doughnut data={modifiedChartData} options={options} />
     </div>
   );
 };
 
-TemplatePieChart.propTypes = {
+TemplateDonutChart.propTypes = {
   chartData: PropTypes.shape({
     labels: PropTypes.arrayOf(PropTypes.string).isRequired,
     datasets: PropTypes.arrayOf(
@@ -74,4 +74,4 @@ TemplatePieChart.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default TemplatePieChart;
+export default TemplateDonutChart;

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import useChartData from "../../hooks/useChartData";
-import TemplatePieChart from "./templates/templatePieChart";
+import TemplateDonutChart from "./templates/templateDonutChart";
 
 const InstitutionStatistic = () => {
   const [userId, setUserId] = useState("");
@@ -29,11 +29,16 @@ const InstitutionStatistic = () => {
         <button type="submit">Submit</button>
       </form>
       {loading ? (
-        <div>Loading...</div>
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       ) : error ? (
-        <div>Error: {error.message}</div>
+        <div className="text-danger">Error: {error.message}</div>
       ) : chartData ? (
-        <TemplatePieChart chartData={chartData} title="Report Summaries" />
+        <TemplateDonutChart
+          chartData={chartData}
+          title="Institution Report Statistics"
+        />
       ) : (
         <div>No data available</div>
       )}
