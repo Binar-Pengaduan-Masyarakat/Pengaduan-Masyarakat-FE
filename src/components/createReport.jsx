@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Dropzone from "react-dropzone";
+import { UserContext } from "./userContext";
 import "../../public/css/createReport.css";
 
 const CreateReport = ({ onClose, onReportCreated }) => {
@@ -11,8 +12,7 @@ const CreateReport = ({ onClose, onReportCreated }) => {
   const [subdistrict, setSubdistrict] = useState("");
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const userId = "US1";
+  const { userId } = useContext(UserContext);
 
   useEffect(() => {
     fetchCategories();
@@ -20,7 +20,9 @@ const CreateReport = ({ onClose, onReportCreated }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/categories");
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/categories`
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
       }
@@ -47,10 +49,13 @@ const CreateReport = ({ onClose, onReportCreated }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/reports", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/reports`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create report");
@@ -183,12 +188,21 @@ const CreateReport = ({ onClose, onReportCreated }) => {
                   />
                 </div>
                 <div className="form-group mb-2">
-                  <Dropzone onDrop={handleDrop}>
+                  <Dropzone
+                    onDrop={handleDrop}
+                    maxFiles={1}
+                    onDropAccepted={(files) => {
+                      setReportImage(files[0]);
+                    }}
+                    onDropRejected={(files) => {
+                      console.error("Only one file can be uploaded");
+                    }}
+                  >
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps()} className="dropzone">
                         <input {...getInputProps()} />
                         <p style={{ marginBottom: "0" }}>
-                          You can upload your Report Image here
+                          You can upload your Report Image here (1 max)
                         </p>
                       </div>
                     )}

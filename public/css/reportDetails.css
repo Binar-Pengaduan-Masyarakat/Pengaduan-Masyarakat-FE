@@ -1,0 +1,33 @@
+.card-text {
+  margin-bottom: 15px;
+}
+
+.card-text strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.card-text span {
+  color: #555;
+}
+
+.report-image {
+  max-height: 250px;
+  object-fit: cover;
+}
+
+.placeholder-image {
+  border: 1px dashed #ccc;
+  padding: 20px 20px 10px 20px;
+  color: #999;
+  font-style: italic;
+  text-align: center;
+}
+
+.card-footer h6 {
+  font-size: 0.875rem;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+}

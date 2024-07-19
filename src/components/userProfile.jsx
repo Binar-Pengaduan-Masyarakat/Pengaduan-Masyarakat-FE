@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "../../public/css/userProfile.css";
 import { format } from "date-fns";
+import { UserContext } from "./userContext";
 
 const Profile = () => {
-  const { userId } = useParams();
+  const { userId } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState("");
   const [error, setError] = useState(null);
-  const [refresh, setRefresh] = useState(false); // State to trigger re-render
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user profile");
@@ -30,7 +31,7 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, [userId, refresh]); // Added refresh as dependency
+  }, [userId, refresh]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -39,13 +40,13 @@ const Profile = () => {
   const handleSaveClick = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/users/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: newName }), // Only submit the name
+          body: JSON.stringify({ name: newName }),
         }
       );
 
@@ -53,7 +54,7 @@ const Profile = () => {
         const updatedData = await response.json();
         setUserData(updatedData.data);
         setIsEditing(false);
-        setRefresh((prev) => !prev); // Toggle the refresh state to trigger re-render
+        setRefresh((prev) => !prev);
       } else {
         throw new Error("Failed to update user name");
       }

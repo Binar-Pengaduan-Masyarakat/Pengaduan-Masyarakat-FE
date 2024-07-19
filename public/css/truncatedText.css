@@ -1,0 +1,18 @@
+.truncated-text-container {
+  cursor: pointer;
+}
+
+.truncated-text {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncated-text.collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.truncated-text.expanded {
+  display: block;
+}

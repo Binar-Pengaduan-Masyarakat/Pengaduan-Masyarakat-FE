@@ -40,14 +40,14 @@ const TemplateDonutChart = ({ chartData, title }) => {
     },
   };
 
-  const reddishColors = ["#ff3333", "#ff9999"];
+  const colorRange = ["#2E4053", "#456778", "#6495ED", "#87A7B1"];
 
   const modifiedChartData = {
     ...chartData,
     datasets: chartData.datasets.map((dataset, index) => ({
       ...dataset,
       backgroundColor: dataset.data.map(
-        (_, dataIndex) => reddishColors[dataIndex % reddishColors.length]
+        (_, dataIndex) => colorRange[dataIndex % colorRange.length]
       ),
       borderColor: "white",
       borderWidth: 1,

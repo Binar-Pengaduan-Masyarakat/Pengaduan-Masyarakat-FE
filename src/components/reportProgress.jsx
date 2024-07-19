@@ -28,7 +28,7 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
   const fetchReportData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/reports/${reportId}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/reports/${reportId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch report data");
@@ -43,7 +43,9 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
   const fetchResponseData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/reportResponses/report/${reportId}`
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/reportResponses/report/${reportId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch response data");
@@ -58,7 +60,7 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
   const fetchResultData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/reportResults/${reportId}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/reportResults/${reportId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch result data");

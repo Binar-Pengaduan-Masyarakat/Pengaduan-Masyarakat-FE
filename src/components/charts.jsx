@@ -25,7 +25,12 @@ const Charts = () => {
         <Button
           variant="danger"
           onClick={() => setShowCharts(!showCharts)}
-          style={{ width: "100%", marginTop: "10px" }}
+          style={{
+            width: "100%",
+            marginTop: "10px",
+            backgroundColor: "#343a40",
+            borderStyle: "none",
+          }}
         >
           {showCharts ? "Hide Charts" : "Show Charts"}
         </Button>
