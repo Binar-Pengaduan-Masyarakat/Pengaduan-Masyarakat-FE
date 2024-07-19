@@ -79,16 +79,16 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
   const isReportFinished = resultData !== null && !resultNotFound;
 
   let progressText = "Report Submitted";
-  let progressColor = "green";
+  let progressColor = "red";
 
   if (isInProgress) {
-    progressText = "In Progress";
-    progressColor = "#DAA520";
+    progressText = "Investigation Ongoing";
+    progressColor = "blue";
   }
 
   if (isReportFinished) {
     progressText = "Report Finished";
-    progressColor = "blue";
+    progressColor = "green";
   }
 
   useEffect(() => {
@@ -98,12 +98,12 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
   return (
     <div
       style={{
-        backgroundColor: progressColor,
-        color: "white",
-        padding: "10px",
+        color: progressColor,
+        padding: "5px",
         borderRadius: "5px",
-        textAlign: "center",
-        fontSize: "1.2em",
+        textAlign: "right",
+        fontSize: "1em",
+        fontWeight: "bold",
       }}
     >
       {progressText}

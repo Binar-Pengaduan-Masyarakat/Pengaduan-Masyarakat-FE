@@ -1,31 +1,28 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReportsTable from "./components/reportsTable";
 import ReportDetailsPage from "./components/reportDetails";
 import { Container } from "react-bootstrap";
-
+import UserProfile from "./components/userProfile";
 import Header from "./components/header";
 
 function App() {
   return (
-    <div>
-      {" "}
+    <BrowserRouter>
       <Header />
       <Container>
-        <Router>
-          <div className="App">
-            <Routes>
-              <Route path="/" element={<ReportsTable />} />
-              <Route
-                path="/report-details/:reportId"
-                element={<ReportDetailsPage />}
-              />
-            </Routes>
-          </div>
-        </Router>
+        <Routes>
+          <Route path="/" element={<ReportsTable />} />
+          <Route
+            path="/report-details/:reportId"
+            element={<ReportDetailsPage />}
+          />
+          <Route path="/users/:userId" element={<UserProfile />} />
+        </Routes>
       </Container>
-    </div>
+    </BrowserRouter>
   );
 }
 
