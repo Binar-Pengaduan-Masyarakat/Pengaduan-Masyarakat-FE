@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
-import useChartData from "../../hooks/useChartData";
-import TemplateDonutChart from "./templates/templateDonutChart";
+import useChartData from "../../../hooks/useChartData";
+import TemplatePieChart from "./templates/templatePieChart";
 
 const InstitutionStatistic = () => {
   const [userId, setUserId] = useState("");

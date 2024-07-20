@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import useChartData from "../../hooks/useChartData";
-import TemplateDonutChart from "./templates/templateDonutChart";
+import React from "react";
+import useChartData from "../../../hooks/useChartData";
+import TemplatePieChart from "./templates/templatePieChart";
 
 const ReportSummary = () => {
   const { chartData, loading, error } = useChartData(

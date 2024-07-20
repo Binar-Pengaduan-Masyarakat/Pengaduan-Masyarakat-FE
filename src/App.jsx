@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,6 +25,13 @@ function App() {
       </Container>
     </BrowserRouter>
   );
+=======
+import "./App.css";
+import Routers from "./components/Router";
+
+function App() {
+  return <Routers />;
+>>>>>>> fe-reports
 }
 
 export default App;
