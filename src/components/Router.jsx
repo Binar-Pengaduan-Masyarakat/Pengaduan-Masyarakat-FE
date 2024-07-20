@@ -12,6 +12,10 @@ import VerificationSuccess from "./page-login/VerificationSuccess";
 import Profile from "./page-user/content/Profile";
 import DashboardInstitute from "./page-institute/dashboard";
 import PrivateRoute from "./PrivateRoute";
+import DashboardSuperAdmin from "./page-Super-Admin/dashboard";
+import MasterDataAduan from "./page-Super-Admin/master-data-aduan";
+import ManagementUser from "./page-Super-Admin/management-user";
+import ManagementInstansi from "./page-Super-Admin/management-instansi";
 
 const Routers = () => {
   return (
@@ -21,10 +25,20 @@ const Routers = () => {
         <Route path="/" element={<LoginUser />}></Route>
         <Route path="/reg" element={<Register />}></Route>
         <Route path="/emailVerification" element={<EmailVerificaion />}></Route>
-        <Route path="/verificationSuccess" element={<VerificationSuccess />}></Route>
-        <Route path="/dashboardInstitute" element={<DashboardInstitute />}></Route>
-        
-        <Route path="/user" element={<PrivateRoute element={<Userpage />} />}>
+        <Route
+          path="/verificationSuccess"
+          element={<VerificationSuccess />}
+        ></Route>
+        <Route
+          path="/dashboardInstitute"
+          element={<DashboardInstitute />}
+        ></Route>
+
+        <Route
+          path="/user"
+          element={<PrivateRoute element={<Userpage />} />}
+        ></Route>
+        <Route path="/user" element={<Userpage />}>
           <Route path="" element={<Home />}></Route>
           <Route path="about" element={<About />}></Route>
           <Route path="aduan" element={<Aduan />}></Route>
@@ -32,8 +46,21 @@ const Routers = () => {
           <Route path="report/det" element={<Detreport />}></Route>
         </Route>
 
-        {/* Bagian Admin */}
+        {/* Bagian Institute */}
+        <Route
+          path="/dashboardInstitute"
+          element={<DashboardInstitute />}
+        ></Route>
         <Route path="/admin" element={<LoginInstitute />}></Route>
+
+        {/* Bagian Super Admin */}
+        <Route path="/superadmin" element={<DashboardSuperAdmin />}></Route>
+        <Route path="/Superadmin/reports" element={<MasterDataAduan />}></Route>
+        <Route path="/admin/users" element={<ManagementUser />}></Route>
+        <Route
+          path="/Superadmin/instansiManagement"
+          element={<ManagementInstansi />}
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -121,3 +121,9 @@
   font-size: 20px;
   font-weight: bold;
 }
+
+@media (max-width: 991px) {
+  .home_cont .home_head h1 {
+    text-align: center;
+  }
+}

@@ -67,6 +67,7 @@
   .loginuser_cont .loginuser_content {
     height: auto;
     width: 100%;
+    margin: 10px;
   }
   .loginuser_cont span {
     opacity: 0;
