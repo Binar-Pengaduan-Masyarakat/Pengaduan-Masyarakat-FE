@@ -1,8 +1,12 @@
+import useFetchReports from "../../api/repots.API";
 import "../../css/page-institute/admin.css"
 import AdminNavbar from "./Navbar";
 import SuperAdmin from "./Sidebar";
 
 const DashboardSuperAdmin = () => {
+  const { data, error, isLoading } = useFetchReports();
+    if (isLoading) return <p>Memuat...</p>;
+    if (error) return <p>Error: {error}</p>;
     return (
         <div className="admin-dashboard">
           <SuperAdmin />
@@ -26,38 +30,30 @@ const DashboardSuperAdmin = () => {
               </div>
               <div className="latest-reports">
                 <h2>Aduan Terbaru</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>No Laporan</th>
-                      <th>Pelapor</th>
-                      <th>Laporan</th>
-                      <th>Status</th>
-                      <th>Detail</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* Add report rows here */}
-                  </tbody>
-                </table>
-              </div>
-              <div className="report-summary">
-                <h2>Jumlah Laporan Saat Ini</h2>
-                <div className="summary-number">59</div>
-                <div className="summary-details">
-                  <div className="detail-box">
-                    <div className="detail-number">130</div>
-                    <div className="detail-label">Laporan Status Selesai</div>
-                  </div>
-                  <div className="detail-box">
-                    <div className="detail-number">54</div>
-                    <div className="detail-label">Laporan Status Belum Selesai</div>
-                  </div>
-                  <div className="detail-box">
-                    <div className="detail-number">576</div>
-                    <div className="detail-label">Laporan Indikasi Palsu</div>
-                  </div>
-                </div>
+                <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No. Laporan</th>
+                                    <th scope="col">Pelapor</th>
+                                    <th scope="col">Laporan</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.data.map((report) => (
+                                    <tr key={report.reportId}>
+                                        <td>{report.reportId}</td>
+                                        <td>{report.reportContent}</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>
+                                            <button>Delete</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
               </div>
             </div>
           </div>
