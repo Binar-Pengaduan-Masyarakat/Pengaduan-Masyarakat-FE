@@ -15,7 +15,6 @@ const AdminSidebar = () => {
       <nav className="sidebar-nav">
         <ul>
           <li><Link to="/admin/dashboard">Dashboard</Link></li>
-          <li><Link to="/admin/users">Management Users</Link></li>
           <li><Link to="/admin/reports">Management Laporan</Link></li>
           <li><Link to="/admin/analytics">Laporan Analitik</Link></li>
         </ul>

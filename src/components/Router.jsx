@@ -13,6 +13,7 @@ import DashboardSuperAdmin from "./page-Super-Admin/dashboard";
 import MasterDataAduan from "./page-Super-Admin/master-data-aduan";
 import ManagementUser from "./page-Super-Admin/management-user";
 import ManagementInstansi from "./page-Super-Admin/management-instansi";
+import ManagementReports from "./page-institute/management-reports";
 
 const Routers = () => {
   return (
@@ -30,7 +31,8 @@ const Routers = () => {
         </Route>
 
         {/* Bagian Institute */}
-        <Route path="/dashboardInstitute" element={<DashboardInstitute />}></Route>
+        <Route path="/admin/dashboard" element={<DashboardInstitute />}></Route>
+        <Route path="/admin/reports" element={<ManagementReports />}></Route>
         <Route path="/admin" element={<LoginInstitute />}></Route>
 
         {/* Bagian Super Admin */}
