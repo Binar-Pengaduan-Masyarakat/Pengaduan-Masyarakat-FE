@@ -6,6 +6,7 @@ import ReportDetailsPage from "./components/reportDetails";
 import { Container } from "react-bootstrap";
 import UserProfile from "./components/userProfile";
 import Header from "./components/header";
+import "../public/css/public.css";
 
 function App() {
   return (

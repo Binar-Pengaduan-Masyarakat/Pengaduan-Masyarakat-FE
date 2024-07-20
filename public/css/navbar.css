@@ -1,0 +1,25 @@
+.navbar {
+    background-color: #A91D3A;
+    margin: 1rem;
+    border-radius: 2rem;
+    padding: 1rem;
+    .navbar-brand {
+        color: #EEEEEE;
+        font-weight: 800;
+        font-size: 20px;
+    }
+    .container-section {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        width: 100%;
+    
+        .section {
+            color: #EEEEEE;
+            font-weight: 600;
+        }
+    }
+}
