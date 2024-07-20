@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import useChartData from "../../hooks/useChartData";
-import TemplateDonutChart from "./templates/templateDonutChart";
+import UseChartData from "./hooks/UseChartData";
+import DonutChartTemplate from "./templates/DonutChartTemplate";
 
-const UserRoleChart = () => {
-  const { chartData, loading, error } = useChartData(
-    `${import.meta.env.VITE_BACKEND_URL}/api/charts/users/roles`
+const UserCategory = () => {
+  const { chartData, loading, error } = UseChartData(
+    `${import.meta.env.VITE_BACKEND_URL}/api/charts/institutions/categories`
   );
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -31,13 +31,13 @@ const UserRoleChart = () => {
 
   return (
     chartData && (
-      <TemplateDonutChart
+      <DonutChartTemplate
         chartData={chartData}
-        title="User Roles Distribution"
+        title="User Category Distribution"
         key={windowSize}
       />
     )
   );
 };
 
-export default UserRoleChart;
+export default UserCategory;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import "../../public/css/truncatedText.css";
+import "/public/css/TruncatedText.css";
 
 const TruncatedText = ({ text, maxLength }) => {
   const [isExpanded, setIsExpanded] = useState(false);

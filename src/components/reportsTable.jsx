@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import Charts from "./charts";
-import CreateReport from "./createReport";
+import Charts from "./Charts/CombinedCharts";
+import CreateReportModal from "./Modal/CreateReportModal";
 import { format } from "date-fns";
-import { UserContext } from "./userContext";
+import { UserContext } from "./UserContext";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../public/css/reportsTable.css";
+import "/public/css/ReportsTable.css";
 
 const ReportsTable = () => {
   const { userId } = useContext(UserContext);
@@ -13,24 +13,27 @@ const ReportsTable = () => {
   const [upvotes, setUpvotes] = useState({});
   const [sortColumn, setSortColumn] = useState("createdAt");
   const [sortDirection, setSortDirection] = useState("asc");
-  const [showCreateReport, setShowCreateReport] = useState(false);
+  const [showCreateReportModal, setShowCreateReportModal] = useState(false);
+  const [userCategories, setUserCategories] = useState([]);
 
   useEffect(() => {
     fetchReports();
     fetchUpvotes();
-  }, []);
+    if (userId.startsWith("IN")) fetchUserCategories();
+  }, [userId]);
+
+  useEffect(() => {
+    filterReportsByCategory();
+  }, [userCategories, reports]);
 
   const fetchReports = async () => {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/reports`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
+      if (!response.ok) throw new Error("Failed to fetch data");
       const data = await response.json();
       setReports(data.data);
-      setSortedReports(data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -41,9 +44,7 @@ const ReportsTable = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/sameReporter/count`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch upvotes");
-      }
+      if (!response.ok) throw new Error("Failed to fetch upvotes");
       const data = await response.json();
       const upvotesCount = data.data.count.reduce((acc, item) => {
         acc[item.reportId] = (acc[item.reportId] || 0) + 1;
@@ -55,27 +56,48 @@ const ReportsTable = () => {
     }
   };
 
-  const handleSort = (column) => {
-    if (sortColumn === column) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortColumn(column);
-      setSortDirection("asc");
+  const fetchUserCategories = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/categories/user/${userId}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch user categories");
+      const data = await response.json();
+      setUserCategories(data.map((category) => category.categoryId));
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
+  };
+
+  const filterReportsByCategory = () => {
+    if (userCategories.length > 0) {
+      setSortedReports(
+        reports.filter((report) => userCategories.includes(report.categoryId))
+      );
+    } else {
+      setSortedReports(reports);
+    }
+  };
+
+  const handleSort = (column) => {
+    const direction =
+      sortColumn === column
+        ? sortDirection === "asc"
+          ? "desc"
+          : "asc"
+        : "asc";
+    setSortColumn(column);
+    setSortDirection(direction);
 
     const sortedData = [...reports].sort((a, b) => {
       if (column === "upvotes") {
-        if (sortDirection === "asc") {
-          return (upvotes[a.reportId] || 0) - (upvotes[b.reportId] || 0);
-        } else {
-          return (upvotes[b.reportId] || 0) - (upvotes[a.reportId] || 0);
-        }
+        return direction === "asc"
+          ? (upvotes[a.reportId] || 0) - (upvotes[b.reportId] || 0)
+          : (upvotes[b.reportId] || 0) - (upvotes[a.reportId] || 0);
       } else {
-        if (sortDirection === "asc") {
-          return a[column].localeCompare(b[column]);
-        } else {
-          return b[column].localeCompare(a[column]);
-        }
+        return direction === "asc"
+          ? a[column].localeCompare(b[column])
+          : b[column].localeCompare(a[column]);
       }
     });
 
@@ -91,12 +113,12 @@ const ReportsTable = () => {
       <Charts />
       <div className="container mt-3">
         <div className="d-flex justify-content-between align-items-center">
-          <h3 style={{ margin: "2vh 0px 2vh 0px" }}>Reports List</h3>
-          {userId && (
+          <h3 className="my-2">Reports List</h3>
+          {userId?.startsWith("US") && (
             <button
               className="btn btn-danger create-report-button"
               style={{ backgroundColor: "#343a40", borderStyle: "none" }}
-              onClick={() => setShowCreateReport(true)}
+              onClick={() => setShowCreateReportModal(true)}
             >
               Create Report
             </button>
@@ -106,64 +128,28 @@ const ReportsTable = () => {
           <table className="table table-striped table-bordered table-hover">
             <thead className="thead-dark">
               <tr>
-                <th
-                  style={{ textAlign: "left", cursor: "pointer" }}
-                  onClick={() => handleSort("createdAt")}
-                >
-                  Posted At
-                  {sortColumn === "createdAt" && (
-                    <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
-                <th
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleSort("reportContent")}
-                >
-                  Content
-                  {sortColumn === "reportContent" && (
-                    <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
-                <th
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleSort("district")}
-                >
-                  District
-                  {sortColumn === "district" && (
-                    <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
-                <th
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleSort("subdistrict")}
-                >
-                  Subdistrict
-                  {sortColumn === "subdistrict" && (
-                    <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
-                <th
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleSort("address")}
-                >
-                  Address
-                  {sortColumn === "address" && (
-                    <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
-                <th
-                  style={{
-                    cursor: "pointer",
-                    width: "100px",
-                    whiteSpace: "nowrap",
-                  }}
-                  onClick={() => handleSort("upvotes")}
-                >
-                  Upvotes
-                  {sortColumn === "upvotes" && (
-                    <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
+                {[
+                  "createdAt",
+                  "reportContent",
+                  "district",
+                  "subdistrict",
+                  "address",
+                  "upvotes",
+                ].map((column) => (
+                  <th
+                    key={column}
+                    style={{
+                      cursor: "pointer",
+                      textAlign: column === "createdAt" ? "left" : "center",
+                    }}
+                    onClick={() => handleSort(column)}
+                  >
+                    {column.charAt(0).toUpperCase() + column.slice(1)}
+                    {sortColumn === column && (
+                      <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
+                    )}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -176,69 +162,37 @@ const ReportsTable = () => {
                       : {}
                   }
                 >
-                  <td style={{ textAlign: "left" }}>
-                    {report
-                      ? format(new Date(report.createdAt), "MMMM dd, yyyy")
-                      : ""}
-                  </td>
+                  <td>{format(new Date(report.createdAt), "MMMM dd, yyyy")}</td>
                   <td
-                    style={{
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                      maxWidth: "200px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                    title={report.reportContent}
+                    className="report-content"
                     onClick={() =>
                       (window.location.href = `/report-details/${report.reportId}`)
                     }
+                    title={report.reportContent}
                   >
                     {report.reportContent}
                   </td>
+                  <td title={report.district}>{report.district}</td>
+                  <td title={report.subdistrict}>{report.subdistrict}</td>
+                  <td title={report.address}>{report.address}</td>
                   <td
                     style={{
-                      maxWidth: "150px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
+                      width: "100px",
+                      textAlign: "center",
+                      minWidth: "100px",
+                      maxWidth: "100px",
                     }}
-                    title={report.district}
                   >
-                    {report.district}
+                    {upvotes[report.reportId] || 0}
                   </td>
-                  <td
-                    style={{
-                      maxWidth: "150px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                    title={report.subdistrict}
-                  >
-                    {report.subdistrict}
-                  </td>
-                  <td
-                    style={{
-                      maxWidth: "200px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                    title={report.address}
-                  >
-                    {report.address}
-                  </td>
-                  <td>{upvotes[report.reportId] || 0}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        {showCreateReport && (
-          <CreateReport
-            onClose={() => setShowCreateReport(false)}
+        {showCreateReportModal && (
+          <CreateReportModal
+            onClose={() => setShowCreateReportModal(false)}
             onReportCreated={handleReportCreated}
           />
         )}

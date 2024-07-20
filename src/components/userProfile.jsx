@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
-import "../../public/css/userProfile.css";
+import "/public/css/UserProfile.css";
 import { format } from "date-fns";
-import { UserContext } from "./userContext";
+import { UserContext } from "./UserContext";
 
 const Profile = () => {
   const { userId } = useContext(UserContext);

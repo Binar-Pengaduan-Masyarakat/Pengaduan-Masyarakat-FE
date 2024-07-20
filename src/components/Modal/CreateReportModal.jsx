@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import Dropzone from "react-dropzone";
-import { UserContext } from "./userContext";
-import "../../public/css/createReport.css";
+import { UserContext } from "../UserContext";
+import "/public/css/CreateReportModal.css";
+import "/public/css/Modal.css";
 
-const CreateReport = ({ onClose, onReportCreated }) => {
+const CreateReportModal = ({ onClose, onReportCreated }) => {
   const [categories, setCategories] = useState([]);
   const [reportContent, setReportContent] = useState("");
   const [reportImage, setReportImage] = useState(null);
@@ -232,4 +233,4 @@ const CreateReport = ({ onClose, onReportCreated }) => {
   );
 };
 
-export default CreateReport;
+export default CreateReportModal;

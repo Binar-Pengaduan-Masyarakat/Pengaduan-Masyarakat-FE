@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-const generateColor = (index) =>
+const GenerateColor = (index) =>
   `hsla(${(index * 137.5) % 360}, 70%, 50%, 0.6)`;
 
-const useChartData = (url) => {
+const UseChartData = (url) => {
   const [state, setState] = useState({
     chartData: null,
     loading: true,
@@ -20,9 +20,9 @@ const useChartData = (url) => {
             datasets: [
               {
                 data: data.map(Number),
-                backgroundColor: data.map((_, i) => generateColor(i)),
+                backgroundColor: data.map((_, i) => GenerateColor(i)),
                 borderColor: data.map((_, i) =>
-                  generateColor(i).replace("0.6", "1")
+                  GenerateColor(i).replace("0.6", "1")
                 ),
                 borderWidth: 1,
               },
@@ -41,4 +41,4 @@ const useChartData = (url) => {
   return state;
 };
 
-export default useChartData;
+export default UseChartData;

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 ChartJS.register(ArcElement, Title, Tooltip, ChartDataLabels);
 
-const TemplateDonutChart = ({ chartData, title }) => {
+const DonutChartTemplate = ({ chartData, title }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -61,7 +61,7 @@ const TemplateDonutChart = ({ chartData, title }) => {
   );
 };
 
-TemplateDonutChart.propTypes = {
+DonutChartTemplate.propTypes = {
   chartData: PropTypes.shape({
     labels: PropTypes.arrayOf(PropTypes.string).isRequired,
     datasets: PropTypes.arrayOf(
@@ -74,4 +74,4 @@ TemplateDonutChart.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default TemplateDonutChart;
+export default DonutChartTemplate;

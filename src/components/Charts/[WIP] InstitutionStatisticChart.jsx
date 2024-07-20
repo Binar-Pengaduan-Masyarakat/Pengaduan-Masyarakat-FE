@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
-import useChartData from "../../hooks/useChartData";
-import TemplateDonutChart from "./templates/templateDonutChart";
+import UseChartData from "./hooks/UseChartData";
+import DonutChartTemplate from "./templates/DonutChartTemplate";
 
 const InstitutionStatistic = () => {
   const [userId, setUserId] = useState("");
   const [url, setUrl] = useState("");
-  const { chartData, loading, error } = useChartData(url);
+  const { chartData, loading, error } = UseChartData(url);
 
   const handleSubmit = useCallback(
     (event) => {
@@ -35,7 +35,7 @@ const InstitutionStatistic = () => {
       ) : error ? (
         <div className="text-danger">Error: {error.message}</div>
       ) : chartData ? (
-        <TemplateDonutChart
+        <DonutChartTemplate
           chartData={chartData}
           title="Institution Report Statistics"
         />

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import useChartData from "../../hooks/useChartData";
-import TemplateDonutChart from "./templates/templateDonutChart";
+import UseChartData from "./hooks/UseChartData";
+import DonutChartTemplate from "./templates/DonutChartTemplate";
 
 const ReportSummary = () => {
-  const { chartData, loading, error } = useChartData(
+  const { chartData, loading, error } = UseChartData(
     `${import.meta.env.VITE_BACKEND_URL}/api/charts/reports/stats`
   );
 
@@ -31,7 +31,7 @@ const ReportSummary = () => {
 
   return (
     chartData && (
-      <TemplateDonutChart
+      <DonutChartTemplate
         chartData={chartData}
         title="Report Summaries"
         key={windowSize}

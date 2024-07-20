@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { format } from "date-fns";
-import ReportProgressTracker from "./reportProgress";
-import TruncatedText from "./truncatedText";
-import "../../public/css/reportDetails.css";
+import ReportProgressTracker from "./ReportProgress";
+import TruncatedText from "./TruncatedText";
+import "/public/css/ReportDetails.css";
 import ModalImage from "react-modal-image";
-import SameReporter from "./sameReporter";
+import SameReporter from "./SameReporter";
+import ReportResponse from "./ReportResponse";
 
 const ReportDetailsPage = () => {
   const { reportId } = useParams();
@@ -53,7 +54,10 @@ const ReportDetailsPage = () => {
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-left mb-0">Report Details</h2>
-        <SameReporter reportId={reportId} />
+        <div className="d-flex justify-content-end">
+          <SameReporter reportId={reportId} />
+          <ReportResponse reportId={reportId} />
+        </div>
       </div>
       {reportDetails ? (
         <div className="card mt-4 shadow-sm">

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 ChartJS.register(ArcElement, Title, Tooltip, ChartDataLabels);
 
-const TemplatePieChart = ({ chartData, title }) => {
+const PieChartTemplate = ({ chartData, title }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -61,7 +61,7 @@ const TemplatePieChart = ({ chartData, title }) => {
   );
 };
 
-TemplatePieChart.propTypes = {
+PieChartTemplate.propTypes = {
   chartData: PropTypes.shape({
     labels: PropTypes.arrayOf(PropTypes.string).isRequired,
     datasets: PropTypes.arrayOf(
@@ -74,4 +74,4 @@ TemplatePieChart.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default TemplatePieChart;
+export default PieChartTemplate;

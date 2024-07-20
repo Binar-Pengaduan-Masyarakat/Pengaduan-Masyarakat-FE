@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../public/css/sameReporter.css";
-import { UserContext } from "./userContext";
+import "/public/css/SameReporter.css";
+import { UserContext } from "./UserContext";
 
 const SameReporter = ({ reportId }) => {
   const { userId } = useContext(UserContext);
@@ -11,11 +11,18 @@ const SameReporter = ({ reportId }) => {
     isPoster: false,
   });
   const [upvoteCount, setUpvoteCount] = useState(0);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     fetchStatus();
     fetchCount();
   }, [reportId]);
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      scaleFontSize();
+    }
+  }, [buttonState, upvoteCount]);
 
   const fetchStatus = async () => {
     try {
@@ -44,7 +51,7 @@ const SameReporter = ({ reportId }) => {
   };
 
   const handleClick = async () => {
-    if (buttonState.isPoster || !userId) return;
+    if (buttonState.isPoster || !userId || !userId.startsWith("US")) return;
 
     const url = buttonState.canReport
       ? `${import.meta.env.VITE_BACKEND_URL}/api/sameReporter/${reportId}`
@@ -65,8 +72,31 @@ const SameReporter = ({ reportId }) => {
     }
   };
 
+  const scaleFontSize = () => {
+    if (buttonRef.current) {
+      const button = buttonRef.current;
+      const buttonWidth = button.offsetWidth;
+      const buttonHeight = button.offsetHeight;
+      const minFontSize = 12;
+      const maxFontSize = 16;
+
+      let fontSize = maxFontSize;
+      let textWidth = button.scrollWidth;
+      let textHeight = button.scrollHeight;
+
+      while (textWidth > buttonWidth || textHeight > buttonHeight) {
+        fontSize -= 1;
+        button.style.fontSize = `${fontSize}px`;
+        textWidth = button.scrollWidth;
+        textHeight = button.scrollHeight;
+        if (fontSize <= minFontSize) break;
+      }
+    }
+  };
+
   const getButtonClass = () => {
-    if (buttonState.isPoster || !userId) return "btn btn-secondary btn-custom";
+    if (buttonState.isPoster || !userId || !userId.startsWith("US"))
+      return "btn btn-secondary btn-custom";
     if (buttonState.canReport) return "btn btn-success btn-custom";
     return "btn btn-warning btn-custom";
   };
@@ -74,19 +104,20 @@ const SameReporter = ({ reportId }) => {
   return (
     <div className="d-flex align-items-center">
       <Button
+        ref={buttonRef}
         className={`${getButtonClass()} me-2 d-flex align-items-center justify-content-center`}
         onClick={handleClick}
-        disabled={buttonState.isPoster || !userId}
+        disabled={buttonState.isPoster || !userId || !userId.startsWith("US")}
         aria-label={
-          buttonState.isPoster || !userId
+          buttonState.isPoster || !userId || !userId.startsWith("US")
             ? "You are the poster"
             : buttonState.canReport
             ? "Upvote"
             : "Retract Upvote"
         }
-        style={{ width: "150px", height: "40px", fontSize: "16px" }}
+        style={{ width: "150px", height: "40px" }}
       >
-        {buttonState.isPoster || !userId ? (
+        {buttonState.isPoster || !userId || !userId.startsWith("US") ? (
           <>
             <span role="img" aria-label="stop">
               🛑

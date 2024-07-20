@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReportSummary from "./charts/reportSummary";
-import UserCategory from "./charts/userCategory";
-import UserRoleChart from "./charts/userRole";
+import ReportSummary from "./ReportSummaryChart";
+import UserCategory from "./UserCategoryChart";
+import UserRoleChart from "./UserRoleChart";
 import { Row, Col, Button } from "react-bootstrap";
 
 const Charts = () => {
