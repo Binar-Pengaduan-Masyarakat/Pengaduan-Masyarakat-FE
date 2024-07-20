@@ -9,7 +9,7 @@ const Userpage = () => {
     <>
       <Navbar />
       <main className="main_cont">
-        <img className="main_img" src={Background} alt="" />
+        <img className="main_img home_bg_page" src={Background} alt="" />
         <Outlet />
       </main>
       <Footer />
