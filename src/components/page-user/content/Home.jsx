@@ -28,7 +28,7 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {data.data.map((report) => (
+              {data.map((report) => (
                 <tr key={report.reportId}>
                   <td>{report.reportId}</td>
                   <td>{report.reportContent}</td>
