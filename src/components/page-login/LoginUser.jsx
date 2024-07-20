@@ -1,21 +1,42 @@
-import { Link } from "react-router-dom";
 import "../../css/page-login/loginuser.css";
 import loginuserimg from "../../assets/image/loginuser.png";
-import { handleLogin } from "./auth";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-import { useNavigate } from "react-router-dom";
 
 const LoginUser = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    handleLogin(email, password, navigate);
-    setErrorMessage("Email atau Password Salah ");
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/login', formData);
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/user');
+    } catch (err) {
+      const errorMessage = err.response?.data?.error;
+      setError(errorMessage);
+    }
+  };
+
+
   return (
     <div className="loginuser_cont">
       <span></span>
@@ -34,9 +55,9 @@ const LoginUser = () => {
                 type="email"
                 className="form-control"
                 id="email"
+                name="email"
                 aria-describedby="emailHelp"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleInput}
               ></input>
             </div>
             <div className="mb-3">
@@ -47,8 +68,8 @@ const LoginUser = () => {
                 type="password"
                 className="form-control"
                 id="exampleInputPassword1"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                onChange={handleInput}
               ></input>
             </div>
             <div className="mb-3 form-check">
@@ -72,7 +93,7 @@ const LoginUser = () => {
                 Register
               </Link>
             </div>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {error && <p className="error-message">{error}</p>}
           </form>
         </div>
       </div>
