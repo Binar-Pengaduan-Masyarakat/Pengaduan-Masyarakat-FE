@@ -24,7 +24,7 @@ const Register = () => {
     e.preventDefault();
     setError(null);
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/register', formData);
+      const response = await axios.post('http://159.223.57.46:3000/api/auth/register', formData);
       navigate('/emailVerification');
     } catch (err) {
       setError(err.response?.data?.message || 'Terjadi kesalahan, coba lagi.');
