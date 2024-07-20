@@ -29,7 +29,15 @@ const LoginUser = () => {
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-      navigate('/user');
+ 
+      if (user.roles === 'USER') {
+        navigate('/user');
+      } else if (user.roles === 'SUPERADMIN') {
+        navigate('/superadmin');
+      } else if (user.roles === 'INSTITUTION') {
+        navigate('/intitution');
+      }
+
     } catch (err) {
       const errorMessage = err.response?.data?.error;
       setError(errorMessage);

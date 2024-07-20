@@ -12,6 +12,7 @@ import VerificationSuccess from "./page-login/VerificationSuccess";
 import Profile from "./page-user/content/Profile";
 import DashboardInstitute from "./page-institute/dashboard";
 import PrivateRoute from "./PrivateRoute";
+import Superadmin from "./page-login/Superadmin";
 
 const Routers = () => {
   return (
@@ -23,6 +24,8 @@ const Routers = () => {
         <Route path="/emailVerification" element={<EmailVerificaion />}></Route>
         <Route path="/verificationSuccess" element={<VerificationSuccess />}></Route>
         <Route path="/dashboardInstitute" element={<DashboardInstitute />}></Route>
+
+        <Route path="/superadmin" element={<Superadmin />}></Route>
         
         <Route path="/user" element={<PrivateRoute element={<Userpage />} />}>
           <Route path="" element={<Home />}></Route>
