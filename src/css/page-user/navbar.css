@@ -59,7 +59,9 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: white;
+  background-color: rgb(1,127,210);
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
 }
 
 .navbar.fixed-top.scrolled .nav-item {

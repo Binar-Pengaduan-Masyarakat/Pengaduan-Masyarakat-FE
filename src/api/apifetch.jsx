@@ -8,7 +8,7 @@ export default function useFetchReports() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:3000/reports/all");
+        const response = await fetch(`http://159.223.57.46:3000/api/reports`);
         const fetchedData = await response.json();
         setData(fetchedData);
         setIsLoading(false);

@@ -12,9 +12,14 @@
 .main_cont .main_img {
   position: absolute;
   top: 0;
-  right: 0%;
+  /* right: 150%; */
   left: -10%;
-  width: 140%;
+  width: 220%;
   height: 650px;
   z-index: 1;
+}
+
+.home_bg_page {
+/* background-color: green; */
+
 }
