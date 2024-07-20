@@ -80,24 +80,43 @@ const ReportsTable = () => {
   };
 
   const handleSort = (column) => {
+    const normalizedColumn = {
+      Date: "createdAt",
+      Content: "reportContent",
+      District: "district",
+      Subdistrict: "subdistrict",
+      Address: "address",
+      Upvotes: "upvotes",
+    }[column];
+
     const direction =
-      sortColumn === column
+      sortColumn === normalizedColumn
         ? sortDirection === "asc"
           ? "desc"
           : "asc"
         : "asc";
-    setSortColumn(column);
+
+    setSortColumn(normalizedColumn);
     setSortDirection(direction);
 
     const sortedData = [...reports].sort((a, b) => {
-      if (column === "upvotes") {
+      if (normalizedColumn === "upvotes") {
         return direction === "asc"
           ? (upvotes[a.reportId] || 0) - (upvotes[b.reportId] || 0)
           : (upvotes[b.reportId] || 0) - (upvotes[a.reportId] || 0);
       } else {
-        return direction === "asc"
-          ? a[column].localeCompare(b[column])
-          : b[column].localeCompare(a[column]);
+        const aValue = a[normalizedColumn] || "";
+        const bValue = b[normalizedColumn] || "";
+
+        if (direction === "asc") {
+          return typeof aValue === "string"
+            ? aValue.localeCompare(bValue)
+            : aValue - bValue;
+        } else {
+          return typeof aValue === "string"
+            ? bValue.localeCompare(aValue)
+            : bValue - aValue;
+        }
       }
     });
 
@@ -113,7 +132,7 @@ const ReportsTable = () => {
       <Charts />
       <div className="container mt-3">
         <div className="d-flex justify-content-between align-items-center">
-          <h3 className="my-2">Reports List</h3>
+          <h3 className="my-3">Reports List</h3>
           {userId?.startsWith("US") && (
             <button
               className="btn btn-danger create-report-button"
@@ -129,22 +148,22 @@ const ReportsTable = () => {
             <thead className="thead-dark">
               <tr>
                 {[
-                  "createdAt",
-                  "reportContent",
-                  "district",
-                  "subdistrict",
-                  "address",
-                  "upvotes",
+                  "Date",
+                  "Content",
+                  "District",
+                  "Subdistrict",
+                  "Address",
+                  "Upvotes",
                 ].map((column) => (
                   <th
                     key={column}
                     style={{
                       cursor: "pointer",
-                      textAlign: column === "createdAt" ? "left" : "center",
+                      textAlign: column === "Date" ? "left" : "center",
                     }}
                     onClick={() => handleSort(column)}
                   >
-                    {column.charAt(0).toUpperCase() + column.slice(1)}
+                    {column}
                     {sortColumn === column && (
                       <span>{sortDirection === "asc" ? " ↑" : " ↓"}</span>
                     )}
@@ -169,6 +188,7 @@ const ReportsTable = () => {
                       (window.location.href = `/report-details/${report.reportId}`)
                     }
                     title={report.reportContent}
+                    style={{ textDecoration: "underline", cursor: "pointer" }}
                   >
                     {report.reportContent}
                   </td>

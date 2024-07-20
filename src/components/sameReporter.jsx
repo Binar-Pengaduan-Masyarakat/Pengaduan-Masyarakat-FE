@@ -14,9 +14,11 @@ const SameReporter = ({ reportId }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    fetchStatus();
-    fetchCount();
-  }, [reportId]);
+    if (userId && reportId) {
+      fetchStatus();
+      fetchCount();
+    }
+  }, [reportId, userId]);
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -25,14 +27,22 @@ const SameReporter = ({ reportId }) => {
   }, [buttonState, upvoteCount]);
 
   const fetchStatus = async () => {
+    if (!userId) return; // Early return if no userId
+
     try {
       const response = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
         }/api/sameReporter/${reportId}/${userId}`
       );
+      if (!response.ok) {
+        throw new Error("Failed to fetch status");
+      }
       const { data } = await response.json();
-      setButtonState(data);
+      setButtonState({
+        canReport: data.canReport,
+        isPoster: data.isPoster,
+      });
     } catch (error) {
       console.error("Error fetching status:", error);
     }
@@ -43,6 +53,9 @@ const SameReporter = ({ reportId }) => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/sameReporter/count/${reportId}`
       );
+      if (!response.ok) {
+        throw new Error("Failed to fetch count");
+      }
       const { data } = await response.json();
       setUpvoteCount(data.count);
     } catch (error) {
@@ -65,7 +78,7 @@ const SameReporter = ({ reportId }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
       });
-      fetchStatus();
+      fetchStatus(); // Re-fetch status and count after action
       fetchCount();
     } catch (error) {
       console.error("Error performing action:", error);
@@ -95,7 +108,8 @@ const SameReporter = ({ reportId }) => {
   };
 
   const getButtonClass = () => {
-    if (buttonState.isPoster || !userId || !userId.startsWith("US"))
+    if (!userId || userId === "") return "btn btn-secondary btn-custom";
+    if (buttonState.isPoster || !userId.startsWith("US"))
       return "btn btn-secondary btn-custom";
     if (buttonState.canReport) return "btn btn-success btn-custom";
     return "btn btn-warning btn-custom";

@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Dropzone from "react-dropzone";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContext } from "../UserContext";
 import "/public/css/PostResultFormModal.css";
 import "/public/css/Modal.css";
 
-const PostResultFormModal = ({ reportId, userId, onClose }) => {
+const PostResultFormModal = ({ reportId, onClose, setReload }) => {
   const [resultContent, setResultContent] = useState("");
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { userId } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
+
+    const formData = new FormData();
+    formData.append("resultContent", resultContent);
+    formData.append("userId", userId);
+    formData.append("reportId", reportId);
+    if (resultImage) {
+      formData.append("resultImage", resultImage);
+    }
+
     try {
-      const formData = new FormData();
-      formData.append("resultContent", resultContent);
-      if (resultImage) {
-        formData.append("resultImage", resultImage);
-      }
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/reportResults/${reportId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/reportResults`,
         {
           method: "POST",
           body: formData,
@@ -28,8 +33,13 @@ const PostResultFormModal = ({ reportId, userId, onClose }) => {
       );
       const data = await response.json();
       if (response.ok) {
-        alert("Result posted successfully!");
-        onClose();
+        if (data.message === "Data Failed to be Added") {
+          setError("Failed to post result: " + data.message);
+        } else {
+          alert("Result posted successfully!");
+          setReload((prev) => !prev); // Trigger reload
+          onClose();
+        }
       } else {
         setError(data.message || "Error posting result");
       }
@@ -62,11 +72,9 @@ const PostResultFormModal = ({ reportId, userId, onClose }) => {
               <h5 className="modal-title">Post Result</h5>
               <button
                 type="button"
-                className="modal-close-button"
+                className="btn-close"
                 onClick={onClose}
-              >
-                &times;
-              </button>
+              ></button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit}>
@@ -87,9 +95,6 @@ const PostResultFormModal = ({ reportId, userId, onClose }) => {
                   />
                 </div>
                 <div className="form-group mb-2">
-                  <label htmlFor="resultImage" style={{ marginBottom: "5px" }}>
-                    Result Image
-                  </label>
                   <Dropzone
                     onDrop={handleDrop}
                     maxFiles={1}
@@ -100,7 +105,7 @@ const PostResultFormModal = ({ reportId, userId, onClose }) => {
                   >
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps()} className="dropzone">
-                        <input {...getInputProps()} id="resultImage" />
+                        <input {...getInputProps()} />
                         <p style={{ marginBottom: "0" }}>
                           Drag & drop an image here, or click to select one (1
                           max)
@@ -118,10 +123,8 @@ const PostResultFormModal = ({ reportId, userId, onClose }) => {
                   <button
                     type="submit"
                     className="btn btn-primary"
+                    style={{ backgroundColor: "#343a40", borderStyle: "none" }}
                     disabled={loading}
-                    style={{
-                      backgroundColor: "#343a40",
-                    }}
                   >
                     {loading ? "Posting..." : "Post Result"}
                   </button>

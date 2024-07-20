@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { format } from "date-fns";
@@ -14,6 +14,8 @@ const ReportDetailsPage = () => {
   const [reportDetails, setReportDetails] = useState(null);
   const [progressColor, setProgressColor] = useState("black");
   const [submitterName, setSubmitterName] = useState(null);
+  const [reportResponses, setReportResponses] = useState(null);
+  const [reportResult, setReportResult] = useState(null);
 
   useEffect(() => {
     fetchReportDetails(reportId);
@@ -30,6 +32,7 @@ const ReportDetailsPage = () => {
       const data = await response.json();
       setReportDetails(data.data);
       fetchSubmitterName(data.data.userId);
+      fetchReportData(reportId);
     } catch (error) {
       console.error("Error fetching report details:", error);
     }
@@ -50,13 +53,40 @@ const ReportDetailsPage = () => {
     }
   };
 
+  const fetchReportData = async (reportId) => {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/reportResponses/report/${reportId}`
+      );
+      const responseData = await response.json();
+      setReportResponses(responseData.data);
+
+      const resultResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/reportResults/${reportId}`
+      );
+      const resultData = await resultResponse.json();
+      setReportResult(resultData.data);
+    } catch (error) {
+      console.error("Error fetching report responses or results:", error);
+    }
+  };
+
+  const handleRefresh = () => {
+    fetchReportDetails(reportId);
+  };
+
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-left mb-0">Report Details</h2>
+        <h3 className="text-left mb-0">Report Details</h3>
         <div className="d-flex justify-content-end">
           <SameReporter reportId={reportId} />
-          <ReportResponse reportId={reportId} />
+          <ReportResponse
+            reportId={reportId}
+            onDataChange={handleRefresh} // Pass refresh function
+          />
         </div>
       </div>
       {reportDetails ? (

@@ -18,7 +18,6 @@ const ReportResponse = ({ reportId }) => {
 
   const fetchData = async () => {
     try {
-      // Fetch report result
       const reportResultResponse = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
@@ -92,7 +91,7 @@ const ReportResponse = ({ reportId }) => {
       const responseData = await response.json();
       if (response.ok) {
         alert("Response posted successfully!");
-        setReload(!reload);
+        setReload((prev) => !prev); // Trigger reload
       } else {
         alert(`Error posting response: ${responseData.message}`);
       }
@@ -137,6 +136,7 @@ const ReportResponse = ({ reportId }) => {
     const isReportResponsesEmpty = reportResponses.length === 0;
     const isUserInstitution = userId.startsWith("IN");
     const isUserUS = userId.startsWith("US");
+    const isUserEmpty = userId == "";
 
     if (isUserUS && !isReportResponsesEmpty) {
       buttonContent = (
@@ -190,8 +190,8 @@ const ReportResponse = ({ reportId }) => {
             openModal(
               <PostResultFormModal
                 reportId={reportId}
-                userId={userId}
                 onClose={closeModal}
+                setReload={setReload}
               />
             )
           }
@@ -199,7 +199,7 @@ const ReportResponse = ({ reportId }) => {
           Post Result
         </button>
       );
-    } else if (isUserInstitution || isReportResponsesEmpty) {
+    } else if (isUserInstitution && isReportResponsesEmpty && !isUserEmpty) {
       buttonContent = (
         <button
           className="btn btn-success"
