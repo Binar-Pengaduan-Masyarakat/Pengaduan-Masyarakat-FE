@@ -8,6 +8,7 @@ import Aduan from "./page-user/content/Aduan";
 import Detreport from "./page-user/reports/DetReport";
 import Register from "./page-login/Regidteruser";
 import Profile from "./page-user/content/Profile";
+import DashboardInstitute from "./page-institute/dashboard";
 
 const Routers = () => {
   return (
@@ -16,6 +17,7 @@ const Routers = () => {
         {/* Bagian User */}
         <Route path="/" element={<LoginUser />}></Route>
         <Route path="/reg" element={<Register />}></Route>
+        <Route path="/dashboardInstitute" element={<DashboardInstitute />}></Route>
         <Route path="/user" element={<Userpage />}>
           <Route path="" element={<Home />}></Route>
           <Route path="about" element={<About />}></Route>

@@ -70,7 +70,7 @@ const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <p>John Smithmuller</p>
+                <p className="name-user">John Smithmuller</p>
                 <img src={userimg} alt="user" />
               </a>
               <ul className="dropdown-menu">

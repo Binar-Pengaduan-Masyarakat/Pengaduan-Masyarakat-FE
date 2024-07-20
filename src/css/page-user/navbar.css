@@ -65,13 +65,16 @@
 }
 
 .navbar.fixed-top.scrolled .nav-item {
-  color: rgb(44, 44, 44);
+  color: rgb(255, 253, 253);
 }
 .navbar.fixed-top.scrolled .nav-item .linkcolor {
-  color: rgb(44, 44, 44);
+  color: rgb(255, 255, 255);
 }
 .navbar.fixed-top.scrolled .custom-user {
-  color: rgb(44, 44, 44);
+  color: rgb(255, 255, 255);
+  .name-user {
+    margin-bottom: 0px;
+  }
 }
 @media (max-width: 991.98px) {
   .navbar.fixed-top {
