@@ -1,7 +1,6 @@
 body {
   background-image: url("/public/images/background.jpg");
   background-size: cover;
-  background-position: center;
   margin-bottom: 20px;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
