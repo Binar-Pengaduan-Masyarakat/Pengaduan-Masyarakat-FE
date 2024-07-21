@@ -185,7 +185,9 @@ const ReportsTable = () => {
                   <td
                     className="report-content"
                     onClick={() =>
-                      (window.location.href = `/report-details/${report.reportId}`)
+                      (window.location.href = `${
+                        import.meta.env.VITE_FRONTEND_URL
+                      }/report-details/${report.reportId}`)
                     }
                     title={report.reportContent}
                     style={{ textDecoration: "underline", cursor: "pointer" }}
