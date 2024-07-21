@@ -11,6 +11,7 @@ import { Container } from "react-bootstrap";
 import UserProfile from "./components/UserProfile";
 import Header from "./components/Header";
 import "./styles.css";
+import SuperAdminpage from "./components/page-Super-Admin/superAdmin-page";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             element={<ReportDetailsPage />}
           />
           <Route path="/users/:userId" element={<UserProfile />} />
+          <Route path="/superadmin/dashboard" element={<SuperAdminpage />} />
         </Routes>
       </Container>
     </BrowserRouter>

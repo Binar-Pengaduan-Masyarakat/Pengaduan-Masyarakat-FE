@@ -27,9 +27,14 @@ const LoginPage = () => {
         formData
       );
       const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/", { replace: true });
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      if (user.roles === 'SUPERADMIN') {
+        navigate('/superadmin/dashboard');
+      } else {
+        navigate('/');
+      }
       window.location.reload();
     } catch (err) {
       const errorMessage = err.response?.data?.error;

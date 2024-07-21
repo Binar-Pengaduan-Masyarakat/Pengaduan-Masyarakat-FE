@@ -1,0 +1,37 @@
+.about_cont {
+  width: 100%;
+  padding-top: 200px;
+  overflow: hidden;
+  position: relative;
+  height: 150vh;
+  margin-bottom: 20px;
+}
+.about_cont img {
+  position: absolute;
+  top: 0;
+  right: 0%;
+  left: -10%;
+  width: 140%;
+  height: 650px;
+  z-index: 1;
+}
+
+.about_cont .about_head {
+  position: relative;
+  z-index: 2;
+}
+
+.about_cont .about_head h1 {
+  font-size: 50px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 5px 10px 10px black;
+}
+
+.about_cont .about_head .youtube_cont {
+  margin-top: 120px;
+}
+.about_cont .about_head .youtube_cont iframe {
+  width: 80%;
+  height: 40vw;
+}

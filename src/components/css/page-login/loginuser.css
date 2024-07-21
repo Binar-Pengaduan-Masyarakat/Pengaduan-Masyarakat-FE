@@ -1,0 +1,74 @@
+.loginuser_cont {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.loginuser_cont span {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-color: blue;
+  opacity: 0.5;
+  animation-name: swipefromtoptobottom;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+.loginuser_cont .loginuser_content {
+  width: 60%;
+  padding: 20px;
+  height: auto;
+  border: 2px solid blue;
+  border-radius: 40px 0px 40px 0px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2vh;
+  align-items: center;
+  justify-content: center;
+  -webkit-border-radius: 40px 0px 40px 0px;
+  -moz-border-radius: 40px 0px 40px 0px;
+  -ms-border-radius: 40px 0px 40px 0px;
+  -o-border-radius: 40px 0px 40px 0px;
+  z-index: 1;
+}
+.loginuser_cont .loginuser_content .form_head img {
+  width: 300px;
+}
+
+.loginuser_cont .loginuser_content .form_conte form .btn_group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+@keyframes swipefromtoptobottom {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  50% {
+    top: 50%;
+    left: 80%;
+  }
+  100% {
+    right: -15%;
+    bottom: -20%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+}
+
+@media (max-width: 991px) {
+  .loginuser_cont .loginuser_content {
+    height: auto;
+    width: 100%;
+  }
+  .loginuser_cont span {
+    opacity: 0;
+  }
+}

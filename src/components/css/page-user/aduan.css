@@ -1,0 +1,59 @@
+.aduan_cont {
+  width: 100%;
+  padding-top: 200px;
+  height: 150vh;
+  position: relative;
+  z-index: 2;
+}
+
+.aduan_cont .form_cont {
+  padding: 20px;
+  width: 50%;
+  height: 90vh;
+  background-color: white;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.5);
+}
+.aduan_cont .form_cont .headatas {
+  padding: 10px;
+  background-color: blue;
+  color: white;
+}
+.aduan_cont textarea {
+  height: 25vh;
+}
+
+.aduan_cont .form_cont form .district_cont {
+  display: flex;
+  gap: 20px;
+}
+.aduan_cont .form_cont form .district_cont div {
+  width: 300px;
+}
+.aduan_cont .form_cont form .btn_custom {
+  display: flex;
+  height: 10vh;
+  justify-content: right;
+  align-items: end;
+}
+.aduan_cont .form_cont form .btn_custom button {
+  width: 200px;
+}
+.aduan_cont .form_cont form .dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aduan_cont .form_cont form .dropzone.active {
+  border-color: #00c853;
+}

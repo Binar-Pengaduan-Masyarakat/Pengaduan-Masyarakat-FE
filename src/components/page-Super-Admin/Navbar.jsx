@@ -1,4 +1,4 @@
-import "../../css/page-institute/admin.css"
+import "../css/page-institute/admin.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 const AdminNavbar = () => {

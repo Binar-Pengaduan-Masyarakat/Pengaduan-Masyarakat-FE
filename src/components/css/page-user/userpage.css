@@ -1,0 +1,25 @@
+.main_cont {
+  width: auto;
+  overflow: hidden;
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+}
+
+.main_cont .main_img {
+  position: absolute;
+  top: 0;
+  /* right: 150%; */
+  left: -10%;
+  width: 220%;
+  height: 650px;
+  z-index: 1;
+}
+
+.home_bg_page {
+/* background-color: green; */
+
+}

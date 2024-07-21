@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../../css/page-institute/admin.css"
-import avatar from '../../assets/image/profile.jpeg';
+import "../css/page-institute/admin.css"
+// import avatar from '../../assets/image/profile.jpeg';
 
 const SuperAdmin = () => {
   const [userName, setUserName] = useState('');
@@ -14,7 +14,7 @@ const SuperAdmin = () => {
   return (
     <div className="admin-sidebar">
       <div className="sidebar-header">
-        <img src={avatar} alt="Admin Avatar" className="admin-avatar" />
+        {/* <img src={avatar} alt="Admin Avatar" className="admin-avatar" /> */}
         <div className="admin-info">
           <p>{userName}</p>
         </div>
