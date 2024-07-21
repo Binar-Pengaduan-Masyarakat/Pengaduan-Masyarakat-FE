@@ -3,7 +3,6 @@ import Dropzone from "react-dropzone";
 import "/public/css/CreateReportModal.css";
 import "/public/css/Modal.css";
 
-const storedToken = localStorage.getItem("token");
 const storedUser = JSON.parse(localStorage.getItem("user"));
 
 const CreateReportModal = ({ onClose, onReportCreated }) => {
