@@ -23,9 +23,7 @@ const SuperAdmin = () => {
             <Link to="/superadmin/managementusers">Management Users</Link>
           </li>
           <li>
-            <Link to="/superadmin/instansiManagement">
-              Management Admin Instansi
-            </Link>
+            <Link to="/superadmin/instansiManagement">Management Admin</Link>
           </li>
           <li>
             <Link to="/superadmin/reports">Master Data Aduan</Link>
