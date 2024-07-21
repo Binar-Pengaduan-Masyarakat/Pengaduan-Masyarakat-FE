@@ -83,7 +83,7 @@ const Header = () => {
               />
             </div>
           ) : (
-            <Button variant="outline-light" onClick={handleLoginClick}>
+            <Button variant="outline-dark" onClick={handleLoginClick}>
               Login / Register
             </Button>
           )}
