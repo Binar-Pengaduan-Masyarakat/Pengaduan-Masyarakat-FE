@@ -1,5 +1,5 @@
 import useFetchReports from "../api/repots.API";
-import "../css/page-institute/admin.css"
+import "../css/page-institute/admin.css";
 
 const DashboardSuperAdmin = () => {
   const { data, error, isLoading } = useFetchReports();
@@ -7,19 +7,28 @@ const DashboardSuperAdmin = () => {
   if (error) return <p>Error: {error}</p>;
   return (
     <div className="dashboard-content">
-      <h1>Dashboard</h1>
+     
+      <h1>
+        Super Admin Dashboard <i className="bi bi-person-gear"></i>
+      </h1>
       <div className="stats-overview">
         <div className="stat-box">
           <div className="stat-number">{data.data.length}</div>
-          <div className="stat-label">Jumlah Laporan</div>
+          <div className="stat-label">
+            Jumlah Laporan <i className="bi bi-file-earmark-text"></i>
+          </div>
         </div>
         <div className="stat-box">
           <div className="stat-number">3</div>
-          <div className="stat-label">Laporan Selesai</div>
+          <div className="stat-label">
+            Laporan Selesai <i className="bi bi-file-earmark-check"></i>
+          </div>
         </div>
         <div className="stat-box">
           <div className="stat-number">3</div>
-          <div className="stat-label">Laporan Belum Selesai</div>
+          <div className="stat-label">
+            Laporan Belum Selesai <i className="bi bi-file-earmark-x"></i>
+          </div>
         </div>
       </div>
       <div className="latest-reports">
