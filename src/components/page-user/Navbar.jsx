@@ -4,10 +4,15 @@ import logo from "../../assets/logo/logowhite.png";
 import logohitam from "../../assets/logo/logo.png";
 import userimg from "../../assets/image/profile.jpeg";
 import { Link, useNavigate } from "react-router-dom";
-import { handleLogout } from "../page-login/auth";
+//import { handleLogout } from "../page-login/auth";
 
 const Navbar = () => {
+  
   const [image, setimage] = useState(logo);
+  const [userName, setUserName] = useState('');
+  const [userRoles, setUserRoles] = useState('');
+  const [userId, setUserId] = useState('');
+ 
   useEffect(() => {
     const handleScroll = () => {
       const navbar = document.querySelector(".navbar");
@@ -28,7 +33,25 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    // Ambil data pengguna dari localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setUserName(user.name);
+      setUserRoles(user.roles);
+      setUserId(user.id);
+    }
+  }, []);
+
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('user'); // Hapus data pengguna saat logout
+    navigate('/');
+  };
+
   return (
     <nav className="container-fluid navbar navbar-expand-lg fixed-top">
       <div className="container-sm">
@@ -70,7 +93,7 @@ const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <p className="name-user">John Smithmuller</p>
+                <p className="name-user">{userId} - {userName} - {userRoles}</p>
                 <img src={userimg} alt="user" />
               </a>
               <ul className="dropdown-menu">
@@ -85,7 +108,7 @@ const Navbar = () => {
                 <li>
                   <button
                     className="dropdown-item"
-                    onClick={() => handleLogout(navigate)}
+                    onClick={handleLogout}
                   >
                     LogOut
                   </button>

@@ -7,6 +7,8 @@ import LoginInstitute from "./page-login/LoginInstitute";
 import Aduan from "./page-user/content/Aduan";
 import Detreport from "./page-user/reports/DetReport";
 import Register from "./page-login/Regidteruser";
+import EmailVerificaion from "./page-login/EmailVerification";
+import VerificationSuccess from "./page-login/VerificationSuccess";
 import Profile from "./page-user/content/Profile";
 import DashboardInstitute from "./page-institute/dashboard";
 import DashboardSuperAdmin from "./page-Super-Admin/dashboard";
@@ -14,6 +16,8 @@ import MasterDataAduan from "./page-Super-Admin/master-data-aduan";
 import ManagementUser from "./page-Super-Admin/management-user";
 import ManagementInstansi from "./page-Super-Admin/management-instansi";
 import ManagementReports from "./page-institute/management-reports";
+import PrivateRoute from "./PrivateRoute";
+import Superadmin from "./page-login/Superadmin";
 
 const Routers = () => {
   return (
@@ -22,7 +26,12 @@ const Routers = () => {
         {/* Bagian User */}
         <Route path="/" element={<LoginUser />}></Route>
         <Route path="/reg" element={<Register />}></Route>
-        <Route path="/user" element={<Userpage />}>
+        <Route path="/emailVerification" element={<EmailVerificaion />}></Route>
+        <Route path="/verificationSuccess" element={<VerificationSuccess />}></Route>
+
+        <Route path="/superadmin" element={<Superadmin />}></Route>
+        
+        <Route path="/user" element={<PrivateRoute element={<Userpage />} />}>
           <Route path="" element={<Home />}></Route>
           <Route path="about" element={<About />}></Route>
           <Route path="aduan" element={<Aduan />}></Route>
