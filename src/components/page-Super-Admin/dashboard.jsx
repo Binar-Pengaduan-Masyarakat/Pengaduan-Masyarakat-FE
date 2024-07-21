@@ -1,25 +1,56 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import useFetchReports from "../api/repots.API";
-import "../css/page-institute/admin.css"
+import "../css/page-institute/admin.css";
 
 const DashboardSuperAdmin = () => {
-  const { data, error, isLoading } = useFetchReports();
-  if (isLoading) return <p>Memuat...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const {
+    data: reportsData,
+    error: reportsError,
+    isLoading: reportsLoading,
+  } = useFetchReports();
+  const [stats, setStats] = useState({ labels: [], data: [] });
+  const [statsError, setStatsError] = useState(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/charts/reports/stats`
+        );
+        setStats(response.data.data);
+      } catch (err) {
+        setStatsError(err.message);
+      } finally {
+        setStatsLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (reportsLoading || statsLoading) return <p>Memuat...</p>;
+  if (reportsError || statsError)
+    return <p>Error: {reportsError || statsError}</p>;
+
+  const [totalReports, respondedReports, finishedReports] = stats.data;
+
   return (
     <div className="dashboard-content">
       <h1>Dashboard</h1>
       <div className="stats-overview">
         <div className="stat-box">
-          <div className="stat-number">{data.data.length}</div>
+          <div className="stat-number">{totalReports}</div>
           <div className="stat-label">Jumlah Laporan</div>
         </div>
         <div className="stat-box">
-          <div className="stat-number">3</div>
-          <div className="stat-label">Laporan Selesai</div>
+          <div className="stat-number">{respondedReports}</div>
+          <div className="stat-label">Laporan Ditanggapi</div>
         </div>
         <div className="stat-box">
-          <div className="stat-number">3</div>
-          <div className="stat-label">Laporan Belum Selesai</div>
+          <div className="stat-number">{finishedReports}</div>
+          <div className="stat-label">Laporan Selesai</div>
         </div>
       </div>
       <div className="latest-reports">
@@ -34,7 +65,7 @@ const DashboardSuperAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {data.data.map((report) => (
+            {reportsData.data.map((report) => (
               <tr key={report.reportId}>
                 <td>{report.reportId}</td>
                 <td>{report.reportContent}</td>
