@@ -1,6 +1,7 @@
 import "../../../css/page-user/aduan.css";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import Report from "../../../api/repots.API";
 
 const PhotoDropzone = ({ onDrop }) => {
   const onDropCallback = useCallback(
@@ -37,12 +38,67 @@ const Aduan = () => {
   const handleDrop = (acceptedFiles) => {
     setFiles(acceptedFiles);
   };
+  // Fetch Api Category
+  const { data, error, isLoading } = Report.useCombineData();
+
+  // Setting Selection Option
+  const [selectedKecamatan, setSelectedKecamatan] = useState("");
+  const [desaList, setDesaList] = useState([]);
+
+  if (isLoading) return <p>Memuat...</p>;
+  if (error) return <p>Error: {error}</p>;
+  const handleSelectKecamatan = (kecamatan) => {
+    setSelectedKecamatan(kecamatan);
+    // Simulasi fetch desa berdasarkan kecamatan yang dipilih
+    // Misalnya, data desa yang diambil dari server/API
+    if (kecamatan === "Malinau Kota") {
+      setDesaList([
+        "Desa Malinau Kota",
+        "Desa Malinau Hulu",
+        "Desa Malinau Hilir",
+      ]);
+    } else if (kecamatan === "Malinau Utara") {
+      setDesaList(["Desa Malinau Seberang", "Desa Respen Tubu", "Desa Salap"]);
+    } else {
+      setDesaList([]);
+    }
+  };
+
+  const kecamatanList = ["Malinau Kota", "Malinau Utara"];
+
+  // Ngiput Data
+
+  const [reportContent, setreportContent] = useState(""),
+    [reportImage, setreportImage] = useState(""),
+    [categoryId, setcategoryId] = useState(""),
+    [userId, setUserId] = useState(""),
+    [distric, setDistrict] = useState(""),
+    [subdistrict, setSubdistrict] = useState(""),
+    [address, setAddress] = useState("");
+
+  const hendlingSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const data = {
+        reportContent: reportContent,
+        reportImage: reportImage,
+        categoryId: categoryId,
+        userId: userId,
+        district: distric,
+        subdistrict: subdistrict,
+        address: address,
+      };
+      await Report.postData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="aduan_cont">
       <div className="form_cont container-sm">
         <h2 className="headatas">Kirim Laporan</h2>
-        <form className="container">
+        <form className="container" onSubmit={hendlingSubmit}>
           {/* Judul */}
           <div className="mb-3">
             <input
@@ -59,9 +115,13 @@ const Aduan = () => {
               aria-label="Small select example"
             >
               <option selected>Kategori</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {data &&
+                data.categories &&
+                data.categories.map((c) => (
+                  <option key={c.categoryId} value={c.categoryName}>
+                    {c.categoryName}
+                  </option>
+                ))}
             </select>
           </div>
           {/* Drag Photo */}
@@ -84,11 +144,14 @@ const Aduan = () => {
               <select
                 className="form-select form-select-sm"
                 aria-label="Small select example"
+                onChange={(e) => handleSelectKecamatan(e.target.value)}
               >
-                <option selected>Kecamatan</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="">Pilih Kecamatan</option>
+                {kecamatanList.map((kecamatan, index) => (
+                  <option key={index} value={kecamatan}>
+                    {kecamatan}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-3">
@@ -96,10 +159,12 @@ const Aduan = () => {
                 className="form-select form-select-sm"
                 aria-label="Small select example"
               >
-                <option selected>Kelurahan</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="">Pilih Desa</option>
+                {desaList.map((desa, index) => (
+                  <option key={index} value={desa}>
+                    {desa}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

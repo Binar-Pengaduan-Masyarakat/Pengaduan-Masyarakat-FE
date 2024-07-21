@@ -43,7 +43,7 @@ const Routers = () => {
           <Route path="about" element={<About />}></Route>
           <Route path="aduan" element={<Aduan />}></Route>
           <Route path="profil" element={<Profile />}></Route>
-          <Route path="report/det" element={<Detreport />}></Route>
+          <Route path="report/det/:reportId" element={<Detreport />}></Route>
         </Route>
 
         {/* Bagian Institute */}

@@ -19,7 +19,8 @@
   z-index: 1;
 }
 
-.home_bg_page {
-/* background-color: green; */
-
+@media (min-width: 320px) and (max-width: 767px) {
+  .main_cont .main_img {
+    height: 500px;
+  }
 }

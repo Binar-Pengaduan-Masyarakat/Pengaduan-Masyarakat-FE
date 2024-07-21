@@ -1,10 +1,13 @@
 import "../../../css/page-user/pagehome/home.css";
-import useFetchReports from "../../../api/repots.API";
+import Reports from "../../../api/repots.API";
 import { Link } from "react-router-dom";
 const Home = () => {
-  const { data, error, isLoading } = useFetchReports();
+  const { data, error, isLoading } = Reports.useCombineData();
   if (isLoading) return <p>Memuat...</p>;
   if (error) return <p>Error: {error}</p>;
+  const reportss = data?.reports?.data;
+  const categoriss = data?.categories;
+
   return (
     <div className="home_cont">
       <div className="home_head ">
@@ -14,28 +17,43 @@ const Home = () => {
           Yang berwenang
         </p>
       </div>
-      <div className="p_terkini_cont container-sm">
+      <div className="p_terkini_cont">
         <h2>ADUAN TERKINI</h2>
         <div className="table-responsive">
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
-                <th scope="col">No. Laporan</th>
-                <th scope="col">Pelapor</th>
-                <th scope="col">Laporan</th>
-                <th scope="col">Status</th>
+                <th scope="col">Report Id</th>
+                <th scope="col">Content</th>
+                <th scope="col">Category</th>
+                <th scope="col"> District</th>
+                <th scope="col"> Subdistrict</th>
+                <th scope="col"> Address</th>
+                <th scope="col">Create At</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              {data.data.map((report) => (
+              {reportss.map((report) => (
                 <tr key={report.reportId}>
                   <td>{report.reportId}</td>
                   <td>{report.reportContent}</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
                   <td>
-                    <Link to="report/det" className="btn btn-success">
+                    {
+                      categoriss.find((c) => {
+                        return c.categoryId === report.categoryId;
+                      })?.categoryName
+                    }
+                  </td>
+                  <td>{report.district}</td>
+                  <td>{report.subdistrict}</td>
+                  <td>{report.address}</td>
+                  <td>{report.createdAt}</td>
+                  <td>
+                    <Link
+                      to={`report/det/${report.reportId}`}
+                      className="btn btn-success"
+                    >
                       {" "}
                       <i className="bi bi-info-circle-fill"></i> Detail
                     </Link>
@@ -79,7 +97,7 @@ const Home = () => {
       <div className="sop_cont">
         <h2>SOP LAPORAN</h2>
         <div className="list_sop">
-          <ul className="container sop_menu">
+          <ul className="sop_menu">
             <li>
               <p className="sop_img">
                 <i className="bi bi-pencil-square"></i>
