@@ -33,3 +33,7 @@
 .create-report-button:hover {
   color: lightgrey;
 }
+
+.report-content a {
+  color: #5a6268;
+}

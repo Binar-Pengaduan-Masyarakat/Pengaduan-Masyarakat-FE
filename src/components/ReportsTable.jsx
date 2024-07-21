@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { UserContext } from "./UserContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "/public/css/ReportsTable.css";
+import { Link } from "react-router-dom";
 
 const ReportsTable = () => {
   const { userId } = useContext(UserContext);
@@ -184,16 +185,17 @@ const ReportsTable = () => {
                   <td>{format(new Date(report.createdAt), "MMMM dd, yyyy")}</td>
                   <td
                     className="report-content"
-                    onClick={() =>
-                      (window.location.href = `${
-                        import.meta.env.VITE_FRONTEND_URL
-                      }/report-details/${report.reportId}`)
-                    }
                     title={report.reportContent}
-                    style={{ textDecoration: "underline", cursor: "pointer" }}
+                    style={{
+                      textDecoration: "underline",
+                      cursor: "pointer",
+                    }}
                   >
-                    {report.reportContent}
+                    <Link to={`/report-details/${report.reportId}`}>
+                      {report.reportContent}
+                    </Link>
                   </td>
+
                   <td title={report.district}>{report.district}</td>
                   <td title={report.subdistrict}>{report.subdistrict}</td>
                   <td title={report.address}>{report.address}</td>
