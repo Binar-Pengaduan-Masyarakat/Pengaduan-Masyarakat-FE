@@ -10,6 +10,7 @@ import EmailVerificationSuccess from "./components/EmailVerificationSuccess";
 import { Container } from "react-bootstrap";
 import UserProfile from "./components/UserProfile";
 import Header from "./components/Header";
+import "./styles.css";
 
 function App() {
   return (

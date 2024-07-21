@@ -145,7 +145,7 @@ const ReportDetailsPage = () => {
                       reportDetails.reportImage
                     }`}
                     alt="Report"
-                    className="img-fluid rounded report-image"
+                    className="report-image img-fluid rounded"
                   />
                 ) : (
                   <div className="placeholder-image">

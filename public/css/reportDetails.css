@@ -12,7 +12,7 @@
 }
 
 .report-image {
-  max-height: 250px;
+  max-height: 250px !important;
   object-fit: cover;
 }
 

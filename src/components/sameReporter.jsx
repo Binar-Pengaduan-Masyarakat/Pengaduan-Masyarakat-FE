@@ -27,8 +27,7 @@ const SameReporter = ({ reportId }) => {
   }, [buttonState, upvoteCount]);
 
   const fetchStatus = async () => {
-    if (!userId) return; // Early return if no userId
-
+    if (!userId) return;
     try {
       const response = await fetch(
         `${
@@ -78,7 +77,7 @@ const SameReporter = ({ reportId }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
       });
-      fetchStatus(); // Re-fetch status and count after action
+      fetchStatus();
       fetchCount();
     } catch (error) {
       console.error("Error performing action:", error);
