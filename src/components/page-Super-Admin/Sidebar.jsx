@@ -14,12 +14,6 @@ const SuperAdmin = () => {
   }, []);
   return (
     <div className="admin-sidebar">
-      <div className="sidebar-header">
-        {/* <img src={avatar} alt="Admin Avatar" className="admin-avatar" /> */}
-        <div className="admin-info">
-          <p>{userName}</p>
-        </div>
-      </div>
       <nav className="sidebar-nav">
         <ul>
           <li>
