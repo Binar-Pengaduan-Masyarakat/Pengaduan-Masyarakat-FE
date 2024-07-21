@@ -37,7 +37,7 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
           setError("Failed to post result: " + data.message);
         } else {
           alert("Result posted successfully!");
-          setReload((prev) => !prev); // Trigger reload
+          setReload((prev) => !prev);
           onClose();
         }
       } else {
