@@ -33,7 +33,6 @@ const Routers = () => {
           path="/dashboardInstitute"
           element={<DashboardInstitute />}
         ></Route>
-
         <Route
           path="/user"
           element={<PrivateRoute element={<Userpage />} />}
@@ -45,14 +44,12 @@ const Routers = () => {
           <Route path="profil" element={<Profile />}></Route>
           <Route path="report/det/:reportId" element={<Detreport />}></Route>
         </Route>
-
         {/* Bagian Institute */}
         <Route
           path="/dashboardInstitute"
           element={<DashboardInstitute />}
         ></Route>
         <Route path="/admin" element={<LoginInstitute />}></Route>
-
         {/* Bagian Super Admin */}
         <Route path="/superadmin" element={<DashboardSuperAdmin />}></Route>
         <Route path="/Superadmin/reports" element={<MasterDataAduan />}></Route>
