@@ -5,7 +5,6 @@ import "/public/css/Modal.css";
 
 const storedToken = localStorage.getItem("token");
 const storedUser = JSON.parse(localStorage.getItem("user"));
-console.log(storedUser);
 
 const CreateReportModal = ({ onClose, onReportCreated }) => {
   const [categories, setCategories] = useState([]);
@@ -17,7 +16,6 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const userId = storedUser.id;
-  console.log(userId);
 
   useEffect(() => {
     fetchCategories();
