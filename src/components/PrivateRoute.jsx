@@ -17,7 +17,7 @@ const PrivateRoute = ({ element, isLoginPage }) => {
   }
 
   if (!isLoginPage && !token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return element;

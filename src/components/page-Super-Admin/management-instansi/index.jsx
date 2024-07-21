@@ -1,10 +1,13 @@
-import useFetchInstitutions from "../../../api/institutions.API";
+import useFetchInstitutions from "../../api/institutions.API";
 // import "../../../css/page-institute/admin.css"
 import AdminNavbar from "../Navbar";
 import SuperAdmin from "../Sidebar";
 
 const ManagementInstansi = () => {
-    const { data, error, isLoading } = useFetchInstitutions();
+    const { data, error, isLoading, deleteInstitution } = useFetchInstitutions();
+    const handleDelete = (institutionId) => {
+        deleteInstitution(institutionId);
+    }
     if (isLoading) return <p>Memuat...</p>;
     if (error) return <p>Error: {error}</p>;
     return (
@@ -31,7 +34,7 @@ const ManagementInstansi = () => {
                                 <td>{instansi.roles}</td>
                                 <td>{instansi.status ? "Active" : "Inactive"}</td>
                                 <td>
-                                    <button className="btn btn-success">Delete</button>
+                                    <button className="btn btn-success" onClick={() => handleDelete(instansi.userId)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

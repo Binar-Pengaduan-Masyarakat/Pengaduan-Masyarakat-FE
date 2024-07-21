@@ -1,10 +1,11 @@
-import useFetchReports from "../../../api/repots.API";
-// import "../../../css/page-institute/admin.css"
-import AdminNavbar from "../Navbar";
-import SuperAdmin from "../Sidebar";
+import useFetchReports from "../../api/repots.API";
+import "../../css/page-institute/admin.css"
 
 const MasterDataAduan = () => {
-    const { data, error, isLoading } = useFetchReports();
+    const { data, error, isLoading, deleteReport } = useFetchReports();
+    const handleDelete = (reportId) => {
+        deleteReport(reportId);
+    };
     if (isLoading) return <p>Memuat...</p>;
     if (error) return <p>Error: {error}</p>;
     return (
@@ -29,7 +30,7 @@ const MasterDataAduan = () => {
                                 <td>Otto</td>
                                 <td>@mdo</td>
                                 <td>
-                                    <button>Delete</button>
+                                    <button className="btn btn-success" onClick={() => handleDelete(report.reportId)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

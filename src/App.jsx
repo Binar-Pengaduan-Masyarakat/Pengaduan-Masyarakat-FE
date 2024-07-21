@@ -12,6 +12,11 @@ import UserProfile from "./components/UserProfile";
 import Header from "./components/Header";
 import "./styles.css";
 import SuperAdminpage from "./components/page-Super-Admin/superAdmin-page";
+import ManagementUser from "./components/page-Super-Admin/management-user";
+import ManagementInstansi from "./components/page-Super-Admin/management-instansi";
+import MasterDataAduan from "./components/page-Super-Admin/master-data-aduan";
+import PrivateRoute from "./components/PrivateRoute";
+import DashboardSuperAdmin from "./components/page-Super-Admin/dashboard";
 
 function App() {
   return (
@@ -32,7 +37,13 @@ function App() {
             element={<ReportDetailsPage />}
           />
           <Route path="/users/:userId" element={<UserProfile />} />
-          <Route path="/superadmin/dashboard" element={<SuperAdminpage />} />
+
+          <Route path="/superadmin" element={<PrivateRoute element={<SuperAdminpage />} isLoginPage={false} />}>
+            <Route path="dashboard" element={<DashboardSuperAdmin />} />
+            <Route path="reports" element={<MasterDataAduan />} />
+            <Route path="managementusers" element={<ManagementUser />} />
+            <Route path="instansiManagement" element={<ManagementInstansi />} />
+          </Route>
         </Routes>
       </Container>
     </BrowserRouter>

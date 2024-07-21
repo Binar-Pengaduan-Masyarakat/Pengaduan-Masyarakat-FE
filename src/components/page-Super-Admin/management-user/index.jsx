@@ -1,6 +1,4 @@
-// import "../../../css/page-institute/admin.css"
-import AdminNavbar from "../Navbar";
-import SuperAdmin from "../Sidebar";
+import "../../css/page-institute/admin.css"
 
 const ManagementUser = () => {
   return (

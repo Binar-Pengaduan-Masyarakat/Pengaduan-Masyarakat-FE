@@ -1,19 +1,16 @@
-import useFetchReports from "../../api/repots.API";
-import "../../css/page-institute/admin.css"
-import AdminNavbar from "./Navbar";
-import SuperAdmin from "./Sidebar";
+import useFetchReports from "../api/repots.API";
+import "../css/page-institute/admin.css"
 
 const DashboardSuperAdmin = () => {
   const { data, error, isLoading } = useFetchReports();
   if (isLoading) return <p>Memuat...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
-
     <div className="dashboard-content">
       <h1>Dashboard</h1>
       <div className="stats-overview">
         <div className="stat-box">
-          <div className="stat-number">69</div>
+          <div className="stat-number">{data.data.length}</div>
           <div className="stat-label">Jumlah Laporan</div>
         </div>
         <div className="stat-box">
@@ -34,7 +31,6 @@ const DashboardSuperAdmin = () => {
               <th scope="col">Pelapor</th>
               <th scope="col">Laporan</th>
               <th scope="col">Status</th>
-              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -44,9 +40,6 @@ const DashboardSuperAdmin = () => {
                 <td>{report.reportContent}</td>
                 <td>Otto</td>
                 <td>@mdo</td>
-                <td>
-                  <button>Delete</button>
-                </td>
               </tr>
             ))}
           </tbody>

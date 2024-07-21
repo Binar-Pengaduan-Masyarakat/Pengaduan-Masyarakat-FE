@@ -7,7 +7,7 @@ export default function useFetchReports() {
 
   useEffect(() => {
     async function fetchData() {
-      const URL = import.meta.env.VITE_BACKEND_URL
+      const URL = import.meta.env.VITE_BACKEND_URL;
       try {
         const response = await fetch(`${URL}/api/reports`);
         const fetchedData = await response.json();
@@ -22,5 +22,23 @@ export default function useFetchReports() {
     fetchData();
   }, []);
 
-  return { data, error, isLoading };
+  const deleteReport = async (reportId) => {
+    const URL = import.meta.env.VITE_BACKEND_URL;
+    try {
+      const response = await fetch(`${URL}/api/reports/${reportId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete the report');
+      }
+      // Optionally, you can re-fetch the data or update state here
+      // to reflect the deletion in your UI
+      alert('Report deleted successfully');
+      window.location.reload();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return { data, error, isLoading, deleteReport };
 }

@@ -22,5 +22,23 @@ export default function useFetchInstitutions() {
     fetchData();
   }, []);
 
-  return { data, error, isLoading };
+  const deleteInstitution = async (institutionId) => {
+    const URL = import.meta.env.VITE_BACKEND_URL
+    try {
+      const response = await fetch(`${URL}/api/institutions/${institutionId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete the institution');
+      }
+      // Optionally, you can re-fetch the data or update state here
+      // to reflect the deletion in your UI
+      alert('Institution deleted successfully');
+      window.location.reload();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return { data, error, isLoading, deleteInstitution };
 }
