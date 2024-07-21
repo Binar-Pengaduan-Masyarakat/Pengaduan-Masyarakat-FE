@@ -4,7 +4,6 @@ import logo from "../../assets/logo/logowhite.png";
 import logohitam from "../../assets/logo/logo.png";
 import userimg from "../../assets/image/profile.jpeg";
 import { Link, useNavigate } from "react-router-dom";
-//import { handleLogout } from "../page-login/auth";
 
 const Navbar = () => {
   
@@ -98,7 +97,7 @@ const Navbar = () => {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item" to="/user/profil">
+                  <Link className="dropdown-item" to={`/user/profil/${userId}`}>
                     Profile
                   </Link>
                 </li>

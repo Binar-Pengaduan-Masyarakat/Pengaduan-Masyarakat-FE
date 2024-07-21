@@ -31,7 +31,7 @@ const Routers = () => {
           <Route path="" element={<Home />}></Route>
           <Route path="about" element={<About />}></Route>
           <Route path="aduan" element={<Aduan />}></Route>
-          <Route path="profil" element={<Profile />}></Route>
+          <Route path="profil/:id" element={<Profile />}></Route>
           <Route path="report/det" element={<Detreport />}></Route>
         </Route>
 
