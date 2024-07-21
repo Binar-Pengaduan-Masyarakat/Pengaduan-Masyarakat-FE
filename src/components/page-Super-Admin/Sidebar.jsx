@@ -6,30 +6,41 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 
 const SuperAdmin = () => {
   const [userName, setUserName] = useState("");
+  const [showSideBar, setshowSideBar] = useState(false);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       setUserName(user.name);
     }
   }, []);
+
+  const tooglersidebar = () => {
+    setshowSideBar(!showSideBar);
+  };
   return (
-    <div className="admin-sidebar">
-      <nav className="sidebar-nav">
-        <ul>
-          <li>
-            <Link to="/superadmin/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/superadmin/managementusers">Management Users</Link>
-          </li>
-          <li>
-            <Link to="/superadmin/instansiManagement">Management Admin</Link>
-          </li>
-          <li>
-            <Link to="/superadmin/reports">Master Data Aduan</Link>
-          </li>
-        </ul>
-      </nav>
+    <div className="cont-sidebar">
+      <button onClick={tooglersidebar}>
+        {" "}
+        <i className="bi bi-list"></i>
+      </button>
+      <div className={`admin-sidebar ${showSideBar ? "open" : ""}`}>
+        <nav className="sidebar-nav">
+          <ul>
+            <li>
+              <Link to="/superadmin/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/superadmin/managementusers">Management Users</Link>
+            </li>
+            <li>
+              <Link to="/superadmin/instansiManagement">Management Admin</Link>
+            </li>
+            <li>
+              <Link to="/superadmin/reports">Master Data Aduan</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };

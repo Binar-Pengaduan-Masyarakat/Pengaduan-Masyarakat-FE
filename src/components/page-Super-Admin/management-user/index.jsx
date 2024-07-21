@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../css/page-institute/admin.css";
 
 const ManagementUser = () => {
@@ -12,7 +12,7 @@ const ManagementUser = () => {
       const URL = import.meta.env.VITE_BACKEND_URL;
       try {
         const response = await axios.get(`${URL}/api/superAdmin/users`);
-        console.log(response.data);  // Log data yang diterima untuk memastikan struktur data
+        console.log(response.data); // Log data yang diterima untuk memastikan struktur data
         setData(response.data);
         setIsLoading(false);
       } catch (err) {
@@ -29,11 +29,11 @@ const ManagementUser = () => {
     try {
       const response = await axios.delete(`${URL}/api/users/${userId}`);
       if (response.status !== 200) {
-        throw new Error('Failed to delete the user');
+        throw new Error("Failed to delete the user");
       }
       // Optionally, update state to remove the deleted user from the list
       setData((prevData) => prevData.filter((user) => user.id !== userId));
-      alert('User deleted successfully');
+      alert("User deleted successfully");
       window.location.reload();
     } catch (err) {
       setError(err.message);
@@ -51,36 +51,49 @@ const ManagementUser = () => {
     <div className="dashboard-content">
       <div className="latest-reports">
         <h2>MANAGEMENT USERS</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>User id</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data && data.length > 0 ? data
-              .filter(user => user.userId.includes('US'))  // Filter pengguna dengan id yang mengandung 'US' sebagai contoh
-              .map((user, index) => (
-                <tr key={user.userId || index}> {/* Pastikan setiap elemen memiliki properti key yang unik */}
-                  <td>{index + 1}</td>
-                  <td>{user.name || 'N/A'}</td>
-                  <td>{user.email || 'N/A'}</td>
-                  <td>{user.userId}</td>  {/* Menampilkan userId sebagai peran sementara */}
-                  <td>
-                    <button className="btn btn-success" onClick={() => handleDelete(user.userId)}>Hapus</button>
-                  </td>
-                </tr>
-              )) : (
+        <div className="table-responsive">
+          <table>
+            <thead>
               <tr>
-                <td colSpan="5">Tidak ada data pengguna</td> {/* Update colSpan to 5 */}
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>User id</th>
+                <th>Aksi</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data && data.length > 0 ? (
+                data
+                  .filter((user) => user.userId.includes("US")) // Filter pengguna dengan id yang mengandung 'US' sebagai contoh
+                  .map((user, index) => (
+                    <tr key={user.userId || index}>
+                      {" "}
+                      {/* Pastikan setiap elemen memiliki properti key yang unik */}
+                      <td>{index + 1}</td>
+                      <td>{user.name || "N/A"}</td>
+                      <td>{user.email || "N/A"}</td>
+                      <td>{user.userId}</td>{" "}
+                      {/* Menampilkan userId sebagai peran sementara */}
+                      <td>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => handleDelete(user.userId)}
+                        >
+                          Hapus
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td colSpan="5">Tidak ada data pengguna</td>{" "}
+                  {/* Update colSpan to 5 */}
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

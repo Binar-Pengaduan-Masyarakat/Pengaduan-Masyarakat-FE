@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import useFetchInstitutions from '../../api/institutions.API';
-import AssignRoleModal from '../../Modal/AssignCategoryModal';
-import CreateInstitutionModal from './modal';
+import React, { useState } from "react";
+import useFetchInstitutions from "../../api/institutions.API";
+import AssignRoleModal from "../../Modal/AssignCategoryModal";
+import CreateInstitutionModal from "./modal";
 
 const ManagementInstansi = () => {
-  const { data, error, isLoading, deleteInstitution, createInstitution } = useFetchInstitutions();
+  const { data, error, isLoading, deleteInstitution, createInstitution } =
+    useFetchInstitutions();
   const [isAssignRoleModalOpen, setIsAssignRoleModalOpen] = useState(false);
-  const [isCreateInstitutionModalOpen, setIsCreateInstitutionModalOpen] = useState(false);
+  const [isCreateInstitutionModalOpen, setIsCreateInstitutionModalOpen] =
+    useState(false);
 
   const handleDelete = (institutionId) => {
     deleteInstitution(institutionId);
@@ -39,49 +41,56 @@ const ManagementInstansi = () => {
 
   return (
     <div className="dashboard-content">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="manage-admin">
         <h2>MANAGEMENT ADMIN</h2>
         <div>
-          <button className="btn btn-primary me-2" onClick={handleOpenAssignRoleModal}>
+          <button
+            className="btn btn-primary me-2"
+            onClick={handleOpenAssignRoleModal}
+          >
             Assign Role
           </button>
-          <button className="btn btn-primary" onClick={handleOpenCreateInstitutionModal}>
+          <button
+            className="btn btn-primary"
+            onClick={handleOpenCreateInstitutionModal}
+          >
             Create Institution
           </button>
         </div>
       </div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Privileges</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((instansi, index) => (
-            <tr key={instansi.userId}>
-              <td>{index + 1}</td>
-              <td>{instansi.name}</td>
-              <td>{instansi.email}</td>
-              <td>{instansi.roles}</td>
-              <td>{instansi.status ? 'Active' : 'Inactive'}</td>
-              <td>
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleDelete(instansi.userId)}
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Privileges</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {data.map((instansi, index) => (
+              <tr key={instansi.userId}>
+                <td>{index + 1}</td>
+                <td>{instansi.name}</td>
+                <td>{instansi.email}</td>
+                <td>{instansi.roles}</td>
+                <td>{instansi.status ? "Active" : "Inactive"}</td>
+                <td>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleDelete(instansi.userId)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {isAssignRoleModalOpen && (
         <AssignRoleModal
           onClose={handleCloseAssignRoleModal}

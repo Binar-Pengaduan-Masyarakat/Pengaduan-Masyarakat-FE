@@ -12,7 +12,6 @@ const DashboardSuperAdmin = () => {
   const [stats, setStats] = useState({ labels: [], data: [] });
   const [statsError, setStatsError] = useState(null);
   const [statsLoading, setStatsLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State untuk menentukan apakah sidebar terbuka atau tidak
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -31,10 +30,6 @@ const DashboardSuperAdmin = () => {
     fetchStats();
   }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   if (reportsLoading || statsLoading) return <p>Memuat...</p>;
   if (reportsError || statsError)
     return <p>Error: {reportsError || statsError}</p>;
@@ -43,12 +38,6 @@ const DashboardSuperAdmin = () => {
 
   return (
     <div className="dashboard-content">
-      <button className="menu-burger" onClick={toggleSidebar}>
-        ☰
-      </button>
-      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
-        {/* Isi dari sidebar */}
-      </div>
       <h1>
         Super Admin Dashboard <i className="bi bi-person-gear"></i>
       </h1>

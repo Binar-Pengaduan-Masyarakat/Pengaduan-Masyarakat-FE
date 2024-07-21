@@ -27,37 +27,39 @@ const MasterDataAduan = () => {
     <div className="dashboard-content">
       <div className="latest-reports">
         <h2>MASTER DATA ADUAN</h2>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">ID Laporan</th>
-              <th scope="col">Pelapor</th>
-              <th scope="col">Content</th>
-              <th scope="col">Address</th>
-              <th scope="col">Created At</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.data.map((report) => (
-              <tr key={report.reportId}>
-                <td>{report.reportId}</td>
-                <td>{report.userId}</td>
-                <td>{report.reportContent}</td>
-                <td>{report.address}</td>
-                <td>{formatDate(report.createdAt)}</td>
-                <td>
-                  <button
-                    className="btn btn-success"
-                    onClick={() => handleDelete(report.reportId)}
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID Laporan</th>
+                <th scope="col">Pelapor</th>
+                <th scope="col">Content</th>
+                <th scope="col">Address</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.data.map((report) => (
+                <tr key={report.reportId}>
+                  <td>{report.reportId}</td>
+                  <td>{report.userId}</td>
+                  <td>{report.reportContent}</td>
+                  <td>{report.address}</td>
+                  <td>{formatDate(report.createdAt)}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleDelete(report.reportId)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
