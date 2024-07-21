@@ -49,7 +49,7 @@ const Header = () => {
   return (
     <Navbar expand="lg">
       <Container>
-        <Navbar.Brand href="/" style={{ color: "#000" }}>
+        <Navbar.Brand style={{ color: "#000" }}>
           Pengaduan Masyarakat
         </Navbar.Brand>
         <Nav className="ml-auto d-flex align-items-center">
