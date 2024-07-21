@@ -7,8 +7,9 @@ export default function useFetchReports() {
 
   useEffect(() => {
     async function fetchData() {
+      const URL = import.meta.env.VITE_BACKEND_URL
       try {
-        const response = await fetch(`http://159.223.57.46:3000/api/reports`);
+        const response = await fetch(`${URL}/api/reports`);
         const fetchedData = await response.json();
         setData(fetchedData);
         setIsLoading(false);

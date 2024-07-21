@@ -4,7 +4,6 @@ import logo from "../../assets/logo/logowhite.png";
 import logohitam from "../../assets/logo/logo.png";
 import userimg from "../../assets/image/profile.jpeg";
 import { Link, useNavigate } from "react-router-dom";
-//import { handleLogout } from "../page-login/auth";
 
 const Navbar = () => {
   
@@ -35,12 +34,9 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Ambil data pengguna dari localStorage
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setUserName(user.name);
-      setUserRoles(user.roles);
-      setUserId(user.id);
     }
   }, []);
 
@@ -48,7 +44,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); 
-    localStorage.removeItem('user'); // Hapus data pengguna saat logout
+    localStorage.removeItem('user');
     navigate('/');
   };
 
@@ -93,7 +89,7 @@ const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <p className="name-user">{userId} - {userName} - {userRoles}</p>
+                <p className="name-user">{userName}</p>
                 <img src={userimg} alt="user" />
               </a>
               <ul className="dropdown-menu">

@@ -6,6 +6,7 @@ export default function useFetchUsers() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const getdataReports = useFetchReports();
+    const URL = import.meta.env.VITE_BACKEND_URL
 
     useEffect(() => {
         async function fetchData() {
@@ -15,7 +16,7 @@ export default function useFetchUsers() {
             const userIds = [...new Set(reports.map(report => report.userId))];
             
             try {
-                const responses = await Promise.all(userIds.map(userId => fetch(`http://159.223.57.46:3000/api/users/${userId}`)));
+                const responses = await Promise.all(userIds.map(userId => fetch(`${URL}/api/users/${userId}`)));
                 const usersData = await Promise.all(responses.map(res => res.json()));
 
                 const combinedData = reports.map(report => ({

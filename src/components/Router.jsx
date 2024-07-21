@@ -3,7 +3,6 @@ import Home from "../components/page-user/content/Home";
 import About from "../components/page-user/content/About";
 import Userpage from "./page-user/User-page";
 import LoginUser from "./page-login/LoginUser";
-import LoginInstitute from "./page-login/LoginInstitute";
 import Aduan from "./page-user/content/Aduan";
 import Detreport from "./page-user/reports/DetReport";
 import Register from "./page-login/Regidteruser";
@@ -17,7 +16,8 @@ import ManagementUser from "./page-Super-Admin/management-user";
 import ManagementInstansi from "./page-Super-Admin/management-instansi";
 import ManagementReports from "./page-institute/management-reports";
 import PrivateRoute from "./PrivateRoute";
-import Superadmin from "./page-login/Superadmin";
+import Institutepage from "./page-institute/institute-page";
+import SuperAdminpage from "./page-Super-Admin/superAdmin-page";
 
 const Routers = () => {
   return (
@@ -29,8 +29,6 @@ const Routers = () => {
         <Route path="/emailVerification" element={<EmailVerificaion />}></Route>
         <Route path="/verificationSuccess" element={<VerificationSuccess />}></Route>
 
-        <Route path="/superadmin" element={<Superadmin />}></Route>
-        
         <Route path="/user" element={<PrivateRoute element={<Userpage />} />}>
           <Route path="" element={<Home />}></Route>
           <Route path="about" element={<About />}></Route>
@@ -40,15 +38,18 @@ const Routers = () => {
         </Route>
 
         {/* Bagian Institute */}
-        <Route path="/admin/dashboard" element={<DashboardInstitute />}></Route>
-        <Route path="/admin/reports" element={<ManagementReports />}></Route>
-        <Route path="/admin" element={<LoginInstitute />}></Route>
+        <Route path="/admin" element={<PrivateRoute element={<Institutepage />} />}>
+          <Route path="dashboard" element={<DashboardInstitute />}></Route>
+          <Route path="reports" element={<ManagementReports />}></Route>
+        </Route>
 
         {/* Bagian Super Admin */}
-        <Route path="/superadmin" element={<DashboardSuperAdmin />}></Route>
-        <Route path="/Superadmin/reports" element={<MasterDataAduan />}></Route>
-        <Route path="/admin/users" element={<ManagementUser />}></Route>
-        <Route path="/Superadmin/instansiManagement" element={<ManagementInstansi />}></Route>
+        <Route path="/superadmin" element={<PrivateRoute element={<SuperAdminpage />} />}>
+          <Route path="dashboard" element={<DashboardSuperAdmin />}></Route>
+          <Route path="reports" element={<MasterDataAduan />}></Route>
+          <Route path="managementusers" element={<ManagementUser />}></Route>
+          <Route path="instansiManagement" element={<ManagementInstansi />}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

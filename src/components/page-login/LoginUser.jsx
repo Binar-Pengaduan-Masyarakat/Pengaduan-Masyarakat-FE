@@ -24,18 +24,20 @@ const LoginUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const URL = import.meta.env.VITE_BACKEND_URL
     try {
-      const response = await axios.post('http://159.223.57.46:3000/api/auth/login', formData);
+      const response = await axios.post(`${URL}/api/auth/login`, formData);
       const { token, user } = response.data;
+      console.log("🚀 ~ handleSubmit ~ response:", response)
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
  
       if (user.roles === 'USER') {
         navigate('/user');
       } else if (user.roles === 'SUPERADMIN') {
-        navigate('/superadmin');
+        navigate('/superadmin/dashboard');
       } else if (user.roles === 'INSTITUTION') {
-        navigate('/intitution');
+        navigate('/admin/dashboard');
       }
 
     } catch (err) {
