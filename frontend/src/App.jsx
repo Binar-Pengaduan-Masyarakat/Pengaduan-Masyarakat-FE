@@ -4,12 +4,14 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserProfile from './pages/UserProfile';
 import ProfilePage from './pages/ProfilePage';
+import FormEdit from './pages/FormEdit';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/users/:id" element={<ProfilePage />} />
+        <Route path="/edit-profile" element={<FormEdit />} />
       </Routes>
     </Router>
   );

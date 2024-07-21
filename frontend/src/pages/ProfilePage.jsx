@@ -1,4 +1,3 @@
-// src/components/ProfilePage.jsx
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -24,12 +23,12 @@ const ProfilePage = () => {
     fetchUser();
   }, [id]);
 
-  const handleDelete = () => {
-    alert('Delete Account Clicked');
+  const handleEdit = () => {
+    alert('Edit Profile Clicked');
   };
 
-  const handleUpdate = () => {
-    alert('Update Account Clicked');
+  const handleLogout = () => {
+    alert('Logout Clicked');
   };
 
   const onDrop = useCallback(acceptedFiles => {
@@ -72,41 +71,40 @@ const ProfilePage = () => {
             <span></span><span></span><span></span><span></span><span></span>
           </div>
         </div>
-        <div {...getRootProps()} className="dropzone">
-          <input {...getInputProps()} />
-          {isDragActive ? <p>Drop the files here ...</p> : <p>Drag 'n' drop some files here, or click to select files</p>}
-        </div>
-        <button onClick={() => handleUpload(file)} className="button upload-button">
-          <div className="button__border"></div>
-          <div className="button__bg"></div>
-          <p className="button__text">Upload Media</p>
-        </button>
-        {user.media && (
-          <div className="uploaded-media">
-            <h3>Uploaded Media:</h3>
-            <img src={user.media} alt="Uploaded Media" className="uploaded-media__img" />
-          </div>
-        )}
         <div className="content__title">
           <h1>Profile User</h1>
+          <div className="profile-image-container">
+            {user.media ? (
+              <img src={user.media} alt="Profile" className="profile-image" />
+            ) : (
+              <div className="profile-placeholder"></div>
+            )}
+            <div className="content__upload">
+              <div {...getRootProps()} className="dropzone">
+                <input {...getInputProps()} />
+                {isDragActive ? <p>Drop the files here ...</p> : <p>Drag 'n' drop some files here, or click to select files</p>}
+              </div>
+            </div>
+          </div>
           <h2>{user.name}</h2>
+          <p className="user-id">{user.userId}</p>
         </div>
         <div className="content__description">
-          <p><strong>Username:</strong> {user.userId}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Roles:</strong> {user.roles}</p>
+          <p><strong>Created At:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
         </div>
         <div className="content__button">
-          <button className="button delete-button" onClick={handleDelete}>
+          <button className="button edit-button" onClick={handleEdit}>
             <div className="button__border"></div>
             <div className="button__bg"></div>
-            <p className="button__text">Delete Account</p>
+            <p className="button__text">Edit Profile</p>
           </button>
-
-          <button className="button update-button" onClick={handleUpdate}>
+  
+          <button className="button logout-button" onClick={handleLogout}>
             <div className="button__border"></div>
             <div className="button__bg"></div>
-            <p className="button__text">Update Account</p>
+            <p className="button__text">Logout</p>
           </button>
         </div>
       </div>
