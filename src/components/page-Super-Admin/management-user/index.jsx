@@ -11,7 +11,6 @@ const ManagementUser = () => {
               <th>No Laporan</th>
               <th>Pelapor</th>
               <th>Laporan</th>
-              <th>Status</th>
               <th>Detail</th>
             </tr>
           </thead>
