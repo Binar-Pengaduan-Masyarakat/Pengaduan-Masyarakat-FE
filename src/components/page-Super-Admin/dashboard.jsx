@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useFetchReports from "../api/repots.API";
+import { format } from "date-fns";
 import "../css/page-institute/admin.css";
 
 const DashboardSuperAdmin = () => {
@@ -66,21 +67,23 @@ const DashboardSuperAdmin = () => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">No. Laporan</th>
+              <th scope="col">ID</th>
               <th scope="col">Pelapor</th>
               <th scope="col">Laporan</th>
-              <th scope="col">Status</th>
+              <th scope="col">Created At</th>
             </tr>
           </thead>
           <tbody>
-            {reportsData.data.map((report) => (
-              <tr key={report.reportId}>
-                <td>{report.reportId}</td>
-                <td>{report.reportContent}</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            ))}
+            {reportsData.data.map((report) => {
+              return (
+                <tr key={report.reportId}>
+                  <td>{report.reportId}</td>
+                  <td>{report.userId}</td>
+                  <td>{report.reportContent}</td>
+                  <td>{format(new Date(report.createdAt), "PPpp")}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

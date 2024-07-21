@@ -65,8 +65,7 @@ const ManagementInstansi = () => {
               <th>No</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Privileges</th>
-              <th>Status</th>
+              <th>Roles</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -77,7 +76,6 @@ const ManagementInstansi = () => {
                 <td>{instansi.name}</td>
                 <td>{instansi.email}</td>
                 <td>{instansi.roles}</td>
-                <td>{instansi.status ? "Active" : "Inactive"}</td>
                 <td>
                   <button
                     className="btn btn-success"
