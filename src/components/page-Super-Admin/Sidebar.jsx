@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/page-institute/admin.css";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+// import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 // import avatar from '../../assets/image/profile.jpeg';
 
 const SuperAdmin = () => {

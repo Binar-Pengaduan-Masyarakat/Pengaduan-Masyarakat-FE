@@ -41,7 +41,7 @@ const ManagementInstansi = () => {
 
   return (
     <div className="dashboard-content">
-      <div className="manage-admin">
+      <div className="manage-admin d-flex justify-content-between align-items-center">
         <h2>MANAGEMENT ADMIN</h2>
         <div>
           <button
