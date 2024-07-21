@@ -55,7 +55,13 @@ const Header = () => {
     navigate("/superadmin/dashboard");
   };
 
-  const isOnDashboard = location.pathname === "/superadmin/dashboard";
+  const dashboardPaths = [
+    "/superadmin/dashboard",
+    "/superadmin/instansiManagement",
+    "/superadmin/managementusers",
+    "/superadmin/reports",
+  ];
+  const isOnDashboard = dashboardPaths.includes(location.pathname);
 
   return (
     <Navbar expand="lg">
