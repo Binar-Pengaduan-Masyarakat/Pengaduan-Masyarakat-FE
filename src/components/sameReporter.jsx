@@ -14,9 +14,11 @@ const SameReporter = ({ reportId }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
+    if (reportId) {
+      fetchCount();
+    }
     if (userId && reportId) {
       fetchStatus();
-      fetchCount();
     }
   }, [reportId, userId]);
 
