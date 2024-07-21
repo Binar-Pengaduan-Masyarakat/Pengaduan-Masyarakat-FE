@@ -160,7 +160,7 @@ const ReportsTable = () => {
                     key={column}
                     style={{
                       cursor: "pointer",
-                      textAlign: column === "Date" ? "left" : "center",
+                      textAlign: column === "Date" ? "center" : "center",
                     }}
                     onClick={() => handleSort(column)}
                   >
