@@ -18,7 +18,6 @@ const MasterDataAduan = () => {
                             <th scope="col">No. Laporan</th>
                             <th scope="col">Pelapor</th>
                             <th scope="col">Laporan</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -27,7 +26,6 @@ const MasterDataAduan = () => {
                             <tr key={report.reportId}>
                                 <td>{report.reportId}</td>
                                 <td>{report.reportContent}</td>
-                                <td>Otto</td>
                                 <td>@mdo</td>
                                 <td>
                                     <button className="btn btn-success" onClick={() => handleDelete(report.reportId)}>Delete</button>
