@@ -24,19 +24,14 @@ function App() {
       <Header />
       <Container>
         <Routes>
+          <Route path="/login" element={<PrivateRoute element={<LoginPage />} isLoginPage={true} />} />
           <Route path="/" element={<ReportsTable />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterUser />} />
-          <Route path="/verify-email" element={<EmailVerification />} />
-          <Route
-            path="/verificationSuccess"
-            element={<EmailVerificationSuccess />}
-          />
-          <Route
-            path="/report-details/:reportId"
-            element={<ReportDetailsPage />}
-          />
-          <Route path="/users/:userId" element={<UserProfile />} />
+          <Route path="/register" element={<PrivateRoute element={<RegisterUser />} isLoginPage={true} />} />
+          <Route path="/verify-email" element={<PrivateRoute element={<EmailVerification />} isLoginPage={true} />} />
+          <Route path="/verificationSuccess" element={<PrivateRoute element={<EmailVerificationSuccess />} isLoginPage={true} />} />
+
+          <Route path="/report-details/:reportId" element={<PrivateRoute element={<ReportDetailsPage />} isLoginPage={false} />} />
+          <Route path="/users/:userId" element={<PrivateRoute element={<UserProfile />} isLoginPage={false} />} />
 
           <Route path="/superadmin" element={<PrivateRoute element={<SuperAdminpage />} isLoginPage={false} />}>
             <Route path="dashboard" element={<DashboardSuperAdmin />} />
