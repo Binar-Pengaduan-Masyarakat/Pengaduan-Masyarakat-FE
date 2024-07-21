@@ -203,7 +203,7 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                       <div {...getRootProps()} className="dropzone">
                         <input {...getInputProps()} />
                         <p style={{ marginBottom: "0" }}>
-                          You can upload your Report Image here (1 max)
+                          You can upload your Report Image here (1MB max)
                         </p>
                       </div>
                     )}

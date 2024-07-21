@@ -131,13 +131,20 @@ const Profile = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <Dropzone onDrop={handleDrop} maxFiles={1}>
+                    <Dropzone
+                      onDrop={handleDrop}
+                      maxFiles={1}
+                      accept="image/*"
+                      onDropRejected={() => {
+                        alert("Only image files are allowed.");
+                      }}
+                    >
                       {({ getRootProps, getInputProps }) => (
                         <div {...getRootProps()} className="dropzone">
                           <input {...getInputProps()} />
                           <p>
                             Drag 'n' drop a new profile picture, or click to
-                            select one
+                            select one (1MB max)
                           </p>
                         </div>
                       )}

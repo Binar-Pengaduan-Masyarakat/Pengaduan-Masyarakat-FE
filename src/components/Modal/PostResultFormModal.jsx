@@ -98,6 +98,7 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
                   <Dropzone
                     onDrop={handleDrop}
                     maxFiles={1}
+                    maxFilesize={2}
                     accept="image/*"
                     onDropRejected={() => {
                       alert("Only image files are allowed.");
@@ -107,7 +108,7 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
                       <div {...getRootProps()} className="dropzone">
                         <input {...getInputProps()} />
                         <p style={{ marginBottom: "0" }}>
-                          Drag & drop an image here, or click to select one (1
+                          Drag & drop an image here, or click to select one (1MB
                           max)
                         </p>
                       </div>
