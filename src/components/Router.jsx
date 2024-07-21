@@ -23,32 +23,33 @@ const Routers = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Bagian User */}
-        <Route path="/" element={<LoginUser />}></Route>
-        <Route path="/reg" element={<Register />}></Route>
-        <Route path="/emailVerification" element={<EmailVerificaion />}></Route>
-        <Route path="/verificationSuccess" element={<VerificationSuccess />}></Route>
+        {/* Halaman Login dan Registrasi */}
+        <Route path="/" element={<PrivateRoute element={<LoginUser />} isLoginPage={true} />} />
+        <Route path="/reg" element={<Register />} />
+        <Route path="/emailVerification" element={<EmailVerificaion />} />
+        <Route path="/verificationSuccess" element={<VerificationSuccess />} />
 
-        <Route path="/user" element={<PrivateRoute element={<Userpage />} />}>
-          <Route path="" element={<Home />}></Route>
-          <Route path="about" element={<About />}></Route>
-          <Route path="aduan" element={<Aduan />}></Route>
-          <Route path="profil" element={<Profile />}></Route>
-          <Route path="report/det" element={<Detreport />}></Route>
+        {/* Halaman User */}
+        <Route path="/user" element={<PrivateRoute element={<Userpage />} isLoginPage={false} />}>
+          <Route path="" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="aduan" element={<Aduan />} />
+          <Route path="profil" element={<Profile />} />
+          <Route path="report/det" element={<Detreport />} />
         </Route>
 
-        {/* Bagian Institute */}
-        <Route path="/admin" element={<PrivateRoute element={<Institutepage />} />}>
-          <Route path="dashboard" element={<DashboardInstitute />}></Route>
-          <Route path="reports" element={<ManagementReports />}></Route>
+        {/* Halaman Institute */}
+        <Route path="/admin" element={<PrivateRoute element={<Institutepage />} isLoginPage={false} />}>
+          <Route path="dashboard" element={<DashboardInstitute />} />
+          <Route path="reports" element={<ManagementReports />} />
         </Route>
 
-        {/* Bagian Super Admin */}
-        <Route path="/superadmin" element={<PrivateRoute element={<SuperAdminpage />} />}>
-          <Route path="dashboard" element={<DashboardSuperAdmin />}></Route>
-          <Route path="reports" element={<MasterDataAduan />}></Route>
-          <Route path="managementusers" element={<ManagementUser />}></Route>
-          <Route path="instansiManagement" element={<ManagementInstansi />}></Route>
+        {/* Halaman Super Admin */}
+        <Route path="/superadmin" element={<PrivateRoute element={<SuperAdminpage />} isLoginPage={false} />}>
+          <Route path="dashboard" element={<DashboardSuperAdmin />} />
+          <Route path="reports" element={<MasterDataAduan />} />
+          <Route path="managementusers" element={<ManagementUser />} />
+          <Route path="instansiManagement" element={<ManagementInstansi />} />
         </Route>
       </Routes>
     </BrowserRouter>

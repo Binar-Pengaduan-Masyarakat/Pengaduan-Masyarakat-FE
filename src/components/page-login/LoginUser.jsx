@@ -28,7 +28,6 @@ const LoginUser = () => {
     try {
       const response = await axios.post(`${URL}/api/auth/login`, formData);
       const { token, user } = response.data;
-      console.log("🚀 ~ handleSubmit ~ response:", response)
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
  
