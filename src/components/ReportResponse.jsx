@@ -18,8 +18,27 @@ const ReportResponse = ({ reportId }) => {
   const [reload, setReload] = useState(false);
   const [isSameCategory, setIsSameCategory] = useState(false);
 
+  const fetchCategoryId = async (userId) => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/categories/user/${
+        storedUser.id
+      }?timestamp=${new Date().getTime()}`,
+      {
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      }
+    );
+    const data = await response.json();
+    return data.length > 0 ? data[0].categoryId : null;
+  };
+
   const fetchData = async () => {
     try {
+      const categoryId = await fetchCategoryId(userId);
+      if (!categoryId) throw new Error("Category ID not found");
+
       const reportResponse = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
@@ -33,9 +52,7 @@ const ReportResponse = ({ reportId }) => {
       const reportData = await reportResponse.json();
       if (reportData.data) {
         setReport(reportData.data);
-        const categoryId = reportData.data.categoryId;
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        const isSameCategoryCheck = storedUser.Id === categoryId;
+        const isSameCategoryCheck = categoryId === reportData.data.categoryId;
         setIsSameCategory(isSameCategoryCheck);
 
         const reportResultResponse = await fetch(
@@ -112,7 +129,7 @@ const ReportResponse = ({ reportId }) => {
       const responseData = await response.json();
       if (response.ok) {
         alert("Response posted successfully!");
-        setReload((prev) => !prev); // Trigger reload
+        setReload((prev) => !prev);
       } else {
         alert(`Error posting response: ${responseData.message}`);
       }
