@@ -1,6 +1,9 @@
 > [!NOTE]
+> Informasi Tentang Website
 
 # **PENGADUAN MASYARAKAT BAGIAN - FE**
+
+Link: https://www.pengaduanmasyarakat.blog/
 
 ## Fitur Website :
 
@@ -41,8 +44,9 @@ Adapun Fitur pada Halaman User :
 - Fitur informasi aduan atau laporan terbaru
 - Fitur Edit profil
 
-> [!IMPORTANT]
 
+
+> [!IMPORTANT]
 > Penjelasan Tambahan Terkait Chalenge :
 
 ### Kriteria Untuk Platinum Chalenge
@@ -56,4 +60,4 @@ Adapun Fitur pada Halaman User :
 - Menggunakan React Hooks
 - Project Berjalan dicloud server
 
-Link: https://www.pengaduanmasyarakat.blog/
+
