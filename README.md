@@ -129,6 +129,5 @@ Adapun Fitur pada Halaman User :
 - Fitur memberikan category id pada admin instansi
 - Fitur hapus user
 - Fitur hapus laporan
-- Fitur melihat grafik
 - Fitur statistik pada web
 - Fitur Edit profil
