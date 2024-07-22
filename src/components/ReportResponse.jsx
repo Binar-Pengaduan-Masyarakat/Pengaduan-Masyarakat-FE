@@ -285,7 +285,7 @@ const ReportResponse = ({ reportId }) => {
           }}
           disabled
         >
-          Different Category!
+          No Response Found
         </button>
       );
     } else if (reportResponses.some((response) => response.userId !== userId)) {
