@@ -53,9 +53,6 @@ const ReportResponse = ({ reportId }) => {
       const userCategoryId = await fetchCategoryId(storedUser.id);
       const reportCategoryId = await fetchReportCategoryId(reportId);
 
-      console.log("User Category ID:", userCategoryId);
-      console.log("Report Category ID:", reportCategoryId);
-
       setIsSameCategory(userCategoryId === reportCategoryId);
 
       const reportResultResponse = await fetch(
@@ -69,7 +66,6 @@ const ReportResponse = ({ reportId }) => {
         }
       );
       const resultData = await reportResultResponse.json();
-      console.log("Report Result Data:", resultData);
 
       if (resultData.data) {
         setReportResult(resultData.data);
@@ -85,7 +81,6 @@ const ReportResponse = ({ reportId }) => {
           }
         );
         const responseData = await reportResponseResponse.json();
-        console.log("Report Responses Data:", responseData);
 
         setReportResponses(responseData.data);
 
@@ -101,7 +96,6 @@ const ReportResponse = ({ reportId }) => {
             }
           );
           const institutionData = await institutionResponse.json();
-          console.log("Institution Data:", institutionData);
 
           setInstitutionDetails(institutionData);
           setResponseDate(responseData.data[0].responseDate);
