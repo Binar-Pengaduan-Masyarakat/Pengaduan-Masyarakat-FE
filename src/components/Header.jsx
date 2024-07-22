@@ -60,6 +60,7 @@ const Header = () => {
     "/superadmin/instansiManagement",
     "/superadmin/managementusers",
     "/superadmin/reports",
+    "/superadmin/managementcat",
   ];
   const isOnDashboard = dashboardPaths.includes(location.pathname);
 
