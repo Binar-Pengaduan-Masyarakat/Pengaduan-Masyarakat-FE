@@ -93,7 +93,7 @@ Menu-menu pada halaman ini :
 
 - Halaman Management Category
 
-> Haalaman Management Category menampilkan daftar kategori yang ada dan ada opsi untuk membuat dan menghapusnya juga
+> Halaman Management Category menampilkan daftar kategori yang ada dan ada opsi untuk membuat dan menghapusnya juga
 
 ---
 
