@@ -1,87 +1,81 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import useFetchInstitutions from "../../api/institutions.API";
+import CreateCategoryModal from "../../Modal/CreateCategoryModal";
 import "../../css/page-institute/admin.css";
 
-const useFetchCategories = () => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+const ManagementInstansi = () => {
+  const { data, error, isLoading, deleteInstitution } = useFetchInstitutions();
+  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
+    useState(false);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/categories`
-        );
-        setData(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  const deleteCategory = async (categoryId) => {
-    try {
-      await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/categories/${categoryId}`
-      );
-      setData(data.filter((category) => category.categoryId !== categoryId));
-    } catch (err) {
-      setError(err);
-    }
+  const handleDelete = (institutionId) => {
+    deleteInstitution(institutionId);
   };
 
-  return { data, error, isLoading, deleteCategory };
-};
+  const handleOpenCreateCategoryModal = () => {
+    setIsCreateCategoryModalOpen(true);
+  };
 
-const ManagementCategory = () => {
-  const { data, error, isLoading, deleteCategory } = useFetchCategories();
-
-  const handleDelete = (categoryId) => {
-    deleteCategory(categoryId);
+  const handleCloseCreateCategoryModal = () => {
+    setIsCreateCategoryModalOpen(false);
   };
 
   if (isLoading) return <p>Memuat...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="dashboard-content">
-      <div className="latest-reports">
-        <h2>MASTER DATA KATEGORI</h2>
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">ID Kategori</th>
-                <th scope="col">Nama Kategori</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((category) => (
-                <tr key={category.categoryId}>
-                  <td>{category.categoryId}</td>
-                  <td>{category.categoryName}</td>
-                  <td>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDelete(category.categoryId)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className="manage-admin d-flex justify-content-between align-items-center">
+        <h2>MANAGEMENT ADMIN</h2>
+        <div>
+          <button
+            className="btn btn-primary me-2"
+            onClick={handleOpenCreateCategoryModal}
+          >
+            Create Category
+          </button>
         </div>
       </div>
+      <div className="table-responsive">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Roles</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((instansi, index) => (
+              <tr key={instansi.userId}>
+                <td>{index + 1}</td>
+                <td>{instansi.name}</td>
+                <td>{instansi.email}</td>
+                <td>{instansi.roles}</td>
+                <td>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleDelete(instansi.userId)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {isCreateCategoryModalOpen && (
+        <CreateCategoryModal
+          isOpen={isCreateCategoryModalOpen}
+          onClose={handleCloseCreateCategoryModal}
+        />
+      )}
     </div>
   );
 };
 
-export default ManagementCategory;
+export default ManagementInstansi;

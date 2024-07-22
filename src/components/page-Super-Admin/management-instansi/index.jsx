@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useFetchInstitutions from "../../api/institutions.API";
 import AssignRoleModal from "../../Modal/AssignCategoryModal";
 import CreateInstitutionModal from "./modal";
-import CreateCategoryModal from "../../Modal/CreateCategoryModal";
+import UpdateRoleModal from "../../Modal/UpdateRoleModal";
 import "../../css/page-institute/admin.css";
 
 const ManagementInstansi = () => {
@@ -11,8 +11,7 @@ const ManagementInstansi = () => {
   const [isAssignRoleModalOpen, setIsAssignRoleModalOpen] = useState(false);
   const [isCreateInstitutionModalOpen, setIsCreateInstitutionModalOpen] =
     useState(false);
-  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
-    useState(false);
+  const [isUpdateRoleModalOpen, setIsUpdateRoleModalOpen] = useState(false);
 
   const handleDelete = (institutionId) => {
     deleteInstitution(institutionId);
@@ -34,12 +33,12 @@ const ManagementInstansi = () => {
     setIsCreateInstitutionModalOpen(false);
   };
 
-  const handleOpenCreateCategoryModal = () => {
-    setIsCreateCategoryModalOpen(true);
+  const handleOpenUpdateRoleModal = () => {
+    setIsUpdateRoleModalOpen(true);
   };
 
-  const handleCloseCreateCategoryModal = () => {
-    setIsCreateCategoryModalOpen(false);
+  const handleCloseUpdateRoleModal = () => {
+    setIsUpdateRoleModalOpen(false);
   };
 
   if (isLoading) return <p>Memuat...</p>;
@@ -58,15 +57,15 @@ const ManagementInstansi = () => {
           </button>
           <button
             className="btn btn-primary me-2"
-            onClick={handleOpenCreateInstitutionModal}
+            onClick={handleOpenUpdateRoleModal}
           >
-            Create Institution
+            Update Role
           </button>
           <button
             className="btn btn-primary me-2"
-            onClick={handleOpenCreateCategoryModal}
+            onClick={handleOpenCreateInstitutionModal}
           >
-            Create Category
+            Create Institution
           </button>
         </div>
       </div>
@@ -115,10 +114,10 @@ const ManagementInstansi = () => {
         />
       )}
 
-      {isCreateCategoryModalOpen && (
-        <CreateCategoryModal
-          isOpen={isCreateCategoryModalOpen}
-          onClose={handleCloseCreateCategoryModal}
+      {isUpdateRoleModalOpen && (
+        <UpdateRoleModal
+          onClose={handleCloseUpdateRoleModal}
+          onRoleUpdated={handleCloseUpdateRoleModal}
         />
       )}
     </div>
