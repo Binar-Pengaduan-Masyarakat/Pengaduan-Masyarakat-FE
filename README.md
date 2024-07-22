@@ -17,7 +17,7 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 - Halaman Dashboard Publik
 
-> Halaman dashboard publik berisikan informasi Grafik serta laporan aduan terbaru hal yang dilakukan di dashboard publik ini hanya dapat melihat grafik serta melihat detail setiap laporan baru, jadi jika ingin melakukan pengaduan maka user tersebut harus login terlebih dahulu atau registrasi dulu jika belum memiliki Akun.
+> Halaman dashboard publik berisikan informasi chart serta laporan aduan terbaru hal yang dilakukan di dashboard publik ini hanya dapat melihat chart serta melihat detail setiap laporan baru, jadi jika ingin melakukan pengaduan maka user tersebut harus login terlebih dahulu atau registrasi dulu jika belum memiliki Akun.
 
 - Halaman Login & Registrasi
 
@@ -25,15 +25,15 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 - Halaman Dashboard User (Setelah Login)
 
-> Halaman Dashboard User adalah halaman yang sama dengan halaman dashboard untuk publik namun yang membedakan adalah halaman ini telah otomatis di tambahkan sebuah tombol untuk menambah data.
+> Halaman Dashboard User adalah halaman yang sama dengan halaman dashboard untuk publik namun yang membedakan adalah halaman ini akan memiliki sebuah tombol untuk membuat laporan/create report.
 
 - Halaman Create Report
 
-> Halaman Create Report adalah halaman dimana user dapat melakukan pengaduan terkait hal atau masalah yang ingin dilaporkan di daerah mereka kepada instansi terkait.
+> Halaman Create Report adalah halaman dimana user dapat melakukan pengaduan terkait hal atau masalah yang ingin dilaporkan di daerah mereka kepada kategori instansi terkait.
 
 - Halaman Detail Report
 
-> Halaman Detail Report adalah halaman yang memberikan informasi terkait laporan dari user apakah sudah di respon atau tidaknya oleh instansi yang sebelumnya di tuju oleh user untuk melakukan pengaduan.
+> Halaman Detail Report adalah halaman yang memberikan informasi terkait status dari laporan seperti apakah sudah di respon atau tidaknya oleh instansi pada kategori yang sebelumnya dituju oleh user yang melakukan pengaduan. Ada juga tombol upvote untuk meng-upvote laporan jika user berpikir kalau laporan yang dibuat user lain adalah sama dengan masalah yang sedang dia miliki, user tidak akan bisa meng-upvote laporan yang dia post sendiri, hanya bisa upvote laporan orang lain
 
 - Halaman Profil
 
@@ -45,15 +45,11 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 - Halaman Dashboard Admin Instansi
 
-> Halaman Dashbord Admin Instansi Sama dengan Halaman dashboard user namun yang membedakan Admin instasi dari segi fungsionalitas.
+> Halaman Dashbord Admin Instansi Sama dengan Halaman dashboard user namun data yang tampil hanya data laporan yang memiliki category id yang sama dengan instansi yang sedang login
 
-- Halaman Respon Resport
+- Halaman Detail Report
 
-> Halaman Respon Laporan adalah halaman dimana admin instansi akan merespon setiap setiap laporan yang masuk
-
-- Halaman Result Report
-
-> Halaman Result Report adalah halaman dimana pihak instansi akan memasukkan informasi tentang hasil investigasi dari leporan user yang melapor kepada instansi mereka.Ketika Admin instansi udah
+> Halaman Detail Report akan mempunyai tombol untuk "memberikan respon pada report, memberikan report result, melihat status report" pada laporan yang diklik, laporan hanya bisa direspon dan diberikan result oleh 1 institusi, jadi jika sudah dilakukan oleh institusi lain maka yang muncul adalah tombol untuk melihat status report. Ada pun tombol untuk melihat jumlah upvote, tidak akan bisa ditekan karena hanya user yang bisa melakukan upvote
 
 - Halaman Profil
 
@@ -72,7 +68,7 @@ Menu-menu pada halaman ini :
 
 - Halaman Dashboard Super Admin
 
-> Halaman Dashboard Super Admin ini berisikan informasi jumlah laporan yang masuk, laporan yang telah direspon atau selesai dan laporan yang belum direspon atau belum selesai.
+> Halaman Dashboard Super Admin ini berisikan informasi statistik laporan
 
 - Halaman Management User
 
@@ -88,7 +84,7 @@ Menu-menu pada halaman ini :
 
 - Halaman Profil Super Admin
 
-> Halaman Profil adalah halaman yang berisikan detail profile Super Admin, dimana halaman ini Super Admin dapat mengedit profil mereka sendiri dan menghapusnya .
+> Halaman Profil adalah halaman yang berisikan detail profile Super Admin, dimana halaman ini Super Admin dapat mengedit profil mereka.
 
 ---
 
@@ -107,18 +103,21 @@ Adapun Fitur pada Halaman User :
 - Fitur form pengaduan atau pembuatan laporan
 - Fitur login dan registrasi dilengkapi dengan autentikasi
 - Fitur detail laporan
+- Fitur status laporan
 - Fitur edit profile.
-- Fitur grafik informasi terkait laporan.
+- Fitur chart terkait statistik pada web.
+- Fitur upvote
 
 ### Bagian Admin Institusi
 
 ---
 
 - Fitur login dan logout
-- Fitur melihat semua laporan laporan baru
-- Fitur respon laporan apakah udah terselesaikan atau belum
-- Fitur hapus laporan
-- Fitur informasi grafik terkait laporan
+- Fitur melihat laporan yang masuk ke category id yang sama dengan instansi yang sedang login
+- Fitur merespon laporan
+- Fitur memberikan hasil penindakan laporan
+- Fitur melihat jumlah upvote
+- Fitur chart terkait statistik pada web.
 - Fitur edit profile
 
 ### Bagian Super Admin
@@ -127,8 +126,9 @@ Adapun Fitur pada Halaman User :
 
 - Fitur Login dan Logout
 - Fitur tambah dan hapus Admin Instansi
+- Fitur memberikan category id pada admin instansi
 - Fitur hapus user
 - Fitur hapus laporan
 - Fitur melihat grafik
-- Fitur informasi aduan atau laporan terbaru
+- Fitur statistik pada web
 - Fitur Edit profil
