@@ -7,9 +7,10 @@ Link: https://www.pengaduanmasyarakat.blog/
 
 Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
-1. Halaman User
-2. Halaman Admin Institusi
-3. Halaman Super Admin
+1. Halaman Publik
+2. Halaman User
+3. Halaman Admin Institusi
+4. Halaman Super Admin
 
 ## Halaman User
 
@@ -19,17 +20,21 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 > Halaman dashboard publik berisikan informasi chart serta laporan aduan terbaru hal yang dilakukan di dashboard publik ini hanya dapat melihat chart serta melihat detail setiap laporan baru, jadi jika ingin melakukan pengaduan maka user tersebut harus login terlebih dahulu atau registrasi dulu jika belum memiliki Akun.
 
-- Halaman Login & Registrasi
+- Halaman Detail Report
 
-> Halaman Login adalah halaman dimana user akan melakukan proses masuk kefitur webite agar nantinya user dapat melakukan pelaporan atau pengaduan secara online dan halaman registrasi yaitu halaman untuk melakukan pendaftaran akun bagi user yang memang belum memiliki akun untuk menggunakan fitur website ini, saat registrasi akun sedang berlangsung dan sudah menginputkan semua sesuai yang perintahkan oleh sistem lalu mensubmitnya maka sistem akan mengirimkan email verifikasi yang dimana email verifikasi ini akan menjadi tirgger dapat masukkannya user atau tidak kedalam website, jika user tidak melakukan verifikasi maka user tidak dapat login.
+> Halaman Detail Report adalah halaman yang memberikan informasi terkait status dari laporan seperti apakah sudah di respon atau tidaknya oleh instansi pada kategori yang sebelumnya dituju oleh user yang melakukan pengaduan. Ada juga statistik upvote
+
+## Halaman User
+
+---
 
 - Halaman Dashboard User (Setelah Login)
 
 > Halaman Dashboard User adalah halaman yang sama dengan halaman dashboard untuk publik namun yang membedakan adalah halaman ini akan memiliki sebuah tombol untuk membuat laporan/create report.
 
-- Halaman Create Report
+- Halaman Login & Registrasi
 
-> Halaman Create Report adalah halaman dimana user dapat melakukan pengaduan terkait hal atau masalah yang ingin dilaporkan di daerah mereka kepada kategori instansi terkait.
+> Halaman Login adalah halaman dimana user akan melakukan proses masuk kefitur webite agar nantinya user dapat melakukan pelaporan atau pengaduan secara online dan halaman registrasi yaitu halaman untuk melakukan pendaftaran akun bagi user yang memang belum memiliki akun untuk menggunakan fitur website ini, saat registrasi akun sedang berlangsung dan sudah menginputkan semua sesuai yang perintahkan oleh sistem lalu mensubmitnya maka sistem akan mengirimkan email verifikasi yang dimana email verifikasi ini akan menjadi tirgger dapat masukkannya user atau tidak kedalam website, jika user tidak melakukan verifikasi maka user tidak dapat login.
 
 - Halaman Detail Report
 
