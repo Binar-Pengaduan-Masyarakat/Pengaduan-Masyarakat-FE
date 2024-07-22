@@ -1,0 +1,44 @@
+name: Deploy React/Vite App
+
+on:
+  push:
+    branches:
+      - experiment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          APP_DIR: ${{ secrets.APP_DIR }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+
+          # Rsync the built files (from the dist directory) to the server
+          rsync -avz --exclude '/proc/*' -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./dist/ $SERVER_USER@$SERVER_IP:/var/www/Pengaduan-Masyarakat-FE/
+
+          # Optionally, you can connect to the server for additional steps
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+            sudo chown -R www-data:www-data /var/www/Pengaduan-Masyarakat-FE
+            sudo chmod -R 755 /var/www/Pengaduan-Masyarakat-FE
+            sudo systemctl restart nginx
+          EOF
