@@ -3,7 +3,7 @@
 
 # **PENGADUAN MASYARAKAT BAGIAN - FE**
 
-Link: https://www.pengaduanmasyarakat.blog/
+Link: https://www.pengaduanmasyarakat.blog
 
 Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
@@ -81,7 +81,7 @@ Menu-menu pada halaman ini :
 
 - Halaman Management Admin
 
-> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan role data admin institut yang dimana ketika super admin mendaftarkan akun suatu institut maka detail akun tersebut akan masuk ke email institut yang didaftarkan.
+> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan category data admin institut yang dimana ketika super admin mendaftarkan akun suatu institut maka detail akun tersebut akan masuk ke email institut yang didaftarkan.
 
 - Halaman Management Data Aduan
 
@@ -90,6 +90,10 @@ Menu-menu pada halaman ini :
 - Halaman Profil Super Admin
 
 > Halaman Profil adalah halaman yang berisikan detail profile Super Admin, dimana halaman ini Super Admin dapat mengedit profil mereka.
+
+- Halaman Management Category
+
+> Haalaman Management Category menampilkan daftar kategori yang ada dan ada opsi untuk menghapusnya juga
 
 ---
 
