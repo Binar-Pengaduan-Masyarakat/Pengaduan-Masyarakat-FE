@@ -12,7 +12,7 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 3. Halaman Admin Institusi
 4. Halaman Super Admin
 
-## Halaman User
+## Halaman Publik
 
 ---
 
