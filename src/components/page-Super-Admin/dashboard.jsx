@@ -58,7 +58,7 @@ const DashboardSuperAdmin = () => {
         <div className="stat-box">
           <div className="stat-number">{finishedReports}</div>
           <div className="stat-label">
-            Laporan Belum Selesai <i className="bi bi-file-earmark-x"></i>
+            Laporan Direspon<i className="bi bi-file-earmark-x"></i>
           </div>
         </div>
       </div>
