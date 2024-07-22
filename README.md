@@ -81,7 +81,7 @@ Menu-menu pada halaman ini :
 
 - Halaman Management Admin
 
-> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan category data admin institut yang dimana ketika super admin mendaftarkan akun suatu institut maka detail akun tersebut akan masuk ke email institut yang didaftarkan.
+> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan category/role data admin institut, dan juga ketika super admin mendaftarkan akun suatu institut maka detail login akun tersebut akan masuk ke email institut yang didaftarkan.
 
 - Halaman Management Data Aduan
 
@@ -93,7 +93,7 @@ Menu-menu pada halaman ini :
 
 - Halaman Management Category
 
-> Haalaman Management Category menampilkan daftar kategori yang ada dan ada opsi untuk menghapusnya juga
+> Haalaman Management Category menampilkan daftar kategori yang ada dan ada opsi untuk membuat dan menghapusnya juga
 
 ---
 
