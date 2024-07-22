@@ -2,6 +2,10 @@
   font-family: sans-serif;
 }
 
+body{
+  margin-bottom: 0;
+}
+
 .admin-dashboard {
   display: flex;
   height: auto;
@@ -270,7 +274,7 @@
 .latest-reports th,
 .latest-reports td {
   padding: 10px;
-  text-align: left;
+  text-align: center !important;
   border-bottom: 1px solid #ddd;
 }
 

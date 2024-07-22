@@ -12,10 +12,6 @@ const formatDate = (dateString) => {
 const MasterDataAduan = () => {
   const { data, error, isLoading, deleteReport } = useFetchReports();
 
-  if (!isLoading && !error && data) {
-    console.log("Fetched Data:", data);
-  }
-
   const handleDelete = (reportId) => {
     deleteReport(reportId);
   };

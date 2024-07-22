@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useFetchInstitutions from "../../api/institutions.API";
 import AssignRoleModal from "../../Modal/AssignCategoryModal";
 import CreateInstitutionModal from "./modal";
+import "../../css/page-institute/admin.css";
 
 const ManagementInstansi = () => {
   const { data, error, isLoading, deleteInstitution, createInstitution } =
@@ -32,8 +33,6 @@ const ManagementInstansi = () => {
 
   const handleCreateInstitution = () => {
     handleCloseCreateInstitutionModal();
-    // Optionally refresh data after creating institution
-    // fetchInstitutions();
   };
 
   if (isLoading) return <p>Memuat...</p>;
@@ -59,7 +58,7 @@ const ManagementInstansi = () => {
         </div>
       </div>
       <div className="table-responsive">
-        <table className="table">
+        <table className="table table-striped">
           <thead>
             <tr>
               <th>No</th>
