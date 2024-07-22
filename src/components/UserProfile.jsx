@@ -29,9 +29,8 @@ const Profile = () => {
         setNewName(data.data.name);
 
         const imageUrl = data.data.userImage
-          ? `${import.meta.env.VITE_BACKEND_URL}/profiles/${
-              data.data.userImage
-            }`
+          ? `${import.meta.env.VITE_BACKEND_URL}/profiles/${data.data.userImage
+          }`
           : "/images/placeholder/profile.png";
         setProfileImage(imageUrl);
       } catch (error) {
@@ -135,6 +134,14 @@ const Profile = () => {
                       onDrop={handleDrop}
                       maxFiles={1}
                       accept="image/*"
+                      onDropAccepted={(files) => {
+                        const file = files[0];
+                        if (file.size > 1048576) {
+                          alert("File size exceeds 1MB limit");
+                        } else {
+                          setReportImage(file);
+                        }
+                      }}
                       onDropRejected={() => {
                         alert("Only image files are allowed.");
                       }}

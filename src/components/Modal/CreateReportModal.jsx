@@ -64,8 +64,10 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
 
       setTimeout(() => {
         setLoading(false);
+        alert("Report created successfully!");
         onReportCreated();
         onClose();
+        window.location.reload();
       }, 1000);
     } catch (error) {
       console.error("Error creating report:", error);
@@ -193,7 +195,12 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     onDrop={handleDrop}
                     maxFiles={1}
                     onDropAccepted={(files) => {
-                      setReportImage(files[0]);
+                      const file = files[0];
+                      if (file.size > 1048576) {
+                        alert("File size exceeds 1MB limit");
+                      } else {
+                        setReportImage(file);
+                      }
                     }}
                     onDropRejected={(files) => {
                       console.error("Only one file can be uploaded");

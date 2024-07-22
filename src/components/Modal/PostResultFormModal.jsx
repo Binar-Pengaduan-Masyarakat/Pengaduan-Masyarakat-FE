@@ -98,7 +98,14 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
                   <Dropzone
                     onDrop={handleDrop}
                     maxFiles={1}
-                    maxFilesize={2}
+                    onDropAccepted={(files) => {
+                      const file = files[0];
+                      if (file.size > 1048576) {
+                        alert("File size exceeds 1MB limit");
+                      } else {
+                        setReportImage(file);
+                      }
+                    }}
                     accept="image/*"
                     onDropRejected={() => {
                       alert("Only image files are allowed.");
