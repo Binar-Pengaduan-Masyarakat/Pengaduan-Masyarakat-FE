@@ -21,7 +21,7 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 - Halaman Login & Registrasi
 
-> Halaman Login adalah halaman dimana user akan melakukan proses masuk kefitur webite agar nantinya user dapat melakukan pelaporan atau pengaduan secara oneline dan halaman registrasi yaitu halaman untuk melakukan pendaftaran akun bagi user yang memang belum memiliki akun untuk menggunakan fitur website ini.
+> Halaman Login adalah halaman dimana user akan melakukan proses masuk kefitur webite agar nantinya user dapat melakukan pelaporan atau pengaduan secara online dan halaman registrasi yaitu halaman untuk melakukan pendaftaran akun bagi user yang memang belum memiliki akun untuk menggunakan fitur website ini, saat registrasi akun sedang berlangsung dan sudah menginputkan semua sesuai yang perintahkan oleh sistem lalu mensubmitnya maka sistem akan mengirimkan email verifikasi yang dimana email verifikasi ini akan menjadi tirgger dapat masukkannya user atau tidak kedalam website, jika user tidak melakukan verifikasi maka user tidak dapat login.
 
 - Halaman Dashboard User (Setelah Login)
 
@@ -37,7 +37,7 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 - Halaman Profil
 
-> Halaman Profil adalah halaman yang berisikan biodata user sendiri, dimana halaman ini user dapar mengedit biodata mereka sendiri atau menghapus akun mereka sendiri.
+> Halaman Profil adalah halaman yang berisikan detail profile user sendiri, dimana halaman ini user dapat mengedit profil mereka sendiri.
 
 ## Halaman Admin Instansi
 
@@ -57,7 +57,7 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 - Halaman Profil
 
-> Halaman Profil adalah halaman yang berisikan profil
+> Halaman Profil adalah halaman yang berisikan detail profile admin instansi sendiri, dimana halaman ini admin dapat mengedit profil mereka sendiri.
 
 ## Halaman Super Admin
 
@@ -80,11 +80,15 @@ Menu-menu pada halaman ini :
 
 - Halaman Management Admin
 
-> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan role data admin institut.
+> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan role data admin institut yang dimana ketika super admin mendaftarkan akun suatu institut maka detail akun tersebut akan masuk ke email institut yang didaftarkan.
 
 - Halaman Management Data Aduan
 
 > Halaman Management Data Aduan adalah halaman yang berisikan data-data aduan seluruh user. Di halaman ini super admin hanya dapat melakukan penghapusan data aduan atau data laporan.
+
+- Halaman Profil Super Admin
+
+> Halaman Profil adalah halaman yang berisikan detail profile Super Admin, dimana halaman ini Super Admin dapat mengedit profil mereka sendiri dan menghapusnya .
 
 ---
 
