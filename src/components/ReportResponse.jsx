@@ -5,6 +5,36 @@ import InvestigationDetailsModal from "./Modal/InvestigationDetailsModal";
 import PostResultFormModal from "./Modal/PostResultFormModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const fetchCategoryId = async (userId) => {
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/categories/user/${userId}?timestamp=${new Date().getTime()}`,
+    {
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    }
+  );
+  const data = await response.json();
+  return data.length > 0 ? data[0].categoryId : null;
+};
+
+const fetchReportCategoryId = async (reportId) => {
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/reports/${reportId}?timestamp=${new Date().getTime()}`,
+    {
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    }
+  );
+  const data = await response.json();
+  return data.data ? data.data.categoryId : null;
+};
+
 const ReportResponse = ({ reportId }) => {
   const { userId } = useContext(UserContext);
   const [reportResult, setReportResult] = useState(null);
@@ -15,9 +45,19 @@ const ReportResponse = ({ reportId }) => {
   const [error, setError] = useState(null);
   const [modalContent, setModalContent] = useState(null);
   const [reload, setReload] = useState(false);
+  const [isSameCategory, setIsSameCategory] = useState(false);
 
   const fetchData = async () => {
     try {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const userCategoryId = await fetchCategoryId(storedUser.id);
+      const reportCategoryId = await fetchReportCategoryId(reportId);
+
+      console.log("User Category ID:", userCategoryId);
+      console.log("Report Category ID:", reportCategoryId);
+
+      setIsSameCategory(userCategoryId === reportCategoryId);
+
       const reportResultResponse = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
@@ -29,6 +69,8 @@ const ReportResponse = ({ reportId }) => {
         }
       );
       const resultData = await reportResultResponse.json();
+      console.log("Report Result Data:", resultData);
+
       if (resultData.data) {
         setReportResult(resultData.data);
       } else {
@@ -43,6 +85,8 @@ const ReportResponse = ({ reportId }) => {
           }
         );
         const responseData = await reportResponseResponse.json();
+        console.log("Report Responses Data:", responseData);
+
         setReportResponses(responseData.data);
 
         if (responseData.data.length > 0) {
@@ -57,6 +101,8 @@ const ReportResponse = ({ reportId }) => {
             }
           );
           const institutionData = await institutionResponse.json();
+          console.log("Institution Data:", institutionData);
+
           setInstitutionDetails(institutionData);
           setResponseDate(responseData.data[0].responseDate);
         }
@@ -74,6 +120,10 @@ const ReportResponse = ({ reportId }) => {
   }, [reportId, reload]);
 
   const postResponse = async () => {
+    if (!isSameCategory) {
+      alert("You cannot post a response for a different category.");
+      return;
+    }
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/reportResponses`,
@@ -91,7 +141,7 @@ const ReportResponse = ({ reportId }) => {
       const responseData = await response.json();
       if (response.ok) {
         alert("Response posted successfully!");
-        setReload((prev) => !prev); // Trigger reload
+        setReload((prev) => !prev);
       } else {
         alert(`Error posting response: ${responseData.message}`);
       }
@@ -136,7 +186,7 @@ const ReportResponse = ({ reportId }) => {
     const isReportResponsesEmpty = reportResponses.length === 0;
     const isUserInstitution = userId.startsWith("IN");
     const isUserUS = userId.startsWith("US");
-    const isUserEmpty = userId == "";
+    const isUserEmpty = userId === "";
 
     if (isUserUS && !isReportResponsesEmpty) {
       buttonContent = (
@@ -199,7 +249,12 @@ const ReportResponse = ({ reportId }) => {
           Post Result
         </button>
       );
-    } else if (isUserInstitution && isReportResponsesEmpty && !isUserEmpty) {
+    } else if (
+      isUserInstitution &&
+      isReportResponsesEmpty &&
+      !isUserEmpty &&
+      isSameCategory
+    ) {
       buttonContent = (
         <button
           className="btn btn-success"
@@ -211,6 +266,26 @@ const ReportResponse = ({ reportId }) => {
           onClick={postResponse}
         >
           Post Response
+        </button>
+      );
+    } else if (
+      isUserInstitution &&
+      isReportResponsesEmpty &&
+      !isUserEmpty &&
+      !isSameCategory
+    ) {
+      buttonContent = (
+        <button
+          className="btn btn-secondary"
+          style={{
+            borderStyle: "none",
+            padding: "10px 20px",
+            fontSize: "16px",
+            lineHeight: "1.2",
+          }}
+          disabled
+        >
+          Different Category!
         </button>
       );
     } else if (reportResponses.some((response) => response.userId !== userId)) {
