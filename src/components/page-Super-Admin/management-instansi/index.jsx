@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useFetchInstitutions from "../../api/institutions.API";
 import AssignRoleModal from "../../Modal/AssignCategoryModal";
 import CreateInstitutionModal from "./modal";
+import CreateCategoryModal from "../../Modal/CreateCategoryModal";
 import "../../css/page-institute/admin.css";
 
 const ManagementInstansi = () => {
@@ -9,6 +10,8 @@ const ManagementInstansi = () => {
     useFetchInstitutions();
   const [isAssignRoleModalOpen, setIsAssignRoleModalOpen] = useState(false);
   const [isCreateInstitutionModalOpen, setIsCreateInstitutionModalOpen] =
+    useState(false);
+  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
     useState(false);
 
   const handleDelete = (institutionId) => {
@@ -31,8 +34,12 @@ const ManagementInstansi = () => {
     setIsCreateInstitutionModalOpen(false);
   };
 
-  const handleCreateInstitution = () => {
-    handleCloseCreateInstitutionModal();
+  const handleOpenCreateCategoryModal = () => {
+    setIsCreateCategoryModalOpen(true);
+  };
+
+  const handleCloseCreateCategoryModal = () => {
+    setIsCreateCategoryModalOpen(false);
   };
 
   if (isLoading) return <p>Memuat...</p>;
@@ -50,10 +57,16 @@ const ManagementInstansi = () => {
             Assign Role
           </button>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary me-2"
             onClick={handleOpenCreateInstitutionModal}
           >
             Create Institution
+          </button>
+          <button
+            className="btn btn-primary me-2"
+            onClick={handleOpenCreateCategoryModal}
+          >
+            Create Category
           </button>
         </div>
       </div>
@@ -99,7 +112,13 @@ const ManagementInstansi = () => {
         <CreateInstitutionModal
           isOpen={isCreateInstitutionModalOpen}
           onClose={handleCloseCreateInstitutionModal}
-          onCreate={handleCreateInstitution}
+        />
+      )}
+
+      {isCreateCategoryModalOpen && (
+        <CreateCategoryModal
+          isOpen={isCreateCategoryModalOpen}
+          onClose={handleCloseCreateCategoryModal}
         />
       )}
     </div>

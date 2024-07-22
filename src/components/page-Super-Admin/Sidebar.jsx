@@ -38,6 +38,9 @@ const SuperAdmin = () => {
             <li>
               <Link to="/superadmin/reports">Master Data Aduan</Link>
             </li>
+            <li>
+              <Link to="/superadmin/managementcat">Management Category</Link>
+            </li>
           </ul>
         </nav>
       </div>
