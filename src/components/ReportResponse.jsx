@@ -50,7 +50,9 @@ const ReportResponse = ({ reportId }) => {
   const fetchData = async () => {
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
-      const userCategoryId = await fetchCategoryId(storedUser.id);
+      const userCategoryId = storedUser
+        ? await fetchCategoryId(storedUser.id)
+        : null;
       const reportCategoryId = await fetchReportCategoryId(reportId);
 
       setIsSameCategory(userCategoryId === reportCategoryId);
@@ -111,7 +113,7 @@ const ReportResponse = ({ reportId }) => {
 
   useEffect(() => {
     fetchData();
-  }, [reportId, reload]);
+  }, [reportId, reload, userId]);
 
   const postResponse = async () => {
     if (!isSameCategory) {
@@ -155,7 +157,22 @@ const ReportResponse = ({ reportId }) => {
 
   let buttonContent;
 
-  if (reportResult) {
+  if (loading) {
+    buttonContent = (
+      <button
+        className="btn btn-secondary"
+        style={{
+          borderStyle: "none",
+          padding: "10px 20px",
+          fontSize: "16px",
+          lineHeight: "1.2",
+        }}
+        disabled
+      >
+        Loading...
+      </button>
+    );
+  } else if (reportResult) {
     buttonContent = (
       <button
         className="btn btn-success"
@@ -182,7 +199,7 @@ const ReportResponse = ({ reportId }) => {
     const isUserUS = userId.startsWith("US");
     const isUserEmpty = userId === "";
 
-    if (isUserUS && !isReportResponsesEmpty) {
+    if ((isUserUS || isUserEmpty) && !isReportResponsesEmpty) {
       buttonContent = (
         <button
           className="btn btn-primary"
@@ -204,7 +221,7 @@ const ReportResponse = ({ reportId }) => {
           Investigation in Progress
         </button>
       );
-    } else if (isUserUS) {
+    } else if (isUserUS || isUserEmpty) {
       buttonContent = (
         <button
           className="btn btn-secondary"
