@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -27,24 +25,21 @@ const RegisterUser = () => {
     setError(null);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/auth/register`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
         formData
       );
-      if (response.status === 200) {
-        navigate("/verify-email");
-      } else {
-        setError("Registration failed, please try again.");
-      }
+      navigate("/verify-email");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "An error occurred, please try again."
-      );
+      setError(err.response?.data?.message || "An error occurred, please try again.");
     }
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 w-100" style={{ maxWidth: "400px" }}>
+    <div
+      className="container d-flex justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
+      <div className="card p-4" style={{ maxWidth: "400px", width: "100%" }}>
         <h3 className="card-title text-center mb-4">User Registration</h3>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
@@ -58,7 +53,6 @@ const RegisterUser = () => {
               id="name"
               onChange={handleInput}
               name="name"
-              required
             />
           </div>
           <div className="mb-3">
@@ -71,7 +65,6 @@ const RegisterUser = () => {
               id="email"
               onChange={handleInput}
               name="email"
-              required
             />
           </div>
           <div className="mb-3">
@@ -84,7 +77,6 @@ const RegisterUser = () => {
               id="password"
               onChange={handleInput}
               name="password"
-              required
             />
           </div>
           <div className="d-grid">
@@ -93,9 +85,10 @@ const RegisterUser = () => {
               className="btn btn-primary"
               style={{
                 backgroundColor: "#343a40",
-                border: "none",
+                borderStyle: "none",
                 marginTop: "10px",
-              }}>
+              }}
+            >
               Register
             </button>
           </div>
