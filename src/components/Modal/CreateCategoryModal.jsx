@@ -24,7 +24,7 @@ const CreateCategoryModal = ({ onClose }) => {
 
     try {
       const response = await fetch(
-        `${process.env.VITE_BACKEND_URL}/api/categories`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/categories`,
         {
           method: "POST",
           headers: {
