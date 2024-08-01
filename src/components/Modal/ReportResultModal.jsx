@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalImage from "react-modal-image";
@@ -16,8 +18,10 @@ const ReportResultModal = ({ result, onClose }) => {
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
-        const data = await response.json();
-        setUserName(data.data.name);
+        const {
+          data: { name },
+        } = await response.json();
+        setUserName(name);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -41,12 +45,8 @@ const ReportResultModal = ({ result, onClose }) => {
       }
     };
 
-    if (result.userId) {
-      fetchUserData();
-    }
-    if (result.resultImage) {
-      fetchResultImage();
-    }
+    if (result.userId) fetchUserData();
+    if (result.resultImage) fetchResultImage();
   }, [result]);
 
   useEffect(() => {
@@ -70,8 +70,7 @@ const ReportResultModal = ({ result, onClose }) => {
           <button
             type="button"
             className="modal-close-button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             &times;
           </button>
         </div>
@@ -94,7 +93,7 @@ const ReportResultModal = ({ result, onClose }) => {
               className="img-fluid"
               showRotate={false}
               hideDownload={true}
-              styles={{ borderRadius: "5px" }}
+              style={{ borderRadius: "5px" }}
             />
           ) : (
             <div className="placeholder-image">

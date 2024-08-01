@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext } from "react";
 import Dropzone from "react-dropzone";
 import { UserContext } from "../UserContext";
@@ -99,20 +101,17 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
               <button
                 type="button"
                 className="btn-close"
-                onClick={onClose}
-              ></button>
+                onClick={onClose}></button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit}>
                 <div className="form-group mb-2">
                   <label
                     htmlFor="reportContent"
-                    style={{ marginBottom: "5px" }}
-                  >
+                    style={{ marginBottom: "5px" }}>
                     Report Content
                   </label>
                   <textarea
-                    type="text"
                     className="form-control"
                     id="reportContent"
                     value={reportContent}
@@ -131,15 +130,13 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     id="categoryId"
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    required
-                  >
+                    required>
                     <option value="">Select Category</option>
                     {categories.length > 0 ? (
                       categories.map((category) => (
                         <option
                           key={category.categoryId}
-                          value={category.categoryId}
-                        >
+                          value={category.categoryId}>
                           {category.categoryName}
                         </option>
                       ))
@@ -153,7 +150,6 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     District
                   </label>
                   <input
-                    type="text"
                     className="form-control"
                     id="district"
                     value={district}
@@ -167,7 +163,6 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     Subdistrict
                   </label>
                   <input
-                    type="text"
                     className="form-control"
                     id="subdistrict"
                     value={subdistrict}
@@ -181,7 +176,6 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     Address
                   </label>
                   <input
-                    type="text"
                     className="form-control"
                     id="address"
                     value={address}
@@ -204,8 +198,7 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     }}
                     onDropRejected={(files) => {
                       console.error("Only one file can be uploaded");
-                    }}
-                  >
+                    }}>
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps()} className="dropzone">
                         <input {...getInputProps()} />
@@ -226,8 +219,7 @@ const CreateReportModal = ({ onClose, onReportCreated }) => {
                     type="submit"
                     className="btn btn-danger"
                     style={{ backgroundColor: "#343a40", borderStyle: "none" }}
-                    disabled={loading}
-                  >
+                    disabled={loading}>
                     {loading ? "Submitting..." : "Submit"}
                   </button>
                 </div>

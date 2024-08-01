@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+/** @format */
+
+import { useState, useEffect, useCallback } from "react";
 
 export default function useFetchInstitutions() {
   const [data, setData] = useState(null);
@@ -6,39 +8,40 @@ export default function useFetchInstitutions() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-    const URL = import.meta.env.VITE_BACKEND_URL
+    const fetchData = async () => {
+      const URL = import.meta.env.VITE_BACKEND_URL;
       try {
         const response = await fetch(`${URL}/api/institutions`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
         const fetchedData = await response.json();
         setData(fetchedData);
-        setIsLoading(false);
       } catch (err) {
         setError(err.message);
+      } finally {
         setIsLoading(false);
       }
-    }
+    };
 
     fetchData();
   }, []);
 
-  const deleteInstitution = async (institutionId) => {
-    const URL = import.meta.env.VITE_BACKEND_URL
+  const deleteInstitution = useCallback(async (institutionId) => {
+    const URL = import.meta.env.VITE_BACKEND_URL;
     try {
       const response = await fetch(`${URL}/api/institutions/${institutionId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       if (!response.ok) {
-        throw new Error('Failed to delete the institution');
+        throw new Error("Failed to delete the institution");
       }
-      // Optionally, you can re-fetch the data or update state here
-      // to reflect the deletion in your UI
-      alert('Institution deleted successfully');
+      alert("Institution deleted successfully");
       window.location.reload();
     } catch (err) {
       setError(err.message);
     }
-  };
+  }, []);
 
   return { data, error, isLoading, deleteInstitution };
 }

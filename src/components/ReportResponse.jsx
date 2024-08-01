@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
 import ReportResultModal from "./Modal/ReportResultModal";
@@ -57,15 +59,16 @@ const ReportResponse = ({ reportId }) => {
 
       setIsSameCategory(userCategoryId === reportCategoryId);
 
+      const fetchOptions = {
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      };
       const reportResultResponse = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
         }/api/reportResults/${reportId}?timestamp=${new Date().getTime()}`,
-        {
-          headers: {
-            "Cache-Control": "no-cache",
-          },
-        }
+        fetchOptions
       );
       const resultData = await reportResultResponse.json();
 
@@ -76,11 +79,7 @@ const ReportResponse = ({ reportId }) => {
           `${
             import.meta.env.VITE_BACKEND_URL
           }/api/reportResponses/report/${reportId}?timestamp=${new Date().getTime()}`,
-          {
-            headers: {
-              "Cache-Control": "no-cache",
-            },
-          }
+          fetchOptions
         );
         const responseData = await reportResponseResponse.json();
 
@@ -91,11 +90,7 @@ const ReportResponse = ({ reportId }) => {
             `${import.meta.env.VITE_BACKEND_URL}/api/institutions/${
               responseData.data[0].userId
             }?timestamp=${new Date().getTime()}`,
-            {
-              headers: {
-                "Cache-Control": "no-cache",
-              },
-            }
+            fetchOptions
           );
           const institutionData = await institutionResponse.json();
 
@@ -155,159 +150,160 @@ const ReportResponse = ({ reportId }) => {
     setModalContent(null);
   };
 
-  let buttonContent;
-
-  if (reportResult) {
-    buttonContent = (
-      <button
-        className="btn btn-success"
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          lineHeight: "1.2",
-        }}
-        onClick={() =>
-          openModal(
-            <ReportResultModal result={reportResult} onClose={closeModal} />
-          )
-        }
-      >
-        View Results
-      </button>
-    );
-  } else if (reportResponses) {
-    const isUserResponse = reportResponses.some(
-      (response) => response.userId === userId
-    );
-    const isReportResponsesEmpty = reportResponses.length === 0;
-    const isUserInstitution = userId.startsWith("IN");
-    const isUserUS = userId.startsWith("US");
-    const isUserEmpty = userId === "";
-
-    if ((isUserUS || isUserEmpty) && !isReportResponsesEmpty) {
-      buttonContent = (
-        <button
-          className="btn btn-primary"
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            lineHeight: "1.2",
-          }}
-          onClick={() =>
-            openModal(
-              <InvestigationDetailsModal
-                responseDate={responseDate}
-                institutionDetails={institutionDetails}
-                onClose={closeModal}
-              />
-            )
-          }
-        >
-          Investigation in Progress
-        </button>
-      );
-    } else if (isUserUS || isUserEmpty) {
-      buttonContent = (
-        <button
-          className="btn btn-secondary"
-          style={{
-            borderStyle: "none",
-            padding: "10px 20px",
-            fontSize: "16px",
-            lineHeight: "1.2",
-          }}
-          disabled
-        >
-          No Response Found
-        </button>
-      );
-    } else if (isUserResponse) {
-      buttonContent = (
-        <button
-          className="btn btn-warning"
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-            padding: "10px 20px",
-            fontSize: "16px",
-            lineHeight: "1.2",
-          }}
-          onClick={() =>
-            openModal(
-              <PostResultFormModal
-                reportId={reportId}
-                onClose={closeModal}
-                setReload={setReload}
-              />
-            )
-          }
-        >
-          Post Result
-        </button>
-      );
-    } else if (
-      isUserInstitution &&
-      isReportResponsesEmpty &&
-      !isUserEmpty &&
-      isSameCategory
-    ) {
-      buttonContent = (
+  const renderButtonContent = () => {
+    if (reportResult) {
+      return (
         <button
           className="btn btn-success"
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            lineHeight: "1.2",
-          }}
-          onClick={postResponse}
-        >
-          Post Response
-        </button>
-      );
-    } else if (
-      isUserInstitution &&
-      isReportResponsesEmpty &&
-      !isUserEmpty &&
-      !isSameCategory
-    ) {
-      buttonContent = (
-        <button
-          className="btn btn-secondary"
-          style={{
-            borderStyle: "none",
-            padding: "10px 20px",
-            fontSize: "16px",
-            lineHeight: "1.2",
-          }}
-          disabled
-        >
-          No Response Found
-        </button>
-      );
-    } else if (reportResponses.some((response) => response.userId !== userId)) {
-      buttonContent = (
-        <button
-          className="btn btn-primary"
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            lineHeight: "1.2",
-          }}
+          style={{ padding: "10px 20px", fontSize: "16px", lineHeight: "1.2" }}
           onClick={() =>
             openModal(
-              <InvestigationDetailsModal
-                responseDate={responseDate}
-                institutionDetails={institutionDetails}
-                onClose={closeModal}
-              />
+              <ReportResultModal result={reportResult} onClose={closeModal} />
             )
-          }
-        >
-          Investigation in Progress
+          }>
+          View Results
         </button>
       );
-    } else {
-      buttonContent = (
+    }
+
+    if (reportResponses) {
+      const isUserResponse = reportResponses.some(
+        (response) => response.userId === userId
+      );
+      const isReportResponsesEmpty = reportResponses.length === 0;
+      const isUserInstitution = userId.startsWith("IN");
+      const isUserUS = userId.startsWith("US");
+      const isUserEmpty = userId === "";
+
+      if ((isUserUS || isUserEmpty) && !isReportResponsesEmpty) {
+        return (
+          <button
+            className="btn btn-primary"
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+            onClick={() =>
+              openModal(
+                <InvestigationDetailsModal
+                  responseDate={responseDate}
+                  institutionDetails={institutionDetails}
+                  onClose={closeModal}
+                />
+              )
+            }>
+            Investigation in Progress
+          </button>
+        );
+      }
+
+      if (isUserUS || isUserEmpty) {
+        return (
+          <button
+            className="btn btn-secondary"
+            style={{
+              borderStyle: "none",
+              padding: "10px 20px",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+            disabled>
+            No Response Found
+          </button>
+        );
+      }
+
+      if (isUserResponse) {
+        return (
+          <button
+            className="btn btn-warning"
+            style={{
+              backgroundColor: "blue",
+              color: "white",
+              padding: "10px 20px",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+            onClick={() =>
+              openModal(
+                <PostResultFormModal
+                  reportId={reportId}
+                  onClose={closeModal}
+                  setReload={setReload}
+                />
+              )
+            }>
+            Post Result
+          </button>
+        );
+      }
+
+      if (
+        isUserInstitution &&
+        isReportResponsesEmpty &&
+        !isUserEmpty &&
+        isSameCategory
+      ) {
+        return (
+          <button
+            className="btn btn-success"
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+            onClick={postResponse}>
+            Post Response
+          </button>
+        );
+      }
+
+      if (
+        isUserInstitution &&
+        isReportResponsesEmpty &&
+        !isUserEmpty &&
+        !isSameCategory
+      ) {
+        return (
+          <button
+            className="btn btn-secondary"
+            style={{
+              borderStyle: "none",
+              padding: "10px 20px",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+            disabled>
+            No Response Found
+          </button>
+        );
+      }
+
+      if (reportResponses.some((response) => response.userId !== userId)) {
+        return (
+          <button
+            className="btn btn-primary"
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              lineHeight: "1.2",
+            }}
+            onClick={() =>
+              openModal(
+                <InvestigationDetailsModal
+                  responseDate={responseDate}
+                  institutionDetails={institutionDetails}
+                  onClose={closeModal}
+                />
+              )
+            }>
+            Investigation in Progress
+          </button>
+        );
+      }
+
+      return (
         <button
           className="btn btn-secondary"
           style={{
@@ -316,14 +312,13 @@ const ReportResponse = ({ reportId }) => {
             fontSize: "16px",
             lineHeight: "1.2",
           }}
-          disabled
-        >
+          disabled>
           No Response Found
         </button>
       );
     }
-  } else {
-    buttonContent = (
+
+    return (
       <button
         className="btn btn-secondary"
         style={{
@@ -332,16 +327,15 @@ const ReportResponse = ({ reportId }) => {
           fontSize: "16px",
           lineHeight: "1.2",
         }}
-        disabled
-      >
+        disabled>
         No Response Found
       </button>
     );
-  }
+  };
 
   return (
     <div>
-      {buttonContent}
+      {renderButtonContent()}
       {modalContent && (
         <div className="modal-overlay">
           <div className="modal-dialog">
@@ -352,5 +346,4 @@ const ReportResponse = ({ reportId }) => {
     </div>
   );
 };
-
 export default ReportResponse;

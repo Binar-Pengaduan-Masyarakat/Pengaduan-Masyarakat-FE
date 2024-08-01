@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "/public/css/Modal.css";
@@ -30,6 +32,7 @@ const InvestigationDetailsModal = ({
     return null;
   }
 
+  const formattedResponseDate = new Date(responseDate).toLocaleString();
   return (
     <div className="modal-overlay">
       <div className="modal-content" ref={modalContentRef}>
@@ -38,8 +41,7 @@ const InvestigationDetailsModal = ({
           <button
             type="button"
             className="modal-close-button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             &times;
           </button>
         </div>
@@ -49,8 +51,7 @@ const InvestigationDetailsModal = ({
             {institutionDetails.name || "No details available"}
           </p>
           <p>
-            <strong>Response Date:</strong>{" "}
-            {new Date(responseDate).toLocaleString()}
+            <strong>Response Date:</strong> {formattedResponseDate}
           </p>
         </div>
       </div>

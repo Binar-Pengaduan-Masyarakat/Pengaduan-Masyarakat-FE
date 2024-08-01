@@ -1,3 +1,5 @@
+/** @format */
+
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
@@ -21,41 +23,34 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         formData
       );
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      if (user.roles === 'SUPERADMIN') {
-        navigate('/superadmin/dashboard');
+      if (user.roles === "SUPERADMIN") {
+        navigate("/superadmin/dashboard");
       } else {
-        navigate('/');
+        navigate("/");
       }
       window.location.reload();
     } catch (err) {
-      const errorMessage = err.response?.data?.error;
+      const errorMessage = err.response?.data?.error || "An error occurred";
       setError(errorMessage);
     }
   };
 
   return (
-    <div
-      className="container d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
+    <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="col-md-4">
         <div className="card">
           <div className="card-body">
-            <h2
-              className="card-title text-center"
-              style={{ marginBottom: "10px" }}
-            >
-              Login
-            </h2>
+            <h2 className="card-title text-center mb-4">Login</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
@@ -90,12 +85,11 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="btn btn-primary"
-                  style={{ backgroundColor: "#343a40", borderStyle: "none" }}
-                >
+                  style={{ backgroundColor: "#343a40", borderStyle: "none" }}>
                   Login
                 </button>
               </div>
-              <p className="text-center" style={{ marginTop: "20px" }}>
+              <p className="text-center mt-4">
                 Don't have an account?{" "}
                 <Link to="/register" className="register-link">
                   Click Here

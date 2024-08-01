@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "/public/css/TruncatedText.css";
@@ -15,8 +17,7 @@ const TruncatedText = ({ text, maxLength }) => {
   return (
     <span
       className={`truncated-text ${isExpanded ? "expanded" : "collapsed"}`}
-      onClick={handleToggle}
-    >
+      onClick={handleToggle}>
       {isExpanded ? text : truncatedText}
     </span>
   );

@@ -16,65 +16,100 @@ const ReportDetailsPage = () => {
   const [submitterName, setSubmitterName] = useState(null);
   const [reportResponses, setReportResponses] = useState(null);
   const [reportResult, setReportResult] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
-    fetchReportDetails(reportId);
+    fetchReportDetails();
+    return () => {
+      setIsMounted(false);
+    };
   }, [reportId]);
 
-  const fetchReportDetails = async (reportId) => {
+  const fetchReportDetails = async () => {
     try {
-      const response = await fetch(
+      const reportResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/reports/${reportId}`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch report details");
+      if (!reportResponse.ok) throw new Error("Failed to fetch report details");
+      const reportData = await reportResponse.json();
+      if (isMounted) {
+        setReportDetails(reportData.data);
       }
-      const data = await response.json();
-      setReportDetails(data.data);
-      fetchSubmitterName(data.data.userId);
-      fetchReportData(reportId);
+
+      if (reportData.data?.userId) {
+        const submitterResponse = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+            reportData.data.userId
+          }`
+        );
+        if (!submitterResponse.ok)
+          throw new Error("Failed to fetch user details");
+
+        const submitterData = await submitterResponse.json();
+        if (isMounted) {
+          setSubmitterName(submitterData.data.name);
+        }
+      } else {
+        if (isMounted) {
+          setSubmitterName(null);
+        }
+      }
+
+      const reportDataResponse = await fetch(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/reportResponses/report/${reportId}`
+      );
+      if (!reportDataResponse.ok)
+        throw new Error("Failed to fetch report responses");
+
+      const reportResponsesData = await reportDataResponse.json();
+      if (isMounted) {
+        setReportResponses(reportResponsesData.data);
+      }
+
+      const resultResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/reportResults/${reportId}`
+      );
+      if (!resultResponse.ok) throw new Error("Failed to fetch report results");
+
+      const resultData = await resultResponse.json();
+      if (isMounted) {
+        setReportResult(resultData.data);
+      }
+
+      if (reportData.data?.categoryId) {
+        const categoryResponse = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/categories/${
+            reportData.data.categoryId
+          }`,
+          {
+            headers: {
+              "Cache-Control": "no-cache, no-store, must-revalidate",
+              Pragma: "no-cache",
+              Expires: "0",
+            },
+          }
+        );
+        if (!categoryResponse.ok)
+          throw new Error("Failed to fetch category details");
+
+        const categoryData = await categoryResponse.json();
+        console.log("Category Data:", categoryData); // Debugging statement
+        if (isMounted) {
+          setCategoryName(categoryData[0].categoryName);
+        }
+      } else {
+        setCategoryName(null);
+      }
     } catch (error) {
       console.error("Error fetching report details:", error);
     }
   };
 
-  const fetchSubmitterName = async (userId) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch user details");
-      }
-      const data = await response.json();
-      setSubmitterName(data.data.name);
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
-
-  const fetchReportData = async (reportId) => {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/api/reportResponses/report/${reportId}`
-      );
-      const responseData = await response.json();
-      setReportResponses(responseData.data);
-
-      const resultResponse = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/reportResults/${reportId}`
-      );
-      const resultData = await resultResponse.json();
-      setReportResult(resultData.data);
-    } catch (error) {
-      console.error("Error fetching report responses or results:", error);
-    }
-  };
-
   const handleRefresh = () => {
-    fetchReportDetails(reportId);
+    fetchReportDetails();
   };
 
   return (
@@ -83,10 +118,7 @@ const ReportDetailsPage = () => {
         <h3 className="text-left mb-0">Report Details</h3>
         <div className="d-flex justify-content-end">
           <SameReporter reportId={reportId} />
-          <ReportResponse
-            reportId={reportId}
-            onDataChange={handleRefresh} // Pass refresh function
-          />
+          <ReportResponse reportId={reportId} onDataChange={handleRefresh} />
         </div>
       </div>
       {reportDetails ? (
@@ -158,7 +190,8 @@ const ReportDetailsPage = () => {
           <div className="card-footer d-flex justify-content-between">
             <div>
               <h6 className="mb-0 text-muted">
-                {reportDetails.reportId} - {reportDetails.categoryId}
+                {reportDetails.reportId} - {reportDetails.categoryId} -{" "}
+                {categoryName}
               </h6>
             </div>
             <div className="text-end">
@@ -179,5 +212,4 @@ const ReportDetailsPage = () => {
     </div>
   );
 };
-
 export default ReportDetailsPage;

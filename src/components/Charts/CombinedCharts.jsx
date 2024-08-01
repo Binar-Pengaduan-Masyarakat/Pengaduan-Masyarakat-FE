@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import ReportSummary from "./ReportSummaryChart";
 import UserCategory from "./UserCategoryChart";
@@ -19,19 +21,19 @@ const Charts = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const toggleCharts = () => setShowCharts(!showCharts);
   return (
     <div className="container-fluid">
       {window.innerHeight > window.innerWidth && (
         <Button
           variant="danger"
-          onClick={() => setShowCharts(!showCharts)}
+          onClick={toggleCharts}
           style={{
             width: "100%",
             marginTop: "10px",
             backgroundColor: "#343a40",
             borderStyle: "none",
-          }}
-        >
+          }}>
           {showCharts ? "Hide Charts" : "Show Charts"}
         </Button>
       )}

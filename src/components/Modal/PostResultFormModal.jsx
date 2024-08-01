@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useContext } from "react";
 import Dropzone from "react-dropzone";
 import { UserContext } from "../UserContext";
@@ -31,17 +33,18 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
           body: formData,
         }
       );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error posting result");
+      }
+
       const data = await response.json();
-      if (response.ok) {
-        if (data.message === "Data Failed to be Added") {
-          setError("Failed to post result: " + data.message);
-        } else {
-          alert("Result posted successfully!");
-          setReload((prev) => !prev);
-          onClose();
-        }
+      if (data.message !== "Data Failed to be Added") {
+        alert("Result posted successfully!");
+        setReload((prev) => !prev);
+        onClose();
       } else {
-        setError(data.message || "Error posting result");
+        setError("Failed to post result: " + data.message);
       }
     } catch (err) {
       setError(err.message || "Failed to post result.");
@@ -52,7 +55,12 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
 
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      setResultImage(acceptedFiles[0]);
+      const file = acceptedFiles[0];
+      if (file.size > 1048576) {
+        alert("Image size exceeds 1MB limit, Post will fail");
+      } else {
+        setResultImage(file);
+      }
     }
   };
 
@@ -73,16 +81,14 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
               <button
                 type="button"
                 className="btn-close"
-                onClick={onClose}
-              ></button>
+                onClick={onClose}></button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit}>
                 <div className="form-group mb-2">
                   <label
                     htmlFor="resultContent"
-                    style={{ marginBottom: "5px" }}
-                  >
+                    style={{ marginBottom: "5px" }}>
                     Result Content
                   </label>
                   <textarea
@@ -95,22 +101,7 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
                   />
                 </div>
                 <div className="form-group mb-2">
-                  <Dropzone
-                    onDrop={handleDrop}
-                    maxFiles={1}
-                    onDropAccepted={(files) => {
-                      const file = files[0];
-                      if (file.size > 1048576) {
-                        alert("Image size exceeds 1MB limit, Post will fail");
-                      } else {
-                        setReportImage(file);
-                      }
-                    }}
-                    accept="image/*"
-                    onDropRejected={() => {
-                      alert("Only image files are allowed.");
-                    }}
-                  >
+                  <Dropzone onDrop={handleDrop} maxFiles={1} accept="image/*">
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps()} className="dropzone">
                         <input {...getInputProps()} />
@@ -132,8 +123,7 @@ const PostResultFormModal = ({ reportId, onClose, setReload }) => {
                     type="submit"
                     className="btn btn-primary"
                     style={{ backgroundColor: "#343a40", borderStyle: "none" }}
-                    disabled={loading}
-                  >
+                    disabled={loading}>
                     {loading ? "Posting..." : "Post Result"}
                   </button>
                 </div>

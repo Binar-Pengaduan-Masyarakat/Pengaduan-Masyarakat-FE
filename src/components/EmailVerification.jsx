@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,12 +9,11 @@ const EmailVerification = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountdown(countdown - 1);
+      setCountdown((prevCountdown) => prevCountdown - 1);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [countdown]);
-
+  }, []);
   useEffect(() => {
     if (countdown === 0) {
       navigate("/");
@@ -22,8 +23,7 @@ const EmailVerification = () => {
   return (
     <div
       className="container d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
+      style={{ height: "100vh" }}>
       <div className="card" style={{ maxWidth: "50vw", padding: "20px" }}>
         <h2 className="text-center">Email Verification</h2>
         <p className="text-center">
@@ -41,8 +41,7 @@ const EmailVerification = () => {
           <button
             className="btn btn-primary"
             onClick={() => navigate("/")}
-            style={{ marginTop: "20px" }}
-          >
+            style={{ marginTop: "20px" }}>
             Back to Home
           </button>
         </div>

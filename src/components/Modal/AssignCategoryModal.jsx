@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import "/public/css/CreateReportModal.css";
@@ -13,9 +15,16 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
   const { userId } = useContext(UserContext);
 
   useEffect(() => {
-    fetchUsers();
-    fetchCategories();
+    fetchInitialData();
   }, []);
+
+  const fetchInitialData = async () => {
+    try {
+      await Promise.all([fetchUsers(), fetchCategories()]);
+    } catch (error) {
+      console.error("Error fetching initial data:", error);
+    }
+  };
 
   useEffect(() => {
     if (selectedUserId) {
@@ -133,8 +142,7 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
               <button
                 type="button"
                 className="btn-close"
-                onClick={onClose}
-              ></button>
+                onClick={onClose}></button>
             </div>
             <div className="modal-body" style={{ marginTop: "-10px" }}>
               <form onSubmit={handleSubmit}>
@@ -147,8 +155,7 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
                     id="userId"
                     value={selectedUserId}
                     onChange={(e) => setSelectedUserId(e.target.value)}
-                    required
-                  >
+                    required>
                     <option value="">Select Institution</option>
                     {users.length > 0 ? (
                       users.map((user) => (
@@ -170,15 +177,13 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
                     id="categoryId"
                     value={selectedCategoryId}
                     onChange={(e) => setSelectedCategoryId(e.target.value)}
-                    required
-                  >
+                    required>
                     <option value="">Select Category</option>
                     {categories.length > 0 ? (
                       categories.map((category) => (
                         <option
                           key={category.categoryId}
-                          value={category.categoryId}
-                        >
+                          value={category.categoryId}>
                           {category.categoryName}
                         </option>
                       ))
@@ -196,8 +201,7 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
                       borderStyle: "none",
                       marginTop: "10px",
                     }}
-                    disabled={loading || isButtonDisabled()}
-                  >
+                    disabled={loading || isButtonDisabled()}>
                     {getButtonText()}
                   </button>
                 </div>
@@ -209,5 +213,4 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
     </>
   );
 };
-
 export default AssignRoleModal;

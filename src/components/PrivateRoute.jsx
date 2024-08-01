@@ -1,18 +1,22 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+/** @format */
+
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ element, isLoginPage }) => {
-  const token = localStorage.getItem('token');
-  const getuser = localStorage.getItem('user');
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const roles = user.roles || "";
 
   if (isLoginPage && token) {
-    const roles = JSON.parse(getuser).roles;
-    if (roles === "USER") {
-      return <Navigate to="/" replace />;
-    } else if (roles === "INSTITUTION") {
-      return <Navigate to="/" replace />;
-    } else if (roles === "SUPERADMIN") {
-      return <Navigate to="/superadmin/dashboard" replace />;
+    switch (roles) {
+      case "USER":
+      case "INSTITUTION":
+        return <Navigate to="/" replace />;
+      case "SUPERADMIN":
+        return <Navigate to="/superadmin/dashboard" replace />;
+      default:
+        return <Navigate to="/" replace />;
     }
   }
 

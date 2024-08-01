@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+/** @format */
+
+import React, { useState, useEffect, useCallback } from "react";
 import UseChartData from "./hooks/UseChartData";
 import DonutChartTemplate from "./templates/DonutChartTemplate";
 
@@ -9,25 +11,28 @@ const UserCategory = () => {
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
+  const handleResize = useCallback(() => {
+    setWindowSize(window.innerWidth);
+  }, []);
+
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize(window.innerWidth);
-    };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [handleResize]);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="spinner-border" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
     );
-  if (error) return <div className="text-danger">Error: {error.message}</div>;
+  }
+
+  if (error) {
+    return <div className="text-danger">Error: {error.message}</div>;
+  }
 
   return (
     chartData && (

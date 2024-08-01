@@ -1,4 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+/** @format */
+
+import { createContext, useState, useEffect, useCallback } from "react";
 
 const UserContext = createContext();
 
@@ -7,7 +9,7 @@ const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
+  const initializeUser = useCallback(() => {
     const storedToken = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedToken && storedUser) {
@@ -17,10 +19,12 @@ const UserProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    initializeUser();
+  }, [initializeUser]);
   return (
     <UserContext.Provider
-      value={{ userId, setUserId, token, setToken, user, setUser }}
-    >
+      value={{ userId, setUserId, token, setToken, user, setUser }}>
       {children}
     </UserContext.Provider>
   );

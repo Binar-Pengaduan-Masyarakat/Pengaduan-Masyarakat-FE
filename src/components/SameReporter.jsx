@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,11 +16,9 @@ const SameReporter = ({ reportId }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    if (reportId) {
-      fetchCount();
-    }
-    if (userId && reportId) {
+    if (reportId && userId) {
       fetchStatus();
+      fetchCount();
     }
   }, [reportId, userId]);
 
@@ -40,10 +40,7 @@ const SameReporter = ({ reportId }) => {
         throw new Error("Failed to fetch status");
       }
       const { data } = await response.json();
-      setButtonState({
-        canReport: data.canReport,
-        isPoster: data.isPoster,
-      });
+      setButtonState(data);
     } catch (error) {
       console.error("Error fetching status:", error);
     }
@@ -72,7 +69,6 @@ const SameReporter = ({ reportId }) => {
       : `${
           import.meta.env.VITE_BACKEND_URL
         }/api/sameReporter/delete/${reportId}`;
-
     try {
       await fetch(url, {
         method: "POST",
@@ -89,15 +85,12 @@ const SameReporter = ({ reportId }) => {
   const scaleFontSize = () => {
     if (buttonRef.current) {
       const button = buttonRef.current;
-      const buttonWidth = button.offsetWidth;
-      const buttonHeight = button.offsetHeight;
+      const { offsetWidth: buttonWidth, offsetHeight: buttonHeight } = button;
       const minFontSize = 12;
       const maxFontSize = 16;
 
       let fontSize = maxFontSize;
-      let textWidth = button.scrollWidth;
-      let textHeight = button.scrollHeight;
-
+      let { scrollWidth: textWidth, scrollHeight: textHeight } = button;
       while (textWidth > buttonWidth || textHeight > buttonHeight) {
         fontSize -= 1;
         button.style.fontSize = `${fontSize}px`;
@@ -130,8 +123,7 @@ const SameReporter = ({ reportId }) => {
             ? "Upvote"
             : "Retract Upvote"
         }
-        style={{ width: "150px", height: "40px" }}
-      >
+        style={{ width: "150px", height: "40px" }}>
         {buttonState.isPoster || !userId || !userId.startsWith("US") ? (
           <>
             <span role="img" aria-label="stop">

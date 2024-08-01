@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import "/public/css/CreateReportModal.css";
@@ -12,18 +14,19 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
   const { userId } = useContext(UserContext);
 
   useEffect(() => {
-    fetchUsers();
-    fetchCategories();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    await Promise.all([fetchUsers(), fetchCategories()]);
+  };
 
   const fetchUsers = async () => {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/superAdmin/institutions`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch users");
-      }
+      if (!response.ok) throw new Error("Failed to fetch users");
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -36,9 +39,7 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/categories`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch categories");
-      }
+      if (!response.ok) throw new Error("Failed to fetch categories");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -67,9 +68,7 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to update category");
-      }
+      if (!response.ok) throw new Error("Failed to update category");
 
       const result = await response.json();
       if (result.message === "Category updated successfully") {
@@ -87,10 +86,6 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
     }
   };
 
-  const getButtonText = () => {
-    return loading ? "Submitting..." : "Submit";
-  };
-
   return (
     <>
       <div className="modal-backdrop" onClick={onClose}></div>
@@ -102,8 +97,7 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
               <button
                 type="button"
                 className="btn-close"
-                onClick={onClose}
-              ></button>
+                onClick={onClose}></button>
             </div>
             <div className="modal-body" style={{ marginTop: "-10px" }}>
               <form onSubmit={handleSubmit}>
@@ -116,8 +110,7 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
                     id="userId"
                     value={selectedUserId}
                     onChange={(e) => setSelectedUserId(e.target.value)}
-                    required
-                  >
+                    required>
                     <option value="">Select Institution</option>
                     {users.length > 0 ? (
                       users.map((user) => (
@@ -139,15 +132,13 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
                     id="categoryId"
                     value={selectedCategoryId}
                     onChange={(e) => setSelectedCategoryId(e.target.value)}
-                    required
-                  >
+                    required>
                     <option value="">Select Category</option>
                     {categories.length > 0 ? (
                       categories.map((category) => (
                         <option
                           key={category.categoryId}
-                          value={category.categoryId}
-                        >
+                          value={category.categoryId}>
                           {category.categoryName}
                         </option>
                       ))
@@ -165,9 +156,8 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
                       borderStyle: "none",
                       marginTop: "10px",
                     }}
-                    disabled={loading}
-                  >
-                    {getButtonText()}
+                    disabled={loading}>
+                    {loading ? "Submitting..." : "Submit"}
                   </button>
                 </div>
               </form>
@@ -178,5 +168,4 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
     </>
   );
 };
-
 export default UpdateRoleModal;

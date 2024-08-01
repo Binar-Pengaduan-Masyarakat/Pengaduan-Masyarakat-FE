@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/page-institute/admin.css";
-// import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
-// import avatar from '../../assets/image/profile.jpeg';
+import "/public/css/SuperAdminManagement.css";
 
 const SuperAdmin = () => {
   const [userName, setUserName] = useState("");
-  const [showSideBar, setshowSideBar] = useState(false);
+  const [showSideBar, setShowSideBar] = useState(false);
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -14,32 +13,29 @@ const SuperAdmin = () => {
     }
   }, []);
 
-  const tooglersidebar = () => {
-    setshowSideBar(!showSideBar);
+  const toggleSideBar = () => {
+    setShowSideBar(!showSideBar);
   };
+
   return (
     <div className="cont-sidebar">
-      <button onClick={tooglersidebar}>
-        {" "}
+      <button onClick={toggleSideBar} aria-label="Toggle sidebar" className="sidebar-toggle">
         <i className="bi bi-list"></i>
       </button>
       <div className={`admin-sidebar ${showSideBar ? "open" : ""}`}>
         <nav className="sidebar-nav">
           <ul>
             <li>
-              <Link to="/superadmin/dashboard">Dashboard</Link>
+              <Link to="/superadmin/users" aria-label="Users Management">Users Management</Link>
             </li>
             <li>
-              <Link to="/superadmin/managementusers">Management Users</Link>
+              <Link to="/superadmin/institutions" aria-label="Institution Management">Institution Management</Link>
             </li>
             <li>
-              <Link to="/superadmin/instansiManagement">Management Admin</Link>
+              <Link to="/superadmin/categories" aria-label="Categories Management">Categories Management</Link>
             </li>
             <li>
-              <Link to="/superadmin/reports">Master Data Aduan</Link>
-            </li>
-            <li>
-              <Link to="/superadmin/managementcat">Management Category</Link>
+              <Link to="/superadmin/reports" aria-label="Reports Management">Reports Management</Link>
             </li>
           </ul>
         </nav>

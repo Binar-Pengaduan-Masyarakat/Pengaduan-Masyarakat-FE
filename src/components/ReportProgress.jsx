@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+/** @format */
+
+import React, { useState, useEffect, useCallback } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ReportProgressTracker = ({ reportId, setProgressColor }) => {
@@ -8,33 +10,33 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
   const [resultNotFound, setResultNotFound] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        await fetchReportData();
-        await fetchResponseData();
-        await fetchResultData();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await Promise.all([
+        fetchReportData(),
+        fetchResponseData(),
+        fetchResultData(),
+      ]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [reportId]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const fetchReportData = async () => {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/reports/${reportId}`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch report data");
-      }
-      const data = await response.json();
-      setReportData(data.data);
+      if (!response.ok) throw new Error("Failed to fetch report data");
+      const { data } = await response.json();
+      setReportData(data);
     } catch (error) {
       console.error("Error fetching report data:", error);
     }
@@ -47,11 +49,9 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
           import.meta.env.VITE_BACKEND_URL
         }/api/reportResponses/report/${reportId}`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch response data");
-      }
-      const data = await response.json();
-      setResponseData(data.data);
+      if (!response.ok) throw new Error("Failed to fetch response data");
+      const { data } = await response.json();
+      setResponseData(data);
     } catch (error) {
       console.error("Error fetching response data:", error);
     }
@@ -62,14 +62,12 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/reportResults/${reportId}`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch result data");
-      }
-      const data = await response.json();
-      if (data.message === "Report Result not found") {
+      if (!response.ok) throw new Error("Failed to fetch result data");
+      const { data, message } = await response.json();
+      if (message === "Report Result not found") {
         setResultNotFound(true);
       } else {
-        setResultData(data.data);
+        setResultData(data);
       }
     } catch (error) {
       console.error("Error fetching result data:", error);
@@ -106,11 +104,9 @@ const ReportProgressTracker = ({ reportId, setProgressColor }) => {
         textAlign: "right",
         fontSize: "1em",
         fontWeight: "bold",
-      }}
-    >
+      }}>
       {progressText}
     </div>
   );
 };
-
 export default ReportProgressTracker;
