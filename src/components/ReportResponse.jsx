@@ -113,7 +113,7 @@ const ReportResponse = ({ reportId }) => {
 
   useEffect(() => {
     fetchData();
-  }, [reportId, reload, userId]);
+  }, [reportId, reload]);
 
   const postResponse = async () => {
     if (!isSameCategory) {
@@ -157,22 +157,7 @@ const ReportResponse = ({ reportId }) => {
 
   let buttonContent;
 
-  if (loading) {
-    buttonContent = (
-      <button
-        className="btn btn-secondary"
-        style={{
-          borderStyle: "none",
-          padding: "10px 20px",
-          fontSize: "16px",
-          lineHeight: "1.2",
-        }}
-        disabled
-      >
-        Loading...
-      </button>
-    );
-  } else if (reportResult) {
+  if (reportResult) {
     buttonContent = (
       <button
         className="btn btn-success"

@@ -1,15 +1,50 @@
-import React, { useState } from "react";
-import useFetchInstitutions from "../../api/institutions.API";
+import React, { useState, useEffect } from "react";
 import CreateCategoryModal from "../../Modal/CreateCategoryModal";
 import "../../css/page-institute/admin.css";
 
 const ManagementInstansi = () => {
-  const { data, error, isLoading, deleteInstitution } = useFetchInstitutions();
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
     useState(false);
 
-  const handleDelete = (institutionId) => {
-    deleteInstitution(institutionId);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/categories`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const categories = await response.json();
+        setData(categories);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleDelete = async (categoryId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/categories/${categoryId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete category");
+      }
+      setData(data.filter((category) => category.categoryId !== categoryId));
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const handleOpenCreateCategoryModal = () => {
@@ -20,13 +55,13 @@ const ManagementInstansi = () => {
     setIsCreateCategoryModalOpen(false);
   };
 
-  if (isLoading) return <p>Memuat...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="dashboard-content">
       <div className="manage-admin d-flex justify-content-between align-items-center">
-        <h2>MANAGEMENT ADMIN</h2>
+        <h2>MANAGEMENT CATEGORY</h2>
         <div>
           <button
             className="btn btn-primary me-2"
@@ -41,23 +76,19 @@ const ManagementInstansi = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Roles</th>
+              <th>Category Name</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((instansi, index) => (
-              <tr key={instansi.userId}>
+            {data.map((category, index) => (
+              <tr key={category.categoryId}>
                 <td>{index + 1}</td>
-                <td>{instansi.name}</td>
-                <td>{instansi.email}</td>
-                <td>{instansi.roles}</td>
+                <td>{category.categoryName}</td>
                 <td>
                   <button
                     className="btn btn-success"
-                    onClick={() => handleDelete(instansi.userId)}
+                    onClick={() => handleDelete(category.categoryId)}
                   >
                     Delete
                   </button>
