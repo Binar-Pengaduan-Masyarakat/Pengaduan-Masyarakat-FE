@@ -14,7 +14,7 @@ const PrivateRoute = ({ element, isLoginPage }) => {
       case "INSTITUTION":
         return <Navigate to="/" replace />;
       case "SUPERADMIN":
-        return <Navigate to="/superadmin/dashboard" replace />;
+        return <Navigate to="/superadmin/users" replace />;
       default:
         return <Navigate to="/" replace />;
     }

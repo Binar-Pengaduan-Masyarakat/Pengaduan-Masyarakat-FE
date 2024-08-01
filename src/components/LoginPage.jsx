@@ -34,7 +34,7 @@ const LoginPage = () => {
       localStorage.setItem("user", JSON.stringify(user));
 
       if (user.roles === "SUPERADMIN") {
-        navigate("/superadmin/dashboard");
+        navigate("/superadmin/users");
       } else {
         navigate("/");
       }
