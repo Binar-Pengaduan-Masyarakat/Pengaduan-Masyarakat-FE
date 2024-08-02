@@ -3,7 +3,7 @@
 
 # **PENGADUAN MASYARAKAT BAGIAN - FE**
 
-Link: https://www.pengaduanmasyarakat.blog
+Link: ~~https://www.pengaduanmasyarakat.blog~~ (domain masih terdaftar hanya saja server sudah dimatikan)
 
 Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
@@ -40,9 +40,9 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 > Halaman Detail Report adalah halaman yang memberikan informasi terkait status dari laporan seperti apakah sudah di respon atau tidaknya oleh instansi pada kategori yang sebelumnya dituju oleh user yang melakukan pengaduan. Ada juga tombol upvote untuk meng-upvote laporan jika user berpikir kalau laporan yang dibuat user lain adalah sama dengan masalah yang sedang dia miliki, user tidak akan bisa meng-upvote laporan yang dia post sendiri, hanya bisa upvote laporan orang lain
 
-- Halaman Profil
+- Modal Profil
 
-> Halaman Profil adalah halaman yang berisikan detail profile user sendiri, dimana halaman ini user dapat mengedit profil mereka sendiri.
+> Berisikan detail profile user sendiri, dimana halaman ini user dapat mengedit profil mereka sendiri.
 
 ## Halaman Admin Instansi
 
@@ -56,9 +56,9 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 > Halaman Detail Report akan mempunyai tombol untuk "memberikan respon pada report, memberikan report result, melihat status report" pada laporan yang diklik, laporan hanya bisa direspon dan diberikan result oleh 1 institusi, jadi jika sudah dilakukan oleh institusi lain maka yang muncul adalah tombol untuk melihat status report. Ada pun tombol untuk melihat jumlah upvote, tidak akan bisa ditekan karena hanya user yang bisa melakukan upvote
 
-- Halaman Profil
+- Modal Profil
 
-> Halaman Profil adalah halaman yang berisikan detail profile admin instansi sendiri, dimana halaman ini admin dapat mengedit profil mereka sendiri.
+> Berisikan detail profile admin instansi sendiri, dimana halaman ini admin dapat mengedit profil mereka sendiri.
 
 ## Halaman Super Admin
 
@@ -66,34 +66,30 @@ Pada Wesite Pengaduan masyarakat ini terdapat beberapa Halaman :
 
 Menu-menu pada halaman ini :
 
-1. Dashboard
-2. Management User
-3. Management Admin
-4. Management Data Aduan
+1. Users Management
+2. Institution Management
+3. Categories Management
+4. Reports Management
 
-- Halaman Dashboard Super Admin
+- Halaman Users Management
 
-> Halaman Dashboard Super Admin ini berisikan informasi statistik laporan
+> Halaman Users Management adalah halaman yang berisikan data user yang telah terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat menghapus user.
 
-- Halaman Management User
+- Halaman Institution Management
 
-> Halaman Management User adalah halaman yang berisikan data user yang telah terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat menghapus user.
+> Halaman Institution Management adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan category data admin institut, dan juga ketika super admin mendaftarkan akun suatu institut maka detail login akun tersebut akan masuk ke email institut yang didaftarkan.
 
-- Halaman Management Admin
+- Halaman Categories Management
 
-> Halaman Management Admin adalah halaman yang berisikan data admin institut yang terdaftar pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan dan perubahan category/role data admin institut, dan juga ketika super admin mendaftarkan akun suatu institut maka detail login akun tersebut akan masuk ke email institut yang didaftarkan.
+> Halaman Categories Management adalah halaman yang berisikan data kategori institusi yang ada pada website pengaduan masyarakat. Di halaman ini super admin dapat melakukan penambahan, penghapusan data kategori
 
-- Halaman Management Data Aduan
+- Halaman Reports Management
 
-> Halaman Management Data Aduan adalah halaman yang berisikan data-data aduan seluruh user. Di halaman ini super admin hanya dapat melakukan penghapusan data aduan atau data laporan.
+> Halaman Reports Management adalah halaman yang berisikan data-data aduan seluruh user. Di halaman ini super admin hanya dapat melakukan penghapusan data aduan atau data laporan.
 
-- Halaman Profil Super Admin
+- Modal Profil Super Admin
 
-> Halaman Profil adalah halaman yang berisikan detail profile Super Admin, dimana halaman ini Super Admin dapat mengedit profil mereka.
-
-- Halaman Management Category
-
-> Haalaman Management Category menampilkan daftar kategori yang ada dan ada opsi untuk membuat dan menghapusnya juga
+> Berisikan detail profile Super Admin, dimana halaman ini Super Admin dapat mengedit profil mereka.
 
 ---
 
