@@ -67,7 +67,7 @@ const InstitutionManagement = () => {
     <Container className="mt-3">
       <div className="d-flex justify-content-between align-items-center">
         <h3 className="my-3">Institution Management</h3>
-        <div>
+        <div style={{ display: "flex", flexWrap: "nowrap" }}>
           <Button
             className="me-2"
             variant="primary"

@@ -5,7 +5,7 @@ import { UserContext } from "../UserContext";
 import "/public/css/CreateReportModal.css";
 import "/public/css/Modal.css";
 
-const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
+const UpdateCategoryModal = ({ onClose, onRoleUpdated }) => {
   const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState("");
@@ -74,6 +74,7 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
       if (result.message === "Category updated successfully") {
         setTimeout(() => {
           setLoading(false);
+          alert("Category updated successfully");
           onRoleUpdated();
           onClose();
         }, 1000);
@@ -157,7 +158,7 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
                       marginTop: "10px",
                     }}
                     disabled={loading}>
-                    {loading ? "Submitting..." : "Submit"}
+                    {loading ? "Updating..." : "Update Category"}
                   </button>
                 </div>
               </form>
@@ -168,4 +169,4 @@ const UpdateRoleModal = ({ onClose, onRoleUpdated }) => {
     </>
   );
 };
-export default UpdateRoleModal;
+export default UpdateCategoryModal;

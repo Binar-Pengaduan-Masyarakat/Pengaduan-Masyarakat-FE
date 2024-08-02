@@ -61,7 +61,7 @@ const CreateInstitutionModal = ({ onClose }) => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Create Instansi</h5>
+              <h5 className="modal-title">Create Institution</h5>
               <button
                 type="button"
                 className="btn-close"
@@ -122,7 +122,7 @@ const CreateInstitutionModal = ({ onClose }) => {
                       marginTop: "10px",
                     }}
                     disabled={loading}>
-                    {loading ? "Creating..." : "Create Instansi"}
+                    {loading ? "Creating..." : "Create Institution"}
                   </button>
                 </div>
               </form>

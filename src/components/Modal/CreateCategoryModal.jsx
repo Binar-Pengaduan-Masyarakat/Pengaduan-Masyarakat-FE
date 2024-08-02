@@ -39,10 +39,12 @@ const CreateCategoryModal = ({ onClose }) => {
         throw new Error(errorData.message || "Failed to create category");
       }
 
-      setLoading(false);
-      alert("Category created successfully");
-      onClose();
-      window.location.reload();
+      setTimeout(() => {
+        setLoading(false);
+        alert("Category created successfully");
+        onClose();
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error("Error creating category:", error);
       alert(`Error: ${error.message}`);

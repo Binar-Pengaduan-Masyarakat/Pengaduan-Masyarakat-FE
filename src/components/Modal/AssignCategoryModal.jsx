@@ -5,7 +5,7 @@ import { UserContext } from "../UserContext";
 import "/public/css/CreateReportModal.css";
 import "/public/css/Modal.css";
 
-const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
+const AssignCategoryModal = ({ onClose, onRoleAssigned }) => {
   const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState("");
@@ -102,16 +102,17 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to assign role");
+        throw new Error("Failed to assign category");
       }
 
       setTimeout(() => {
         setLoading(false);
+        alert("Category assigned successfully");
         onRoleAssigned();
         onClose();
       }, 1000);
     } catch (error) {
-      console.error("Error assigning role:", error);
+      console.error("Error assigning category:", error);
       setLoading(false);
     }
   };
@@ -128,7 +129,7 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
     if (isButtonDisabled()) {
       return "Category Assigned Already";
     }
-    return loading ? "Submitting..." : "Submit";
+    return loading ? "Assigning..." : "Assign Category";
   };
 
   return (
@@ -213,4 +214,4 @@ const AssignRoleModal = ({ onClose, onRoleAssigned }) => {
     </>
   );
 };
-export default AssignRoleModal;
+export default AssignCategoryModal;
